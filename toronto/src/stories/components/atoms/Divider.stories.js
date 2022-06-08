@@ -1,4 +1,4 @@
-import Divider from '@/components/Divider';
+import Divider from '@/components/atoms/Divider';
 
 export default {
   title: 'Component/Divider',
@@ -9,7 +9,7 @@ export const Horizontal = () => {
   return (
     <>
       <span>위</span>
-      <Divider type='horizontal' />
+      <Divider type="horizontal" />
       <span>아래</span>
     </>
   );
@@ -19,7 +19,7 @@ export const Vertical = () => {
   return (
     <>
       <span>왼쪽</span>
-      <Divider type='vertical' />
+      <Divider type="vertical" />
       <span>오른쪽</span>
     </>
   );
