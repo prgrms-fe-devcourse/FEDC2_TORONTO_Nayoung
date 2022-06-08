@@ -1,4 +1,4 @@
-import Input from "@/components/atoms/Input";
+import Input from '@/components/atoms/Input';
 
 export default {
   title: 'Component/Input',
@@ -6,29 +6,29 @@ export default {
   argTypes: {
     label: {
       defaultValue: 'Label',
-      control: 'text'
+      control: 'text',
     },
     block: {
       defaultValue: false,
-      control: 'boolean'
+      control: 'boolean',
     },
     invalid: {
       defaultValue: false,
-      control: 'boolean'
+      control: 'boolean',
     },
     required: {
       defaultValue: false,
-      control: 'boolean'
+      control: 'boolean',
     },
     disabled: {
       defaultValue: false,
-      control: 'boolean'
+      control: 'boolean',
     },
     readonly: {
       defaultValue: false,
-      control: 'boolean'
-    }
-  }
-}
+      control: 'boolean',
+    },
+  },
+};
 
 export const Default = (args) => <Input {...args} />

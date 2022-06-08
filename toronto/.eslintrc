@@ -15,6 +15,6 @@
   "plugins": ["react"],
   "rules": {
     "no-console": "warn",
-    "import/no-anonymous-default-export": [2, {"allowObject": true}]
+    "import/no-anonymous-default-export": [2, { "allowObject": true }]
   }
 }

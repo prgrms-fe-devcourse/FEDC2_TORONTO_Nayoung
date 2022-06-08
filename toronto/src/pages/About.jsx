@@ -1,4 +1,4 @@
-import Input from '../components/atoms/Input/index.js'
+import Input from '../components/atoms/Input/index.js';
 
 const About = () => {
   return (
