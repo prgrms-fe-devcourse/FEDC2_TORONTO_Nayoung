@@ -10,6 +10,7 @@ const Header = ({
 }) => {
   let Tag = `h${level}`;
   if (level < 1 || level > 6) {
+    // eslint-disable-next-line no-console
     console.warn(
       'Header only accept `1 | 2 | 3 | 4 | 5 | 6 ` as `level` value',
     );
