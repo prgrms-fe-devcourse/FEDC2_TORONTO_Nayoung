@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 
 const UploadContainer = styled.div`
   display: inline-block;
@@ -102,6 +103,15 @@ const Upload = ({
         : children}
     </UploadContainer>
   );
+};
+
+Upload.propTypes = {
+  children: PropTypes.node.isRequired,
+  droppable: PropTypes.bool,
+  name: PropTypes.string,
+  accept: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
 };
 
 export default Upload;
