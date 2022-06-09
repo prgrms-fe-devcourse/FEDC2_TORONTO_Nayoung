@@ -400,7 +400,6 @@ export const LoaderList = (type, sizeStyle, color) => {
         </svg>
       );
     default:
-      console.error('No matched loader');
-      break;
+      throw new Error('No matched loader');
   }
 };

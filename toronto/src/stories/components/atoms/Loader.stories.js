@@ -31,3 +31,7 @@ export const Puff = (args) => {
 export const Audio = (args) => {
   return <Loader {...args} type="audio"></Loader>;
 };
+
+export const Error = () => {
+  return <Loader type="없는이름"></Loader>;
+};
