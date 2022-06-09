@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { LoaderList } from './LoaderList';
 
-const Icon = styled.i`
+const LoaderContainer = styled.i`
   display: inline-block;
   vertical-align: middle;
 `;
@@ -19,7 +19,9 @@ const Loader = ({
   };
 
   return loading ? (
-    <Icon {...props}>{LoaderList(type, sizeStyle, color)}</Icon>
+    <LoaderContainer {...props}>
+      {LoaderList(type, sizeStyle, color)}
+    </LoaderContainer>
   ) : null;
 };
 
