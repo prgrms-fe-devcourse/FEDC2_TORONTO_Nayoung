@@ -4,6 +4,7 @@ export default {
   title: 'Component/Icon',
   component: Icon,
   argTypes: {
+    iconName: { defaultValue: 'github', control: 'text' },
     size: { defaultValue: 24, control: { type: 'range', min: 16, max: 80 } },
     strokeWidth: {
       defaultValue: 1,
