@@ -1,5 +1,5 @@
-import Upload from '@/components/atoms/Upload';
-import DraggableArea from '@/components/atoms/Upload/UploadArea';
+import Upload from '@/components/molecules/Upload';
+import DraggableArea from '@/components/molecules/Upload/UploadArea';
 
 export default {
   title: 'Component/Upload',
