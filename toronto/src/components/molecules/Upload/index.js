@@ -93,7 +93,7 @@ const Upload = ({
     >
       <Input
         ref={inputRef}
-        type="file"
+        type='file'
         name={name}
         accept={accept}
         onChange={handleFileChange}

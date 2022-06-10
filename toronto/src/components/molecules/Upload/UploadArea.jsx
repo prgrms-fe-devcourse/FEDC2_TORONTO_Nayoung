@@ -50,10 +50,10 @@ const DraggableArea = ({
         <>
           {loading && <span>로딩중</span>}
           <Image
-            width="100%"
+            width='100%'
             height={loading ? '0' : '100%'}
-            mode="cover"
-            alt="preview"
+            mode='cover'
+            alt='preview'
             src={dataUrl}
             style={{ overflow: 'hidden' }}
           ></Image>
