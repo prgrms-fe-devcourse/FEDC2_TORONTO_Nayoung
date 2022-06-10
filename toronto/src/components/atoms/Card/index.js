@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 
 const CardContainer = styled.div`
   display: inline-block;
@@ -43,6 +44,15 @@ const Card = ({
       {children}
     </CardContainer>
   );
+};
+
+Card.propTypes = {
+  children: PropTypes.node.isRequired,
+  padding: PropTypes.number,
+  hover: PropTypes.bool,
+  shadow: PropTypes.bool,
+  color: PropTypes.string,
+  radius: PropTypes.number,
 };
 
 export default Card;
