@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Button = ({
   type,
   icon,
-  disabled = true,
+  disabled = false,
   loading,
   onClick,
   children,
