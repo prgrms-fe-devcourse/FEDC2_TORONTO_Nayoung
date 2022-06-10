@@ -28,13 +28,13 @@ export const Default = (args) => {
 export const Size = (args) => {
   return (
     <>
-      <Text {...args} size="large">
+      <Text {...args} size='large'>
         Large
       </Text>
-      <Text {...args} size="normal">
+      <Text {...args} size='normal'>
         Normal
       </Text>
-      <Text {...args} size="small">
+      <Text {...args} size='small'>
         Small
       </Text>
     </>
