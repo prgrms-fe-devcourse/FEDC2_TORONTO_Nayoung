@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import Input from '@/components/atoms/Input';
 import Header from '@/components/atoms/Header';
 import Text from '@/components/atoms/Text';
+import useForm from '@/hooks/useForm';
+import axios from 'axios';
 
 const Form = styled.form`
   padding: 16px;
@@ -12,34 +14,105 @@ const Form = styled.form`
   box-sizing: border-box;
 `;
 
-const SignUpForm = () => {
+const SignUpForm = ({ onSubmit }) => {
+  const { errors, handleChange, handleSubmit } = useForm({
+    initialValues: {
+      name: '',
+      email: '',
+      password: '',
+      passwordConfirm: '',
+    },
+    onSubmit: async (values) => {
+      return await axios({
+        method: 'POST',
+        url: '/signup',
+        data: {
+          email: values.email,
+          fullName: values.name,
+          password: values.password,
+        },
+      })
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
+    },
+    validate: ({ name, email, password, passwordConfirm }) => {
+      const newErrors = {};
+      if (!name) newErrors.name = '이름을 입력하세요';
+      if (!email) newErrors.email = '이메일을 입력하세요';
+      if (!/^.+@.+\..+$/.test(email))
+        newErrors.email = '올바른 이메일을 입력해주세요.';
+      if (!password) newErrors.password = '비밀번호를 입력하세요';
+      if (!passwordConfirm)
+        newErrors.passwordConfirm = '비밀번호 확인을 입력하세요';
+      if (password !== passwordConfirm)
+        newErrors.passwordConfirm = '비밀번호가 일치하지 않습니다.';
+      return newErrors;
+    },
+  });
+
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Header>Sign Up</Header>
-      <Text>성명</Text>
+      <Text block style={{ marginTop: '16px' }}>
+        성명
+      </Text>
       <Input
         type="text"
         name="name"
         placeholder="Name"
         block="true"
-        style={{}}
+        onChange={handleChange}
       />
-      <Text>이메일</Text>
-      <Input type="email" name="email" placeholder="Email" block="true" />
-      <Text>비밀번호</Text>
+      {errors.name && (
+        <Text block color="red">
+          {errors.name}
+        </Text>
+      )}
+      <Text block style={{ marginTop: '16px' }}>
+        이메일
+      </Text>
+      <Input
+        type="email"
+        name="email"
+        placeholder="Email"
+        block="true"
+        onChange={handleChange}
+      />
+      {errors.email && (
+        <Text block color="red">
+          {errors.email}
+        </Text>
+      )}
+      <Text block style={{ marginTop: '16px' }}>
+        비밀번호
+      </Text>
       <Input
         type="password"
         name="password"
         placeholder="Password"
         block="true"
+        onChange={handleChange}
       />
-      <Text>비밀번호 확인</Text>
+      {errors.password && (
+        <Text block color="red">
+          {errors.password}
+        </Text>
+      )}
+      <Text block style={{ marginTop: '16px' }}>
+        비밀번호 확인
+      </Text>
       <Input
         type="password"
-        name="passwordCheck"
-        placeholder="Password Check"
+        name="passwordConfirm"
+        placeholder="Password Confirm"
         block="true"
+        onChange={handleChange}
       />
+      {errors.passwordConfirm && (
+        <Text block color="red">
+          {errors.passwordConfirm}
+        </Text>
+      )}
       <button>회원가입</button>
     </Form>
   );
