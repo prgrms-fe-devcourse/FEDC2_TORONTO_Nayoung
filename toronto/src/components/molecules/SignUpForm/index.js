@@ -3,7 +3,7 @@ import Input from '@/components/atoms/Input';
 import Header from '@/components/atoms/Header';
 import Text from '@/components/atoms/Text';
 import useForm from '@/hooks/useForm';
-import axios from 'axios';
+import { requestApi } from '@/api';
 
 const Form = styled.form`
   padding: 16px;
@@ -14,7 +14,21 @@ const Form = styled.form`
   box-sizing: border-box;
 `;
 
-const SignUpForm = ({ onSubmit }) => {
+const checkInput = (name, email, password, passwordConfirm) => {
+  const newErrors = {};
+  if (!name) newErrors.name = '이름을 입력하세요';
+  if (!email) newErrors.email = '이메일을 입력하세요';
+  if (!/^.+@.+\..+$/.test(email))
+    newErrors.email = '올바른 이메일을 입력해주세요.';
+  if (!password) newErrors.password = '비밀번호를 입력하세요';
+  if (!passwordConfirm)
+    newErrors.passwordConfirm = '비밀번호 확인을 입력하세요';
+  if (password !== passwordConfirm)
+    newErrors.passwordConfirm = '비밀번호가 일치하지 않습니다.';
+  return newErrors;
+};
+
+const SignUpForm = () => {
   const { errors, handleChange, handleSubmit } = useForm({
     initialValues: {
       name: '',
@@ -23,7 +37,7 @@ const SignUpForm = ({ onSubmit }) => {
       passwordConfirm: '',
     },
     onSubmit: async (values) => {
-      return await axios({
+      await requestApi({
         method: 'POST',
         url: '/signup',
         data: {
@@ -31,22 +45,11 @@ const SignUpForm = ({ onSubmit }) => {
           fullName: values.name,
           password: values.password,
         },
-      })
-        .then((response) => console.log(response))
-        .catch((error) => console.log(error));
+      });
     },
-    validate: ({ name, email, password, passwordConfirm }) => {
-      const newErrors = {};
-      if (!name) newErrors.name = '이름을 입력하세요';
-      if (!email) newErrors.email = '이메일을 입력하세요';
-      if (!/^.+@.+\..+$/.test(email))
-        newErrors.email = '올바른 이메일을 입력해주세요.';
-      if (!password) newErrors.password = '비밀번호를 입력하세요';
-      if (!passwordConfirm)
-        newErrors.passwordConfirm = '비밀번호 확인을 입력하세요';
-      if (password !== passwordConfirm)
-        newErrors.passwordConfirm = '비밀번호가 일치하지 않습니다.';
-      return newErrors;
+    validate: (values) => {
+      return checkInput(values);
+      // return checkInput(name, email, password, passwordConfirm);
     },
   });
 
