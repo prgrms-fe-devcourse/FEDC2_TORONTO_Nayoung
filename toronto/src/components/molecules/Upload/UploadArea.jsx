@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Text from '@/components/atoms/Text';
 import Header from '@/components/atoms/Header';
 import Image from '@/components/atoms/Image';
+import Loader from '@/components/atoms/Loader';
+import Button from '@/components/atoms/Button';
 
 const DraggableContainer = styled.div`
   display: flex;
@@ -48,7 +50,7 @@ const DraggableArea = ({
     <DraggableContainer width={width} height={height} dragging={dragging}>
       {file ? (
         <>
-          {loading && <span>로딩중</span>}
+          {loading && <Loader type='spinner' />}
           <Image
             width='100%'
             height={loading ? '0' : '100%'}
@@ -64,20 +66,7 @@ const DraggableArea = ({
             파일을 드래그해서 업로드 해보세요!
           </Header>
           <Text>또는</Text>
-          <button
-            onClick={onClick}
-            style={{
-              padding: '9px 15px',
-              border: 'none',
-              borderRadius: '8px',
-              backgroundColor: '#2366F6',
-              color: '#fff',
-              fontSize: '16px',
-              cursor: 'pointer',
-            }}
-          >
-            파일 찾아보기
-          </button>
+          <Button onClick={onClick}>파일 찾아보기</Button>
         </>
       )}
     </DraggableContainer>
