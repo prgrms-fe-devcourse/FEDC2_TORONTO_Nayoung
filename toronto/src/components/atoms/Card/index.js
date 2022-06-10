@@ -48,11 +48,11 @@ const Card = ({
 
 Card.propTypes = {
   children: PropTypes.node.isRequired,
-  padding: PropTypes.number,
+  padding: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   hover: PropTypes.bool,
   shadow: PropTypes.bool,
   color: PropTypes.string,
-  radius: PropTypes.number,
+  radius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default Card;
