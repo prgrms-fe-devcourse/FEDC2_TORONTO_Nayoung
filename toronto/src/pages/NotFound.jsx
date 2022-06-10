@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Button from '@components/atoms/Button';
+import StyledLink from '@components/atoms/StyledLink';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -19,9 +20,9 @@ const NotFoundPage = () => {
   return (
     <Wrapper>
       <Text>404 Not Found</Text>
-      <Link to="/">
-        <button>홈으로</button>
-      </Link>
+      <StyledLink to='/' style={{ textDecoration: 'none' }}>
+        <Button>홈으로</Button>
+      </StyledLink>
     </Wrapper>
   );
 };
