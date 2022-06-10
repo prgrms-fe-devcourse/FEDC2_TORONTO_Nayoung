@@ -33,7 +33,7 @@ const Upload = ({
   };
 
   const handleChooseFile = () => {
-    inputRef?.current.click();
+    inputRef.current?.click();
   };
 
   const handleDragEnter = (e) => {
