@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Input from '@/components/atoms/Input';
 import Header from '@/components/atoms/Header';
 import Text from '@/components/atoms/Text';
+import Button from '@/components/atoms/Button';
 import useForm from '@/hooks/useForm';
 import { requestApi } from '@/api';
 
@@ -116,7 +117,7 @@ const SignUpForm = () => {
           {errors.passwordConfirm}
         </Text>
       )}
-      <button>회원가입</button>
+      <Button>회원가입</Button>
     </Form>
   );
 };
