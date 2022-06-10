@@ -23,3 +23,14 @@ export default {
 };
 
 export const Default = (args) => <Avatar {...args} />;
+
+export const Group = () => {
+  return (
+    <Avatar.Group size={40}>
+      <Avatar src='https://picsum.photos/200' />
+      <Avatar src='https://picsum.photos/300' />
+      <Avatar src='https://picsum.photos/400' />
+      <Avatar src='https://picsum.photos/500' />
+    </Avatar.Group>
+  );
+};

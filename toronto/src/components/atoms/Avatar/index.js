@@ -1,4 +1,5 @@
 import ImageComponent from '../Image';
+import AvatarGroup from '../../molecules/AvatarGroup';
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 
@@ -29,6 +30,7 @@ const Avatar = ({
   placeholder,
   alt,
   mode = 'dover',
+  __TYPE,
   ...props
 }) => {
   const [loaded, setLoaded] = useState(false);
@@ -55,5 +57,11 @@ const Avatar = ({
     </AvatarWrapper>
   );
 };
+
+Avatar.defaultProps = {
+  __TYPE: 'Avatar',
+};
+
+Avatar.Group = AvatarGroup;
 
 export default Avatar;
