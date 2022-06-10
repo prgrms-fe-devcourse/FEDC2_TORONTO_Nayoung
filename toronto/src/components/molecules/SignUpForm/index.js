@@ -14,7 +14,7 @@ const Form = styled.form`
   box-sizing: border-box;
 `;
 
-const checkInput = (name, email, password, passwordConfirm) => {
+const checkInput = ({ name, email, password, passwordConfirm }) => {
   const newErrors = {};
   if (!name) newErrors.name = '이름을 입력하세요';
   if (!email) newErrors.email = '이메일을 입력하세요';
@@ -60,14 +60,14 @@ const SignUpForm = () => {
         성명
       </Text>
       <Input
-        type="text"
-        name="name"
-        placeholder="Name"
-        block="true"
+        type='text'
+        name='name'
+        placeholder='Name'
+        block='true'
         onChange={handleChange}
       />
       {errors.name && (
-        <Text block color="red">
+        <Text block color='red'>
           {errors.name}
         </Text>
       )}
@@ -75,14 +75,14 @@ const SignUpForm = () => {
         이메일
       </Text>
       <Input
-        type="email"
-        name="email"
-        placeholder="Email"
-        block="true"
+        type='email'
+        name='email'
+        placeholder='Email'
+        block='true'
         onChange={handleChange}
       />
       {errors.email && (
-        <Text block color="red">
+        <Text block color='red'>
           {errors.email}
         </Text>
       )}
@@ -90,14 +90,14 @@ const SignUpForm = () => {
         비밀번호
       </Text>
       <Input
-        type="password"
-        name="password"
-        placeholder="Password"
-        block="true"
+        type='password'
+        name='password'
+        placeholder='Password'
+        block='true'
         onChange={handleChange}
       />
       {errors.password && (
-        <Text block color="red">
+        <Text block color='red'>
           {errors.password}
         </Text>
       )}
@@ -105,14 +105,14 @@ const SignUpForm = () => {
         비밀번호 확인
       </Text>
       <Input
-        type="password"
-        name="passwordConfirm"
-        placeholder="Password Confirm"
-        block="true"
+        type='password'
+        name='passwordConfirm'
+        placeholder='Password Confirm'
+        block='true'
         onChange={handleChange}
       />
       {errors.passwordConfirm && (
-        <Text block color="red">
+        <Text block color='red'>
           {errors.passwordConfirm}
         </Text>
       )}
