@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const Button = ({
   type,
-  size,
   icon,
   disabled = true,
   loading,
@@ -15,11 +14,12 @@ const Button = ({
     <div {...props}>
       <StyledButton
         type={type}
-        size={size}
         icon={icon}
         loading={loading}
         disabled={disabled}
         onClick={onClick}
+        style={props.style}
+        {...props}
       >
         {children}
       </StyledButton>
