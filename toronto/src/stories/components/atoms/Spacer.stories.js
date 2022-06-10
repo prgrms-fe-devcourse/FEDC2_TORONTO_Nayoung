@@ -27,7 +27,7 @@ const Box = ({ block, style }) => {
 
 export const Horizontal = (args) => {
   return (
-    <Spacer {...args} type="horizontal">
+    <Spacer {...args} type='horizontal'>
       <Box />
       <Box />
       <Box />
@@ -37,7 +37,7 @@ export const Horizontal = (args) => {
 
 export const Vertical = (args) => {
   return (
-    <Spacer {...args} type="vertical">
+    <Spacer {...args} type='vertical'>
       <Box block />
       <Box block />
       <Box block />
