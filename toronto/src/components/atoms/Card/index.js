@@ -39,7 +39,6 @@ const Card = ({
       color={color}
       radius={radius}
       shadow={shadow}
-      style={{ ...props.style }}
     >
       {children}
     </CardContainer>
