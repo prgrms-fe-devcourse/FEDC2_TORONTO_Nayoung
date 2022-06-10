@@ -27,6 +27,7 @@ const DraggableArea = ({
   height = 200,
   dragging,
   onClick,
+  ...props
 }) => {
   const [loading, setLoading] = useState(false);
   const [dataUrl, setDataUrl] = useState('');
@@ -47,7 +48,12 @@ const DraggableArea = ({
   }, [file]);
 
   return (
-    <DraggableContainer width={width} height={height} dragging={dragging}>
+    <DraggableContainer
+      width={width}
+      height={height}
+      dragging={dragging}
+      {...props}
+    >
       {file ? (
         <>
           {loading && <Loader type='spinner' />}
