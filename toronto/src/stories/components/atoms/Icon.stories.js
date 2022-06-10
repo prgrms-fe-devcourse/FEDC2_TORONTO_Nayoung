@@ -11,6 +11,7 @@ export default {
       control: { type: 'range', min: 1, max: 3 },
     },
     color: { defaultValue: '#000', control: 'color' },
+    fill: { defaultValue: '#fff', control: 'color' },
     rotate: { defaultValue: 0, control: 'number' },
   },
 };

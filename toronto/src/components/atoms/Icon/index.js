@@ -13,6 +13,7 @@ const Icon = ({
   strokeWidth = 1,
   rotate = 0,
   color = '#000',
+  fill = '#fff',
   ...props
 }) => {
   const shapeStyle = {
@@ -26,6 +27,7 @@ const Icon = ({
     stroke: color,
     width: size,
     height: size,
+    fill,
   };
 
   const icon = feather.icons[iconName];
@@ -33,7 +35,7 @@ const Icon = ({
   const base64 = Buffer.from(svg, 'utf8').toString('base64');
 
   return (
-    <IconWrapper {...props} style={shapeStyle}>
+    <IconWrapper {...props} style={{ ...props.style, ...shapeStyle }}>
       <img src={`data:image/svg+xml; base64, ${base64}`} alt={iconName} />
     </IconWrapper>
   );
@@ -45,6 +47,7 @@ Icon.propTypes = {
   strokeWidth: PropTypes.number,
   rotate: PropTypes.number,
   color: PropTypes.string,
+  fill: PropTypes.string,
 };
 
 export default Icon;
