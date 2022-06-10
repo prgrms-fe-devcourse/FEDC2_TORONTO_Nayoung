@@ -1,17 +1,16 @@
 import { Routes, Route } from 'react-router-dom';
 import Layout from './layout/Layout';
-import Home from './pages/Home';
-import About from './pages/About';
-import SignUp from './pages/SignUp';
+import { HomePage, AboutPage, NotFoundPage, SignUp } from '@pages';
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/signup" element={<SignUp />} />
+      <Route path='/' element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path='/about' element={<AboutPage />} />
+        <Route path='/signup' element={<SignUp />} />
       </Route>
+      <Route path='*' element={<NotFoundPage />} />
     </Routes>
   );
 }
