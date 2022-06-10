@@ -49,6 +49,7 @@ const SignUpForm = () => {
     },
     validate: (values) => {
       return checkInput(values);
+      // return checkInput(name, email, password, passwordConfirm);
     },
   });
 

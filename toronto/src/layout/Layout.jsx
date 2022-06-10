@@ -5,10 +5,10 @@ function Layout() {
     <div>
       <h1>Welcome to the app!</h1>
       <nav>
-        <Link to="/">Home</Link> | <Link to="about">About</Link> |
-        <Link to="signup">Sign Up</Link> |{' '}
+        <Link to='/'>Home</Link> | <Link to='about'>About</Link> |
+        <Link to='signup'>Sign Up</Link> | <Link to='login'>Login</Link> |{' '}
       </nav>
-      <div className="content">
+      <div className='content'>
         <Outlet />
       </div>
     </div>

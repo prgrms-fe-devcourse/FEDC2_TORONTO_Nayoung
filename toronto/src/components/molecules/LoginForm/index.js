@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import Input from '@/components/atoms/Input';
 import Header from '@/components/atoms/Header';
 import Text from '@/components/atoms/Text';
+import Button from '@/components/atoms/Button';
+import useForm from '@/hooks/useForm';
+import { requestApi } from '@/api';
 
 const Form = styled.form`
   padding: 16px;
@@ -13,19 +16,67 @@ const Form = styled.form`
 `;
 
 const LoginForm = () => {
+  const { errors, handleChange, handleSubmit } = useForm({
+    initialValues: {
+      name: '',
+      email: '',
+      password: '',
+      passwordConfirm: '',
+    },
+    onSubmit: async (values) => {
+      await requestApi({
+        method: 'POST',
+        url: '/login',
+        data: {
+          email: values.email,
+          password: values.password,
+        },
+      });
+    },
+    validate: ({ email, password }) => {
+      const newErrors = {};
+      if (!email) newErrors.email = '이메일을 입력하세요';
+      if (!/^.+@.+\..+$/.test(email))
+        newErrors.email = '올바른 이메일을 입력해주세요.';
+      if (!password) newErrors.password = '비밀번호를 입력하세요';
+      return newErrors;
+    },
+  });
+
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Header>Login</Header>
-      <Text>이메일</Text>
-      <Input type="email" name="email" placeholder="Email" block="true" />
-      <Text>비밀번호</Text>
+      <Text block style={{ marginTop: '16px' }}>
+        이메일
+      </Text>
       <Input
-        type="password"
-        name="password"
-        placeholder="Password"
-        block="true"
+        type='email'
+        name='email'
+        placeholder='Email'
+        block='true'
+        onChange={handleChange}
       />
-      <button>로그인</button>
+      {errors.email && (
+        <Text block color='red'>
+          {errors.email}
+        </Text>
+      )}
+      <Text block style={{ marginTop: '16px' }}>
+        비밀번호
+      </Text>
+      <Input
+        type='password'
+        name='password'
+        placeholder='Password'
+        block='true'
+        onChange={handleChange}
+      />
+      {errors.password && (
+        <Text block color='red'>
+          {errors.password}
+        </Text>
+      )}
+      <Button>로그인</Button>
     </Form>
   );
 };
