@@ -20,7 +20,7 @@ const NotFoundPage = () => {
   return (
     <Wrapper>
       <Text>404 Not Found</Text>
-      <StyledLink to='/' style={{ textDecoration: 'none' }}>
+      <StyledLink to='/'>
         <Button>홈으로</Button>
       </StyledLink>
     </Wrapper>
