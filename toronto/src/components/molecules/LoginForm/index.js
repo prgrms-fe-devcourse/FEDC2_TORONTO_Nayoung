@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import Input from '@/components/atoms/Input';
-import Header from '@/components/atoms/Header';
 import Text from '@/components/atoms/Text';
 import Button from '@/components/atoms/Button';
+import TextInputForm from '../TextInputForm';
 import useForm from '@/hooks/useForm';
 import { requestApi } from '@/api';
 
@@ -10,13 +10,13 @@ const Form = styled.form`
   padding: 16px;
   width: 400px;
   background-color: white;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-  border: 1px solid red;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 `;
 
 const LoginForm = () => {
-  const { errors, handleChange, handleSubmit } = useForm({
+  const { errors, isLoading, handleChange, handleSubmit } = useForm({
     initialValues: {
       name: '',
       email: '',
@@ -24,7 +24,7 @@ const LoginForm = () => {
       passwordConfirm: '',
     },
     onSubmit: async (values) => {
-      await requestApi({
+      const res = await requestApi({
         method: 'POST',
         url: '/login',
         data: {
@@ -32,6 +32,8 @@ const LoginForm = () => {
           password: values.password,
         },
       });
+      if (res) alert('로그인 되었습니다.');
+      else alert('로그인 실패하셨습니다.');
     },
     validate: ({ email, password }) => {
       const newErrors = {};
@@ -45,8 +47,8 @@ const LoginForm = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Header>Login</Header>
-      <Text block style={{ marginTop: '16px' }}>
+      <Text strong>로그인</Text>
+      {/* <Text block style={{ marginTop: '16px' }}>
         이메일
       </Text>
       <Input
@@ -55,9 +57,16 @@ const LoginForm = () => {
         placeholder='Email'
         block='true'
         onChange={handleChange}
+      /> */}
+      <TextInputForm
+        textTitle='이메일'
+        inputType='email'
+        inputPlaceholder='email'
+        inputName='email'
+        inputOnChange={handleChange}
       />
       {errors.email && (
-        <Text block color='red'>
+        <Text size={10} block color='red'>
           {errors.email}
         </Text>
       )}
@@ -72,11 +81,13 @@ const LoginForm = () => {
         onChange={handleChange}
       />
       {errors.password && (
-        <Text block color='red'>
+        <Text size={10} block color='red'>
           {errors.password}
         </Text>
       )}
-      <Button>로그인</Button>
+      <Button disabled={isLoading} style={{ marginTop: '16px' }}>
+        로그인
+      </Button>
     </Form>
   );
 };

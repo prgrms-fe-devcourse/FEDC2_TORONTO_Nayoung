@@ -2,10 +2,9 @@ import axios from 'axios';
 
 export const requestApi = async (config) => {
   try {
-    const res = await axios({ ...config });
-    console.log(res);
-    return res;
+    await axios({ ...config });
+    return 1;
   } catch (error) {
-    console.warn(error);
+    return 0;
   }
 };
