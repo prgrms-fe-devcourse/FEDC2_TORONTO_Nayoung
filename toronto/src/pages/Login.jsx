@@ -1,13 +1,13 @@
 import styled from 'styled-components';
-import LoginForm from '@/components/molecules/LoginForm';
+import LoginForm from '@/components/organisms/LoginForm';
 
 const Wrapper = styled.div`
-  width: 100%;
   height: 100vh;
+  padding: 150px 320px;
   display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: #f9fafb;
+  position: relative;
+  justify-content: center;
 `;
 
 const Login = () => {

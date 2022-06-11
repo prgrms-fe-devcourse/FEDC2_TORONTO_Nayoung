@@ -5,19 +5,27 @@ import Text from '@/components/atoms/Text';
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  & > .textTitle {
+    margin: 32px 0 16px 0;
+  }
 `;
 
-const TextInputForm = ({
+const LoginUnitForm = ({
   textTitle,
   inputType,
   inputName,
   inputPlaceholder,
   inputOnChange,
+  textError,
   ...props
 }) => {
+  const inputStyle = {
+    border: 'none',
+    borderBottom: '2px solid',
+  };
   return (
     <Wrapper {...props}>
-      <Text block style={{ marginTop: '16px' }}>
+      <Text block strong className='textTitle'>
         {textTitle}
       </Text>
       <Input
@@ -26,9 +34,15 @@ const TextInputForm = ({
         placeholder={inputPlaceholder}
         onChange={inputOnChange}
         block
+        style={{ ...inputStyle }}
       ></Input>
+      {textError && (
+        <Text size={10} block color='red'>
+          {textError}
+        </Text>
+      )}
     </Wrapper>
   );
 };
 
-export default TextInputForm;
+export default LoginUnitForm;

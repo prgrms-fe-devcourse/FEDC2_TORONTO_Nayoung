@@ -1,18 +1,18 @@
 import styled from 'styled-components';
-import Input from '@/components/atoms/Input';
 import Text from '@/components/atoms/Text';
 import Button from '@/components/atoms/Button';
-import TextInputForm from '../TextInputForm';
+import LoginUnitForm from '@/components/molecules/LoginUnitForm';
 import useForm from '@/hooks/useForm';
 import { requestApi } from '@/api';
 
 const Form = styled.form`
-  padding: 16px;
-  width: 400px;
-  background-color: white;
-  box-sizing: border-box;
+  padding: 7% 10%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: white;
+  position: absolute;
 `;
 
 const LoginForm = () => {
@@ -47,45 +47,26 @@ const LoginForm = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Text strong>로그인</Text>
-      {/* <Text block style={{ marginTop: '16px' }}>
-        이메일
+      <Text strong style={{ marginBottom: '32px' }}>
+        로그인
       </Text>
-      <Input
-        type='email'
-        name='email'
-        placeholder='Email'
-        block='true'
-        onChange={handleChange}
-      /> */}
-      <TextInputForm
+      <LoginUnitForm
         textTitle='이메일'
         inputType='email'
         inputPlaceholder='email'
         inputName='email'
         inputOnChange={handleChange}
+        textError={errors.email}
       />
-      {errors.email && (
-        <Text size={10} block color='red'>
-          {errors.email}
-        </Text>
-      )}
-      <Text block style={{ marginTop: '16px' }}>
-        비밀번호
-      </Text>
-      <Input
-        type='password'
-        name='password'
-        placeholder='Password'
-        block='true'
-        onChange={handleChange}
+      <LoginUnitForm
+        textTitle='비밀번호'
+        inputType='password'
+        inputPlaceholder='password'
+        inputName='password'
+        inputOnChange={handleChange}
+        textError={errors.password}
       />
-      {errors.password && (
-        <Text size={10} block color='red'>
-          {errors.password}
-        </Text>
-      )}
-      <Button disabled={isLoading} style={{ marginTop: '16px' }}>
+      <Button disabled={isLoading} style={{ marginTop: '32px' }}>
         로그인
       </Button>
     </Form>

@@ -1,7 +1,7 @@
-import LoginForm from '@/components/molecules/LoginForm';
+import LoginForm from '@/components/organisms/LoginForm';
 
 export default {
-  title: 'Component/molecules/LoginForm',
+  title: 'Component/organisms/LoginForm',
   component: LoginForm,
 };
 
