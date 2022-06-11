@@ -24,7 +24,7 @@ const SignUpForm = () => {
       passwordConfirm: '',
     },
     onSubmit: async (values) => {
-      await requestApi({
+      const res = await requestApi({
         method: 'POST',
         url: '/signup',
         data: {
@@ -33,6 +33,8 @@ const SignUpForm = () => {
           password: values.password,
         },
       });
+      if (res) alert('회원가입 되었습니다.');
+      else alert('회원가입 되지 않았습니다.');
     },
     validate: ({ name, email, password, passwordConfirm }) => {
       const newErrors = {};
