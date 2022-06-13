@@ -1,4 +1,4 @@
-import FormField from '@/components/molecules/FormField';
+import FormField from '@/components/molecules/\bFormField';
 
 export default {
   title: 'Component/molecules/FormField',
