@@ -41,15 +41,47 @@ const StyledButton = styled.button`
 `;
 
 const PostItem = ({ post }) => {
-  const userId = '1234'; // dummy data;
+  const userId = '62a6c351f1f0277287103588'; // 더미 데이터, 추후 Context API로 교체 예정;
   const { _id: postId, image, likes } = post;
-  const { postTitle, postContent } = post.title;
+  const { postTitle, postContent } = JSON.parse(post.title);
   const like = likes
     ? likes.filter(({ user }) => user === userId)[0]
     : undefined;
   const [isLike, setIsLike] = useState(Boolean(like));
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    if (!isLike) {
+      await fetch(
+        `http://kdt.frontend.2nd.programmers.co.kr:5002/likes/create`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization:
+              'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyYTZjMzUxZjFmMDI3NzI4NzEwMzU4OCIsImVtYWlsIjoiamFldW5nZUBnbWFpbC5jb20ifSwiaWF0IjoxNjU1MTI3MjEzfQ.KP1UBVFG6HXcrWmGRhmmEsdrkzmGCY6kaIxfpUsYJA4',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            postId: postId,
+          }),
+        },
+      );
+    } else {
+      await fetch(
+        `http://kdt.frontend.2nd.programmers.co.kr:5002/likes/delete`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization:
+              'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyYTZjMzUxZjFmMDI3NzI4NzEwMzU4OCIsImVtYWlsIjoiamFldW5nZUBnbWFpbC5jb20ifSwiaWF0IjoxNjU1MTI3MjEzfQ.KP1UBVFG6HXcrWmGRhmmEsdrkzmGCY6kaIxfpUsYJA4',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: like._id,
+          }),
+        },
+      );
+    }
+
     setIsLike((like) => !like);
   };
 
@@ -88,7 +120,7 @@ const PostItem = ({ post }) => {
           <StyledLink to={`/posts/${postId}`} style={{ color: 'black' }}>
             <ContentContainer>
               <Image
-                src={image}
+                src={image || 'https://via.placeholder.com/200'}
                 width={'100%'}
                 height={200}
                 placeholder={'https://via.placeholder.com/200'}
