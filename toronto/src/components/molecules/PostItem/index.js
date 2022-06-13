@@ -5,6 +5,7 @@ import Image from '@/components/atoms/Image';
 import Text from '@/components/atoms/Text';
 import Icon from '@/components/atoms/Icon';
 import styled from 'styled-components';
+import { useState } from 'react';
 
 const StyledLi = styled.li`
   list-style: none;
@@ -23,52 +24,82 @@ const TitleContainer = styled.div`
   align-items: center;
 `;
 
+const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledButton = styled.button`
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+`;
+
 const PostItem = ({ post }) => {
-  const { _id: id, image } = post;
+  const userId = '1234'; // dummy data;
+  const { _id: postId, image, likes } = post;
   const { postTitle, postContent } = post.title;
+  const like = likes
+    ? likes.filter(({ user }) => user === userId)[0]
+    : undefined;
+  const [isLike, setIsLike] = useState(Boolean(like));
+
+  const handleClick = () => {
+    setIsLike((like) => !like);
+  };
 
   return (
     <StyledLi>
-      <StyledLink
-        to={`/posts/${id}`}
-        style={{
-          display: 'inline-block',
-          color: 'black',
-          width: '100%',
-        }}
+      <Card
+        padding={10}
+        hover={true}
+        radius={5}
+        style={{ width: '100%', boxSizing: 'border-box' }}
       >
-        <Card
-          padding={10}
-          hover={true}
-          radius={5}
-          style={{ width: '100%', boxSizing: 'border-box' }}
-        >
-          <PostContainer>
-            <TitleContainer>
-              <Header
-                level={3}
-                style={{
-                  textOverflow: 'ellipsis',
-                  overflow: 'hidden',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                {postTitle}
-              </Header>
-              <Icon iconName={'thumbs-up'} strokeWidth={2} />
-            </TitleContainer>
-            <Image
-              src={image}
-              width={'100%'}
-              height={200}
-              placeholder={'https://via.placeholder.com/200'}
-            />
-            <Text size='normal' style={{ paddingTop: 20 }}>
-              {postContent}
-            </Text>
-          </PostContainer>
-        </Card>
-      </StyledLink>
+        <PostContainer>
+          <TitleContainer>
+            <Header
+              level={3}
+              style={{
+                textOverflow: 'ellipsis',
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {postTitle}
+            </Header>
+            <StyledButton onClick={handleClick}>
+              {isLike ? (
+                <Icon
+                  iconName={'thumbs-up'}
+                  strokeWidth={1.5}
+                  fill={'#2366F6'}
+                />
+              ) : (
+                <Icon iconName={'thumbs-up'} strokeWidth={1.5} />
+              )}
+            </StyledButton>
+          </TitleContainer>
+          <StyledLink to={`/posts/${postId}`} style={{ color: 'black' }}>
+            <ContentContainer>
+              <Image
+                src={image}
+                width={'100%'}
+                height={200}
+                placeholder={'https://via.placeholder.com/200'}
+              />
+              <Text size='normal' style={{ paddingTop: 20 }}>
+                {postContent}
+              </Text>
+            </ContentContainer>
+          </StyledLink>
+        </PostContainer>
+      </Card>
     </StyledLi>
   );
 };

@@ -10,6 +10,7 @@ export default {
 const post_1 = {
   _id: '1',
   image: 'https://picsum.photos/500',
+  likes: [{ user: '1234' }],
   title: {
     postTitle: '새우 논쟁',
     postContent: '대충 새우를 까주냐 마느냐 한다는 내용',
@@ -19,6 +20,7 @@ const post_1 = {
 const post_2 = {
   _id: '2',
   image: 'https://picsum.photos/500',
+  likes: [{ user: '4567' }],
   title: {
     postTitle: '대충 타이틀이 엄청나게 긴 경우를 확인해봅시다',
     postContent:
