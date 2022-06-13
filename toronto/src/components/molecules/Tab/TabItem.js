@@ -10,7 +10,6 @@ const TabItemWrapper = styled.div`
   height: 60px;
   border-bottom: ${({ active }) =>
     active ? '2px solid #2366F6' : '2px solid #ddd'};
-  background-color: ${({ active }) => (active ? '#FFF' : '#F9FAFB')};
   color: ${({ active }) => (active ? '#2366F6' : '#505967')};
   cursor: pointer;
 `;
