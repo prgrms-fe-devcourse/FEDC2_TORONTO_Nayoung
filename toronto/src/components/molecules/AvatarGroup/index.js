@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AvatarGroup = ({ children, shape = 'circle', size = 70, ...props }) => {
+const AvatarGroup = ({ children, shape = 'circle', size = 70 }) => {
   const avatars = React.Children.toArray(children)
     .filter((element) => {
       if (React.isValidElement(element) && element.props.__TYPE === 'Avatar') {
