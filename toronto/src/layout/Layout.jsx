@@ -1,14 +1,5 @@
 import { Outlet } from 'react-router-dom';
 import StyledLink from '@components/atoms/StyledLink';
-import styled from 'styled-components';
-
-const ContentWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 80vh;
-`;
 
 function Layout() {
   return (
@@ -17,11 +8,13 @@ function Layout() {
       <nav>
         <StyledLink to='/'>Home</StyledLink> |
         <StyledLink to='about'>About</StyledLink> |
-        <StyledLink to='profile'>Profile</StyledLink>
+        <StyledLink to='profile'>Profile</StyledLink> ||
+        <StyledLink to='login'>Login</StyledLink> |
+        <StyledLink to='sign-up'>Sign Up</StyledLink> |{' '}
       </nav>
-      <ContentWrapper className='content'>
+      <div className='content'>
         <Outlet />
-      </ContentWrapper>
+      </div>
     </div>
   );
 }
