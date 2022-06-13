@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import TabItem from './TabItem';
 
 const TabItemContainer = styled.div`
-  background-color: #f9fafb;
+  background-color: #fff;
 `;
 
 const childrenToArray = (children, types) => {
@@ -11,6 +11,7 @@ const childrenToArray = (children, types) => {
     if (React.isValidElement(element) && types.includes(element.props.__TYPE)) {
       return true;
     }
+    // eslint-disable-next-line no-console
     console.warn(
       `Only accepts ${
         Array.isArray(types) ? types.join(', ') : types
