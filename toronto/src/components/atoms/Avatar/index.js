@@ -1,12 +1,12 @@
-import ImageComponent from '../Image';
-import AvatarGroup from '../../molecules/AvatarGroup';
+import ImageComponent from '@/components/atoms/Image';
+import AvatarGroup from '@/components/molecules/AvatarGroup';
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 
 const ShapeToCssValue = {
   circle: '50%',
   round: '4px',
-  sqare: '0px',
+  square: '0px',
 };
 
 const AvatarWrapper = styled.div`
