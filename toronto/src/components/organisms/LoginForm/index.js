@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import Text from '@/components/atoms/Text';
 import Button from '@/components/atoms/Button';
-import LoginUnitForm from '@/components/molecules/LoginUnitForm';
+import FormField from '@/components/molecules/\bFormField';
 import useForm from '@/hooks/useForm';
 import { requestApi } from '@/api';
 
-const Form = styled.form`
+const CardForm = styled.form`
   padding: 7% 10%;
   display: flex;
   flex-direction: column;
@@ -24,9 +24,8 @@ const LoginForm = () => {
       passwordConfirm: '',
     },
     onSubmit: async (values) => {
-      const res = await requestApi({
+      const res = await requestApi('/login', {
         method: 'POST',
-        url: '/login',
         data: {
           email: values.email,
           password: values.password,
@@ -46,11 +45,11 @@ const LoginForm = () => {
   });
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <CardForm onSubmit={handleSubmit}>
       <Text strong style={{ marginBottom: '32px' }}>
         로그인
       </Text>
-      <LoginUnitForm
+      <FormField
         textTitle='이메일'
         inputType='email'
         inputPlaceholder='email'
@@ -58,7 +57,7 @@ const LoginForm = () => {
         inputOnChange={handleChange}
         textError={errors.email}
       />
-      <LoginUnitForm
+      <FormField
         textTitle='비밀번호'
         inputType='password'
         inputPlaceholder='password'
@@ -69,7 +68,7 @@ const LoginForm = () => {
       <Button disabled={isLoading} style={{ marginTop: '32px' }}>
         로그인
       </Button>
-    </Form>
+    </CardForm>
   );
 };
 

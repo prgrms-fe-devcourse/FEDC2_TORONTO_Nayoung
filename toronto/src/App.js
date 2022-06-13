@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import Layout from './layout/Layout';
-import { HomePage, AboutPage, NotFoundPage, SignUp, Login } from '@pages';
+import { HomePage, AboutPage, NotFoundPage, Login } from '@pages';
 
 function App() {
   return (
@@ -8,7 +8,6 @@ function App() {
       <Route path='/' element={<Layout />}>
         <Route index element={<HomePage />} />
         <Route path='/about' element={<AboutPage />} />
-        <Route path='/signup' element={<SignUp />} />
         <Route path='/login' element={<Login />} />
       </Route>
       <Route path='*' element={<NotFoundPage />} />

@@ -1,13 +1,13 @@
-import LoginUnitForm from '@/components/molecules/LoginUnitForm';
+import FormField from '@/components/molecules/FormField';
 
 export default {
-  title: 'Component/molecules/LoginUnitForm',
-  component: LoginUnitForm,
+  title: 'Component/molecules/FormField',
+  component: FormField,
 };
 
 export const Default = (args) => {
   return (
-    <LoginUnitForm
+    <FormField
       textTitle='이메일'
       inputType='email'
       inputName='email'

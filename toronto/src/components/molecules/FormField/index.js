@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const LoginUnitForm = ({
+const FormField = ({
   textTitle,
   inputType,
   inputName,
@@ -45,4 +45,4 @@ const LoginUnitForm = ({
   );
 };
 
-export default LoginUnitForm;
+export default FormField;
