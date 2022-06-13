@@ -1,28 +1,40 @@
 import Button from '@components/atoms/Button';
 import styled from 'styled-components';
-import Text from '@components/atoms/Text';
-
-const ContentWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 80vh;
-`;
+import Header from '@/components/atoms/Header';
+import Text from '@/components/atoms/Text';
+import Avatar from '@/components/atoms/Avatar';
+import StyledLink from '@/components/atoms/StyledLink';
+import Tab from '@/components/molecules/Tab';
 
 const UserProfile = () => {
   return (
     <ContentWrapper>
       <Wrapper>
         <ProfileSection>
-          <Text size={24}>Avatar</Text>
+          <div>
+            <Avatar
+              src='https://picsum.photos/100'
+              size={100}
+              shape={'circle'}
+            />
+          </div>
           <ProfileWrapper>
-            <Text size={18}>이메일</Text>
-            <Button>프로필 편집</Button>
+            <Text size={18}>jkb2221@gmail.com</Text>
+            <StyledLink to='/profile/edit'>
+              <Button>프로필 편집</Button>
+            </StyledLink>
           </ProfileWrapper>
         </ProfileSection>
-        <section>Tab 컴포넌트</section>
-        <section>내 포스트</section>
+        <Tab>
+          <Tab.Item title='내 게시물' index='item1'>
+            <Header>내 게시물</Header>
+            <Text>PostList</Text>
+          </Tab.Item>
+          <Tab.Item title='좋아요 게시물' index='item2'>
+            <Header>좋아요 게시물</Header>
+            <Text>PostList</Text>
+          </Tab.Item>
+        </Tab>
       </Wrapper>
     </ContentWrapper>
   );
@@ -30,13 +42,20 @@ const UserProfile = () => {
 
 export default UserProfile;
 
+const ContentWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  background-color: #f9fafb;
+`;
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #f9fafb;
-  width: 1000px;
-  height: 500px;
-  padding: 2rem;
+  background-color: #fff;
+  width: 700px;
+  height: 600px;
 `;
 
 const ProfileSection = styled.section`
@@ -44,6 +63,7 @@ const ProfileSection = styled.section`
   align-items: center;
   justify-content: space-around;
   width: 100%;
+  padding: 2rem;
 `;
 
 const ProfileWrapper = styled.div`
@@ -52,4 +72,5 @@ const ProfileWrapper = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 100%;
+  padding: 2rem;
 `;
