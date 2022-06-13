@@ -10,7 +10,7 @@ export default {
 const post_1 = {
   _id: '1',
   image: 'https://picsum.photos/500',
-  likes: [{ user: '1234' }],
+  likes: [{ user: '62a6c351f1f0277287103588' }],
   title: JSON.stringify({
     postTitle: '새우 논쟁',
     postContent: '대충 새우를 까주냐 마느냐 한다는 내용',
