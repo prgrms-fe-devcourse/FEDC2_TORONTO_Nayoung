@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Text from '@/components/atoms/Text';
 import Button from '@/components/atoms/Button';
-import FormField from '@/components/molecules/\bFormField';
+import FormField from '@/components/molecules/FormField';
 import useForm from '@/hooks/useForm';
 import { requestApi } from '@/api';
 
