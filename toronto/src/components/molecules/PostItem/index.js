@@ -50,30 +50,6 @@ const PostItem = ({ post }) => {
   const [isLike, setIsLike] = useState(Boolean(like));
 
   const handleClick = async () => {
-    if (!isLike) {
-      await fetch(`${process.env.REACT_APP_END_POINT}/likes/create`, {
-        method: 'POST',
-        headers: {
-          Authorization: `bearer ${process.env.REACT_APP_USER_TOKEN}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          postId: postId,
-        }),
-      });
-    } else {
-      await fetch(`${process.env.REACT_APP_END_POINT}/likes/delete`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `bearer ${process.env.REACT_APP_USER_TOKEN}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: like._id,
-        }),
-      });
-    }
-
     setIsLike((like) => !like);
   };
 
