@@ -2,7 +2,7 @@ import axios from 'axios';
 import Send from '.';
 import { onSaveToken } from '../lib/Login.js';
 
-export const postLogin = async ({ email, password }) => {
+export const postLoginApi = async ({ email, password }) => {
   const res = await Send.post('/login', {
     email,
     password,
@@ -11,7 +11,7 @@ export const postLogin = async ({ email, password }) => {
   return res;
 };
 
-export const postSignUp = async ({ email, fullName, password }) => {
+export const postSignUpApi = async ({ email, fullName, password }) => {
   const res = await Send.post('/signup', {
     email,
     fullName,
@@ -30,8 +30,8 @@ export const postLogout = async () => {
   return res;
 };
 
-export const getUsers = async ({ offset, limit }) => {
-  const res = await Send.get('/auth-user', { params: { offset, limit } });
+export const getUsersApi = async ({ offset, limit }) => {
+  const res = await Send.get('/users/get-users', { params: { offset, limit } });
   return res;
 };
 
@@ -41,18 +41,12 @@ export const getOnlineUsers = async () => {
 };
 
 // 사용자 정보
-export const getUser = async (userId) => {
-  const res = await Send.get('/users/userId');
+export const getUserApi = async (userId) => {
+  const res = await Send.get(`/users/${userId}`);
   return res;
 };
 
 // 프로필 이미지 변경 및 커버 이미지 변경
-/* bodyFormData
-  {
-    isCover: false,
-    image: Binary
-  }
-*/
 export const postUploadPhoto = async (bodyFormData) => {
   const res = await axios({
     method: 'post',
