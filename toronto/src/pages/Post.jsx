@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Button from '@components/atoms/Button';
-import Card from '@components/atoms/Card';
-import Input from '@components/atoms/Input';
-import Upload from '@components/molecules/Upload';
-import DraggableArea from '@components/molecules/Upload/UploadArea';
+import Button from '@/components/atoms/Button';
+import Card from '@/components/atoms/Card';
+import Input from '@/components/atoms/Input';
+import Upload from '@/components/molecules/Upload';
+import DraggableArea from '@/components/molecules/Upload/UploadArea';
+import axios from 'axios';
 
 const Post = () => {
   const [postData, setPostData] = useState({
@@ -33,17 +34,18 @@ const Post = () => {
     formData.append('channelId', '629f0b8ed648c11b1bd9d300');
 
     setLoading(true);
-    fetch(`${process.env.REACT_APP_END_POINT}/posts/create`, {
-      method: 'POST',
+    axios({
+      url: `${process.env.REACT_APP_END_POINT}/posts/create`,
+      method: 'post',
       headers: {
         Authorization: `bearer ${process.env.REACT_APP_USER_TOKEN}`,
       },
-      body: formData,
+      data: formData,
     })
-      .then((res) => res.json())
-      .then(() => {
-        // 글쓰기가 완료 되었을 때 페이지 이동을 수행합니다. 임시로 메인으로 이동합니다.
-        navigate('/');
+      .then((res) => {
+        if (res.status === 200) {
+          navigate('/'); // 글쓰기가 성공하면 지정한 페이지로 이동
+        }
       })
       .finally(() => {
         setLoading(false);
