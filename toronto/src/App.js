@@ -7,6 +7,7 @@ import {
   Login,
   SignUp,
   UserProfilePage,
+  EditProfilePage,
 } from '@pages';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path='/about' element={<AboutPage />} />
         <Route path='/profile' element={<UserProfilePage />} />
+        <Route path='/profile/edit' element={<EditProfilePage />} />
         <Route path='/login' element={<Login />} />
         <Route path='/sign-up' element={<SignUp />} />
       </Route>
