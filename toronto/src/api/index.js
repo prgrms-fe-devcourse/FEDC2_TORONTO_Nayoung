@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const END_POINT = 'http://kdt.frontend.2nd.programmers.co.kr:5002';
+const END_POINT = process.env.REACT_APP_END_POINT;
 
 export const requestApi = async (url, config) => {
   try {

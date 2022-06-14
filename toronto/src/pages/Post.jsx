@@ -33,11 +33,10 @@ const Post = () => {
     formData.append('channelId', '629f0b8ed648c11b1bd9d300');
 
     setLoading(true);
-    fetch('/posts/create', {
+    fetch(`${process.env.REACT_APP_END_POINT}/posts/create`, {
       method: 'POST',
       headers: {
-        Authorization:
-          'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyOWY2MDE1NmQzZWFkMzlhY2M3MDdmZiIsImVtYWlsIjoiamVvbmdraUBqZW9uZ2tpLmNvbSJ9LCJpYXQiOjE2NTQ4NzcyNjV9.4MSj80cp9i0HiEmlk08cADIXHvoxilwv4ghzG-gVWzo',
+        Authorization: `bearer ${process.env.REACT_APP_USER_TOKEN}`,
       },
       body: formData,
     })
