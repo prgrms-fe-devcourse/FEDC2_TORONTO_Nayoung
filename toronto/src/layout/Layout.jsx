@@ -1,12 +1,16 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import StyledLink from '@components/atoms/StyledLink';
 
 function Layout() {
   return (
     <div>
-      <h1>Welcome to the app!</h1>
+      <h1>토론토</h1>
       <nav>
-        <Link to='/'>Home</Link> | <Link to='about'>About</Link> |
-        <Link to='login'>Login</Link> |<Link to='sign-up'>Sign Up</Link> |{' '}
+        <StyledLink to='/'>Home</StyledLink> |
+        <StyledLink to='about'>About</StyledLink> |
+        <StyledLink to='profile'>Profile</StyledLink> |
+        <StyledLink to='login'>Login</StyledLink> |
+        <StyledLink to='sign-up'>Sign Up</StyledLink> |
       </nav>
       <div className='content'>
         <Outlet />
