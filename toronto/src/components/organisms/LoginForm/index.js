@@ -3,7 +3,14 @@ import Text from '@/components/atoms/Text';
 import Button from '@/components/atoms/Button';
 import FormField from '@/components/molecules/FormField';
 import useForm from '@/hooks/useForm';
-import { requestApi } from '@/api';
+// import { requestApi } from '@/api';
+
+import {
+  postLogin,
+  useUsersDispatch,
+  useUsersState,
+} from '../../../contexts/UserContext.js';
+import { useNavigate } from 'react-router-dom';
 
 const CardForm = styled.form`
   padding: 7% 10%;
@@ -16,6 +23,11 @@ const CardForm = styled.form`
 `;
 
 const LoginForm = () => {
+  const state = useUsersState();
+  const dispatch = useUsersDispatch();
+  const { data: user, loading, error } = state.user;
+  const navigate = useNavigate();
+
   const { errors, isLoading, handleChange, handleSubmit } = useForm({
     initialValues: {
       name: '',
@@ -24,15 +36,12 @@ const LoginForm = () => {
       passwordConfirm: '',
     },
     onSubmit: async (values) => {
-      const res = await requestApi('/login', {
-        method: 'POST',
-        data: {
-          email: values.email,
-          password: values.password,
-        },
-      });
-      if (res) alert('로그인 되었습니다.');
-      else alert('로그인 실패하셨습니다.');
+      const res = await postLogin(dispatch, values.email, values.password);
+      if (res) {
+        navigate('/');
+      } else {
+        navigate('/login');
+      }
     },
     validate: ({ email, password }) => {
       const newErrors = {};
@@ -44,32 +53,39 @@ const LoginForm = () => {
     },
   });
 
-  return (
-    <CardForm onSubmit={handleSubmit}>
-      <Text strong style={{ marginBottom: '32px' }}>
-        로그인
-      </Text>
-      <FormField
-        textTitle='이메일'
-        inputType='email'
-        inputPlaceholder='email'
-        inputName='email'
-        inputOnChange={handleChange}
-        textError={errors.email}
-      />
-      <FormField
-        textTitle='비밀번호'
-        inputType='password'
-        inputPlaceholder='password'
-        inputName='password'
-        inputOnChange={handleChange}
-        textError={errors.password}
-      />
-      <Button disabled={isLoading} style={{ marginTop: '32px' }}>
-        로그인
-      </Button>
-    </CardForm>
-  );
+  if (loading) return <div>로딩중..</div>;
+  if (error) return <div>에러가 발생했습니다</div>;
+  if (!user) {
+    return (
+      <CardForm onSubmit={handleSubmit}>
+        <Text strong style={{ marginBottom: '32px' }}>
+          로그인
+        </Text>
+        <FormField
+          textTitle='이메일'
+          inputType='email'
+          inputPlaceholder='email'
+          inputName='email'
+          inputOnChange={handleChange}
+          textError={errors.email}
+        />
+        <FormField
+          textTitle='비밀번호'
+          inputType='password'
+          inputPlaceholder='password'
+          inputName='password'
+          inputOnChange={handleChange}
+          textError={errors.password}
+        />
+        <Button disabled={isLoading} style={{ marginTop: '32px' }}>
+          로그인
+        </Button>
+      </CardForm>
+    );
+  }
+  if (user) {
+    return <Text>로그인 Navigation을 Logout으로 변경</Text>;
+  }
 };
 
 export default LoginForm;
