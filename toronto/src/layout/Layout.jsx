@@ -8,9 +8,9 @@ function Layout() {
       <nav>
         <StyledLink to='/'>Home</StyledLink> |
         <StyledLink to='about'>About</StyledLink> |
-        <StyledLink to='profile'>Profile</StyledLink> ||
+        <StyledLink to='profile'>Profile</StyledLink> |
         <StyledLink to='login'>Login</StyledLink> |
-        <StyledLink to='sign-up'>Sign Up</StyledLink> |{' '}
+        <StyledLink to='sign-up'>Sign Up</StyledLink> |
       </nav>
       <div className='content'>
         <Outlet />
