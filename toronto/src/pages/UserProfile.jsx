@@ -1,9 +1,5 @@
-import Button from '@components/atoms/Button';
 import styled from 'styled-components';
-import Header from '@/components/atoms/Header';
-import Text from '@/components/atoms/Text';
-import Avatar from '@/components/atoms/Avatar';
-import StyledLink from '@/components/atoms/StyledLink';
+import { Button, Header, Text, Avatar, StyledLink } from '@/components/atoms';
 import Tab from '@/components/molecules/Tab';
 
 const UserProfile = () => {
