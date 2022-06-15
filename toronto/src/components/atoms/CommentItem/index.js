@@ -1,8 +1,8 @@
+import { useState } from 'react';
+import styled from 'styled-components';
 import Card from '@/components/atoms/Card';
 import Icon from '@/components/atoms/Icon';
 import Divider from '@/components/atoms/Divider';
-import { useState } from 'react';
-import styled from 'styled-components';
 
 const Wrapper = styled.div`
   position: relative;
