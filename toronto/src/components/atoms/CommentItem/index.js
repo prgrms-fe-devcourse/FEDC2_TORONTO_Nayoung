@@ -19,7 +19,15 @@ const IconWrapper = styled.div`
   cursor: pointer;
 `;
 
-const CommentItem = ({ id, width, author, content, isAuthor, onDelete }) => {
+const CommentItem = ({
+  id,
+  width,
+  author,
+  content,
+  isAuthor,
+  onDelete,
+  ...props
+}) => {
   const [mouseOver, setMouseOver] = useState(false);
 
   const handleMouseOver = () => {
@@ -39,6 +47,7 @@ const CommentItem = ({ id, width, author, content, isAuthor, onDelete }) => {
       padding={10}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
+      style={{ display: 'block', ...props.style }}
     >
       <Wrapper width={width}>
         <div style={{ flexShrink: 0 }}>{author}</div>
