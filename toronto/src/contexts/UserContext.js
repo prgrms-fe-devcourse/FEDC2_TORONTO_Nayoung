@@ -1,84 +1,40 @@
 import React, { createContext, useReducer, useContext } from 'react';
-import { getUsersApi, getUserApi, postLoginApi } from '../api/Api';
+import { getUsersApi, getUserApi, postLoginApi } from '@/api/Api';
+import {
+  createAsyncHandler,
+  initialAsyncState,
+} from '@/utils/asyncActionUtils';
+import { getAuthUser } from '../api/Api';
+//TODO: 새로고침해도 쿠키가 있을경우 로그인 상태로 유지, get auth  => cookie 동작
+//TODO: 로그아웃 시 쿠키 삭제
 
 const initialState = {
-  users: {
-    loading: false,
-    data: null,
-    error: null,
-  },
-  user: {
-    loading: false,
-    data: null,
-    error: null,
-  },
+  users: initialAsyncState,
+  user: initialAsyncState,
 };
 
-const loadingState = {
-  loading: true,
-  data: null,
-  error: null,
-};
-
-const success = (data) => ({
-  loading: false,
-  data,
-  error: null,
-});
-
-const error = (error) => ({
-  loading: false,
-  data: null,
-  error: error,
-});
-
+const usersHandler = createAsyncHandler('GET_USERS', 'users');
+const userHandler = createAsyncHandler('GET_USER', 'user');
+const loginHandler = createAsyncHandler('POST_LOGIN', 'user');
+const authHandler = createAsyncHandler('GET_AUTH_USER', 'user');
 const usersReducer = (state, action) => {
   switch (action.type) {
     case 'GET_USERS':
-      return {
-        ...state,
-        users: loadingState,
-      };
     case 'GET_USERS_SUCCESS':
-      return {
-        ...state,
-        users: success(action.data),
-      };
     case 'GET_USERS_ERROR':
-      return {
-        ...state,
-        users: error(action.error),
-      };
+      return usersHandler(state, action);
     case 'GET_USER':
-      return {
-        ...state,
-        user: loadingState,
-      };
     case 'GET_USER_SUCCESS':
-      return {
-        ...state,
-        user: success(action.data),
-      };
     case 'GET_USER_ERROR':
-      return {
-        ...state,
-        user: error(action.error),
-      };
+      return userHandler(state, action);
     case 'POST_LOGIN':
-      return {
-        ...state,
-        user: loadingState,
-      };
     case 'POST_LOGIN_SUCCESS':
-      return {
-        ...state,
-        user: success(action.data),
-      };
     case 'POST_LOGIN_ERROR':
-      return {
-        ...state,
-        user: error(action.error),
-      };
+      return loginHandler(state, action);
+    case 'GET_AUTH_USER':
+    case 'GET_AUTH_USER_SUCCESS':
+    case 'GET_AUTH_USER_ERROR':
+      return authHandler(state, action);
     default:
       throw new Error(`Unhanded action type: ${action.type}`);
   }
@@ -87,6 +43,18 @@ const usersReducer = (state, action) => {
 const UsersStateContext = createContext();
 const UsersDispatchContext = createContext();
 
+export default function UsersProvider({ children }) {
+  const [state, dispatch] = useReducer(usersReducer, initialState);
+  return (
+    <UsersStateContext.Provider value={state}>
+      <UsersDispatchContext.Provider value={dispatch}>
+        {children}
+      </UsersDispatchContext.Provider>
+    </UsersStateContext.Provider>
+  );
+}
+
+// state 조회 커스텀 Hook
 export const useUsersState = () => {
   const state = useContext(UsersStateContext);
   if (!state) {
@@ -95,6 +63,7 @@ export const useUsersState = () => {
   return state;
 };
 
+// dispatch 사용할 수 있게 해주는 커스텀 Hook
 export const useUsersDispatch = () => {
   const dispatch = useContext(UsersDispatchContext);
   if (!dispatch) {
@@ -103,6 +72,28 @@ export const useUsersDispatch = () => {
   return dispatch;
 };
 
+// getUsersAPI 연동
+export async function getUsers(dispatch) {
+  dispatch({ type: 'GET_USERS' });
+  try {
+    const response = getUsersApi();
+    dispatch({ type: 'GET_USERS_SUCCESS', data: response.data });
+  } catch (e) {
+    dispatch({ type: 'GET_USERS_ERROR', error: e });
+  }
+}
+// getUserAPI 연동
+export async function getUser(dispatch, id) {
+  dispatch({ type: 'GET_USER' });
+  try {
+    const response = getUserApi(id);
+    dispatch({ type: 'GET_USER_SUCCESS', data: response.data });
+  } catch (e) {
+    dispatch({ type: 'GET_USER_ERROR', error: e });
+  }
+}
+
+// postLoginAPI 연동
 export async function postLogin(dispatch, formEmail, formPassword) {
   dispatch({ type: 'POST_LOGIN' });
   try {
@@ -117,33 +108,13 @@ export async function postLogin(dispatch, formEmail, formPassword) {
   }
 }
 
-export async function getUsers(dispatch) {
-  dispatch({ type: 'GET_USERS' });
+// getAuthUserAPI 연동
+export async function getAuth(dispatch) {
+  dispatch({ type: 'GET_AUTH_USER' });
   try {
-    const response = getUsersApi();
-    dispatch({ type: 'GET_USERS_SUCCESS', data: response.data });
+    const response = await getAuthUser();
+    dispatch({ type: 'GET_AUTH_USER_SUCCESS', data: response.data });
   } catch (e) {
-    dispatch({ type: 'GET_USERS_ERROR', error: e });
+    dispatch({ type: 'GET_AUTH_USER_ERROR', error: e });
   }
-}
-
-export async function getUser(dispatch, id) {
-  dispatch({ type: 'GET_USER' });
-  try {
-    const response = getUserApi(id);
-    dispatch({ type: 'GET_USER_SUCCESS', data: response.data });
-  } catch (e) {
-    dispatch({ type: 'GET_USER_ERROR', error: e });
-  }
-}
-
-export default function UsersProvider({ children }) {
-  const [state, dispatch] = useReducer(usersReducer, initialState);
-  return (
-    <UsersStateContext.Provider value={state}>
-      <UsersDispatchContext.Provider value={dispatch}>
-        {children}
-      </UsersDispatchContext.Provider>
-    </UsersStateContext.Provider>
-  );
 }
