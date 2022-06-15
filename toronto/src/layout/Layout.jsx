@@ -1,16 +1,20 @@
 import { Outlet } from 'react-router-dom';
 import StyledLink from '@components/atoms/StyledLink';
-import UsersProvider from '../contexts/UserContext.js';
+import { useUsersState } from '../contexts/UserContext.js';
 
-function Layout() {
-  return (
-    <UsersProvider>
+const Layout = () => {
+  const state = useUsersState();
+  const { data: user, loading, error } = state.user;
+
+  if (loading) return <div>로딩중..</div>;
+  if (error) return <div>에러가 발생했습니다</div>;
+  if (!user) {
+    return (
       <div>
         <h1>토론토</h1>
         <nav>
           <StyledLink to='/'>Home</StyledLink> |
           <StyledLink to='about'>About</StyledLink> |
-          <StyledLink to='profile'>Profile</StyledLink> |
           <StyledLink to='login'>Login</StyledLink> |
           <StyledLink to='sign-up'>Sign Up</StyledLink> |
         </nav>
@@ -18,8 +22,22 @@ function Layout() {
           <Outlet />
         </div>
       </div>
-    </UsersProvider>
-  );
-}
+    );
+  } else {
+    return (
+      <div>
+        <h1>토론토</h1>
+        <nav>
+          <StyledLink to='/'>Home</StyledLink> |
+          <StyledLink to={user._id}>Profile</StyledLink> |
+          <StyledLink to='logout'>Logout</StyledLink> |
+        </nav>
+        <div className='content'>
+          <Outlet />
+        </div>
+      </div>
+    );
+  }
+};
 
 export default Layout;
