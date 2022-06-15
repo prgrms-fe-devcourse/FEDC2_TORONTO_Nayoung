@@ -1,7 +1,7 @@
-import CommentList from '@/components/molecules/CommentList';
+import CommentList from '@/components/organisms/CommentList';
 
 export default {
-  title: 'Component/Molecules/CommentList',
+  title: 'Component/organisms/CommentList',
   component: CommentList,
   argTypes: {
     name: { control: 'text' },

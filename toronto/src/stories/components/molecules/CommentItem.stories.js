@@ -1,7 +1,7 @@
-import CommentItem from '@/components/atoms/CommentItem';
+import CommentItem from '@/components/molecules/CommentItem';
 
 export default {
-  title: 'Component/Comment',
+  title: 'Component/Molecules/CommentItem',
   component: CommentItem,
   argTypes: {
     width: { control: 'text' },
@@ -11,6 +11,6 @@ export default {
   },
 };
 
-export const Item = (args) => {
+export const Default = (args) => {
   return <CommentItem {...args} />;
 };
