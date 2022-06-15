@@ -17,7 +17,7 @@ const AgreeButton = styled.button`
   border-radius: 4px;
   padding: 16px;
   background-color: ${({ selected }) => (selected ? '#649dd6' : '')};
-  
+
   &:hover {
     background-color: #5488ce;
   }
@@ -49,7 +49,13 @@ const DisagreeButton = styled.button`
   }
 `;
 
-const ControversyVote = ({ agreeTitle, disagreeTitle, imgSrc, onChange }) => {
+const ControversyVote = ({
+  agreeTitle,
+  disagreeTitle,
+  imgSrc,
+  onChange,
+  ...props
+}) => {
   const [agree, setAgree] = useState('');
 
   useEffect(() => {
@@ -57,7 +63,7 @@ const ControversyVote = ({ agreeTitle, disagreeTitle, imgSrc, onChange }) => {
   }, [agree, onChange]);
 
   return (
-    <ControversyVoteWrapper>
+    <ControversyVoteWrapper {...props}>
       <AgreeButton
         onClick={(e) => setAgree('agree')}
         selected={agree === 'agree' ? true : false}
