@@ -10,21 +10,24 @@ import {
   UserProfilePage,
   EditProfilePage,
 } from '@pages';
+import UsersProvider from './contexts/UserContext';
 
 function App() {
   return (
-    <Routes>
-      <Route path='/' element={<Layout />}>
-        <Route index element={<HomePage />} />
-        <Route path='/about' element={<AboutPage />} />
-        <Route path='/create-post' element={<PostPage />} />
-        <Route path='/profile' element={<UserProfilePage />} />
-        <Route path='/profile/edit' element={<EditProfilePage />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/sign-up' element={<SignUp />} />
-      </Route>
-      <Route path='*' element={<NotFoundPage />} />
-    </Routes>
+    <UsersProvider>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path='/about' element={<AboutPage />} />
+          <Route path='/create-post' element={<PostPage />} />
+          <Route path='/:userId' element={<UserProfilePage />} />
+          <Route path='/:userId/edit' element={<EditProfilePage />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/sign-up' element={<SignUp />} />
+        </Route>
+        <Route path='*' element={<NotFoundPage />} />
+      </Routes>
+    </UsersProvider>
   );
 }
 
