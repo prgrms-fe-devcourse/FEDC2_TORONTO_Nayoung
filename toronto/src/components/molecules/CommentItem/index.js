@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Card from '@/components/atoms/Card';
 import Icon from '@/components/atoms/Icon';
 import Divider from '@/components/atoms/Divider';
+import { useUsersState } from '../../../contexts/UserContext';
 
 const Wrapper = styled.div`
   position: relative;
@@ -23,12 +24,14 @@ const CommentItem = ({
   id,
   width,
   author,
+  authorId,
   content,
-  isAuthor,
   onDelete,
   ...props
 }) => {
   const [mouseOver, setMouseOver] = useState(false);
+  const user = useUsersState();
+  const isAuthor = authorId === user.user.data?._id;
 
   const handleMouseOver = () => {
     setMouseOver(true);

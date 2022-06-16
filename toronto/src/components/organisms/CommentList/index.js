@@ -34,8 +34,8 @@ const CommentList = ({ name, width, comments, limit, onDelete }) => {
             id={item._id}
             width='100%'
             author={item.author.fullName}
+            authorId={item.author._id}
             content={JSON.parse(item.comment).content}
-            isAuthor={true}
             onDelete={handleDelete}
             style={{ marginTop: '10px' }}
           />
