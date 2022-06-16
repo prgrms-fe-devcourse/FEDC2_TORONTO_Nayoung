@@ -4,7 +4,9 @@ import Header from '@/components/atoms/Header';
 import Image from '@/components/atoms/Image';
 import Text from '@/components/atoms/Text';
 import Icon from '@/components/atoms/Icon';
+import Loader from '@/components/atoms/Loader';
 import styled from 'styled-components';
+import axios from 'axios';
 import { useState } from 'react';
 
 const StyledLi = styled.li`
@@ -40,15 +42,43 @@ const StyledButton = styled.button`
 `;
 
 const PostItem = ({ post }) => {
-  const userId = '62a6c351f1f0277287103588'; // 더미 데이터, 추후 Context API로 교체 예정;
+  const userId = `${process.env.REACT_APP_USER_ID}`; // 더미 데이터, 추후 Context API로 교체 예정;
   const { _id: postId, image, likes } = post;
   const { postTitle, postContent } = JSON.parse(post.title);
   const like = likes
     ? likes.filter(({ user }) => user === userId)[0]
     : undefined;
   const [isLike, setIsLike] = useState(Boolean(like));
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClick = async () => {
+    if (!userId) return;
+    setIsLoading(true);
+
+    if (!isLike) {
+      await axios.post(
+        `${process.env.REACT_APP_END_POINT}/likes/create`,
+        {
+          postId: postId,
+        },
+        {
+          headers: {
+            Authorization: `bearer ${process.env.REACT_APP_USER_TOKEN}`,
+          },
+        },
+      );
+    } else {
+      await axios.delete(`${process.env.REACT_APP_END_POINT}/likes/delete`, {
+        headers: {
+          Authorization: `bearer ${process.env.REACT_APP_USER_TOKEN}`,
+        },
+        data: {
+          id: like._id,
+        },
+      });
+    }
+
+    setIsLoading(false);
     setIsLike((like) => !like);
   };
 
@@ -72,17 +102,21 @@ const PostItem = ({ post }) => {
             >
               {postTitle}
             </Header>
-            <StyledButton onClick={handleClick}>
-              {isLike ? (
-                <Icon
-                  iconName={'thumbs-up'}
-                  strokeWidth={1.5}
-                  fill={'#2366F6'}
-                />
-              ) : (
-                <Icon iconName={'thumbs-up'} strokeWidth={1.5} />
-              )}
-            </StyledButton>
+            {!isLoading ? (
+              <StyledButton onClick={handleClick}>
+                {isLike ? (
+                  <Icon
+                    iconName={'thumbs-up'}
+                    strokeWidth={1.5}
+                    fill={'#2366F6'}
+                  />
+                ) : (
+                  <Icon iconName={'thumbs-up'} strokeWidth={1.5} />
+                )}
+              </StyledButton>
+            ) : (
+              <Loader size={24} loading={isLoading} />
+            )}
           </TitleContainer>
           <StyledLink to={`/posts/${postId}`} style={{ color: 'black' }}>
             <ContentContainer>
