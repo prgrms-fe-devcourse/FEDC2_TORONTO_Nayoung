@@ -6,6 +6,7 @@ import {
   NotFoundPage,
   Login,
   SignUp,
+  PostPage,
   UserProfilePage,
   EditProfilePage,
 } from '@pages';
@@ -18,6 +19,7 @@ function App() {
         <Route path='/' element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path='/about' element={<AboutPage />} />
+          <Route path='/create-post' element={<PostPage />} />
           <Route path='/:userId' element={<UserProfilePage />} />
           <Route path='/:userId/edit' element={<EditProfilePage />} />
           <Route path='/login' element={<Login />} />

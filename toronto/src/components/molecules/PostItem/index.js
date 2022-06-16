@@ -50,38 +50,6 @@ const PostItem = ({ post }) => {
   const [isLike, setIsLike] = useState(Boolean(like));
 
   const handleClick = async () => {
-    if (!isLike) {
-      await fetch(
-        `http://kdt.frontend.2nd.programmers.co.kr:5002/likes/create`,
-        {
-          method: 'POST',
-          headers: {
-            Authorization:
-              'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyYTZjMzUxZjFmMDI3NzI4NzEwMzU4OCIsImVtYWlsIjoiamFldW5nZUBnbWFpbC5jb20ifSwiaWF0IjoxNjU1MTI3MjEzfQ.KP1UBVFG6HXcrWmGRhmmEsdrkzmGCY6kaIxfpUsYJA4',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            postId: postId,
-          }),
-        },
-      );
-    } else {
-      await fetch(
-        `http://kdt.frontend.2nd.programmers.co.kr:5002/likes/delete`,
-        {
-          method: 'DELETE',
-          headers: {
-            Authorization:
-              'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyYTZjMzUxZjFmMDI3NzI4NzEwMzU4OCIsImVtYWlsIjoiamFldW5nZUBnbWFpbC5jb20ifSwiaWF0IjoxNjU1MTI3MjEzfQ.KP1UBVFG6HXcrWmGRhmmEsdrkzmGCY6kaIxfpUsYJA4',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            id: like._id,
-          }),
-        },
-      );
-    }
-
     setIsLike((like) => !like);
   };
 
