@@ -1,12 +1,12 @@
 import { Outlet } from 'react-router-dom';
-import StyledLink from '@components/atoms/StyledLink';
+import { StyledLink, Loader } from '@components/atoms/';
 import { useUsersState } from '../contexts/UserContext.js';
 
 const Layout = () => {
   const state = useUsersState();
   const { data: user, loading, error } = state.user;
 
-  if (loading) return <div>로딩중..</div>;
+  if (loading) return <Loader type='spinner' />;
   if (error) return <div>에러가 발생했습니다</div>;
   if (!user) {
     return (

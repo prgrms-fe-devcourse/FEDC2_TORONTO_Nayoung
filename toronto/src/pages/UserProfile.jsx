@@ -1,5 +1,12 @@
 import styled from 'styled-components';
-import { Button, Header, Text, Avatar, StyledLink } from '@/components/atoms';
+import {
+  Button,
+  Header,
+  Text,
+  Avatar,
+  StyledLink,
+  Loader,
+} from '@/components/atoms';
 import Tab from '@/components/molecules/Tab';
 
 import {
@@ -11,7 +18,7 @@ const UserProfile = () => {
   const state = useUsersState();
   const { data: user, loading, error } = state.user;
 
-  if (loading) return <div>로딩중..</div>;
+  if (loading) return <Loader type='spinner' />;
   if (error) return <div>에러가 발생했습니다</div>;
   if (!user) {
     return (
@@ -29,6 +36,7 @@ const UserProfile = () => {
             </div>
             <ProfileWrapper>
               <Text size={18}>{user.email}</Text>
+              <Text size={18}>{user.username}</Text>
               <StyledLink to={'edit'}>
                 <Button>프로필 편집</Button>
               </StyledLink>
