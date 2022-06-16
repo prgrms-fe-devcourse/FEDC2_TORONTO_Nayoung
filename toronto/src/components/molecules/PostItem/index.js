@@ -90,7 +90,6 @@ const PostItem = ({ post }) => {
                 src={image || 'https://via.placeholder.com/200'}
                 width={'100%'}
                 height={200}
-                placeholder={'https://via.placeholder.com/200'}
                 mode={'cover'}
               />
               <Text size='normal' style={{ paddingTop: 20 }}>
