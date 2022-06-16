@@ -427,8 +427,13 @@ const Home = () => {
         <Button onClick={() => navigation(`/create-post`)}>논쟁 올리기</Button>
       </Wrapper>
       <PostList posts={posts} />
-      {offset < DUMMY_DATA.length && (
-        <button onClick={loadPost}>Load Post!</button>
+      {offset < posts[posts.length - 1]?.channel.posts.length && (
+        <Button
+          onClick={loadPost}
+          style={{ display: 'flex', justifyContent: 'center' }}
+        >
+          더 보기
+        </Button>
       )}
     </Container>
   );

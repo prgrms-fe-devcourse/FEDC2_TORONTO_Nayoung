@@ -9,7 +9,6 @@ import { useState } from 'react';
 
 const StyledLi = styled.li`
   list-style: none;
-  max-width: 400px;
 `;
 
 const PostContainer = styled.div`
@@ -92,6 +91,7 @@ const PostItem = ({ post }) => {
                 width={'100%'}
                 height={200}
                 placeholder={'https://via.placeholder.com/200'}
+                mode={'cover'}
               />
               <Text size='normal' style={{ paddingTop: 20 }}>
                 {postContent}
