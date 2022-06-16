@@ -1,12 +1,12 @@
+import { useCallback, useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import Header from '@/components/atoms/Header';
 import DoughnutChart from '@/components/atoms/DoughnutChart';
 import Vote from '@/components/molecules/Vote';
 import InputBar from '@/components/molecules/InputBar';
 import CommentList from '@/components/organisms/CommentList';
-import axios from 'axios';
-import { useCallback, useState } from 'react';
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { getToken } from '../lib/Login';
 
 const ResultPage = () => {
   const [data, setData] = useState({
@@ -17,6 +17,7 @@ const ResultPage = () => {
   });
   const [opinion, setOpinion] = useState('');
   const { postId } = useParams();
+  const token = getToken();
 
   const getPostData = useCallback(() => {
     axios(`${process.env.REACT_APP_END_POINT}/posts/${postId}`).then((res) => {
@@ -34,14 +35,11 @@ const ResultPage = () => {
     });
   }, [postId]);
 
-  // TODO: 현재 사용자가 작성한 댓글인지 확인하는 변수
-
-  // TODO: 댓글 삭제하는 함수
   const deleteComment = (id) => {
     axios(`${process.env.REACT_APP_END_POINT}/comments/delete`, {
-      method: 'post',
+      method: 'delete',
       headers: {
-        Authorization: `bearer ${process.env.REACT_APP_USER_TOKEN}`,
+        Authorization: `bearer ${token}`,
       },
       data: {
         id,
@@ -53,15 +51,19 @@ const ResultPage = () => {
     getPostData();
   }, [getPostData]);
 
-  const agreeComments = data.comments.filter((item) => {
-    const type = JSON.parse(item.comment).type;
-    return type === 'agree';
-  });
+  const agreeComments = data.comments
+    .filter((item) => {
+      const type = JSON.parse(item.comment).type;
+      return type === 'agree';
+    })
+    .reverse();
 
-  const disagreeComments = data.comments.filter((item) => {
-    const type = JSON.parse(item.comment).type;
-    return type === 'disagree';
-  });
+  const disagreeComments = data.comments
+    .filter((item) => {
+      const type = JSON.parse(item.comment).type;
+      return type === 'disagree';
+    })
+    .reverse();
 
   const handleChange = (opinionState) => {
     setOpinion(opinionState);
