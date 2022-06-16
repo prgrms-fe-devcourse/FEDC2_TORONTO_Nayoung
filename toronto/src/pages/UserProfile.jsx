@@ -1,39 +1,61 @@
 import styled from 'styled-components';
-import { Button, Header, Text, Avatar, StyledLink } from '@/components/atoms';
+import {
+  Button,
+  Header,
+  Text,
+  Avatar,
+  StyledLink,
+  Loader,
+} from '@/components/atoms';
 import Tab from '@/components/molecules/Tab';
 
+import {
+  // getUser,
+  useUsersState,
+} from '../contexts/UserContext.js';
+
 const UserProfile = () => {
-  return (
-    <ContentWrapper>
-      <Wrapper>
-        <ProfileSection>
-          <div>
-            <Avatar
-              src='https://picsum.photos/100'
-              size={100}
-              shape={'circle'}
-            />
-          </div>
-          <ProfileWrapper>
-            <Text size={18}>jkb2221@gmail.com</Text>
-            <StyledLink to='/profile/edit'>
-              <Button>프로필 편집</Button>
-            </StyledLink>
-          </ProfileWrapper>
-        </ProfileSection>
-        <Tab>
-          <Tab.Item title='내 게시물' index='item1'>
-            <Header>내 게시물</Header>
-            <Text>PostList</Text>
-          </Tab.Item>
-          <Tab.Item title='좋아요 게시물' index='item2'>
-            <Header>좋아요 게시물</Header>
-            <Text>PostList</Text>
-          </Tab.Item>
-        </Tab>
-      </Wrapper>
-    </ContentWrapper>
-  );
+  const state = useUsersState();
+  const { data: user, loading, error } = state.user;
+
+  if (loading) return <Loader type='spinner' />;
+  if (error) return <div>에러가 발생했습니다</div>;
+  if (!user) {
+    return (
+      <div>
+        <Header>유저 객체가 없습니다!</Header>
+      </div>
+    );
+  } else {
+    return (
+      <ContentWrapper>
+        <Wrapper>
+          <ProfileSection>
+            <div>
+              <Avatar src={user.image} size={100} shape={'circle'} />
+            </div>
+            <ProfileWrapper>
+              <Text size={18}>{user.email}</Text>
+              <Text size={18}>{user.username}</Text>
+              <StyledLink to={'edit'}>
+                <Button>프로필 편집</Button>
+              </StyledLink>
+            </ProfileWrapper>
+          </ProfileSection>
+          <Tab>
+            <Tab.Item title='내 게시물' index='item1'>
+              <Header>내 게시물</Header>
+              <Text>{user.posts}</Text>
+            </Tab.Item>
+            <Tab.Item title='좋아요 게시물' index='item2'>
+              <Header>좋아요 게시물</Header>
+              <Text>{user.likes}</Text>
+            </Tab.Item>
+          </Tab>
+        </Wrapper>
+      </ContentWrapper>
+    );
+  }
 };
 
 export default UserProfile;
