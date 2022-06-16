@@ -7,7 +7,7 @@ export const postLoginApi = async ({ email, password }) => {
     email,
     password,
   });
-  onSaveToken(res.data.token); //save token in cookie
+  onSaveToken(res.data.token);
   return res;
 };
 
@@ -49,7 +49,6 @@ export const getUserApi = async (userId) => {
 // 프로필 이미지 변경 및 커버 이미지 변경
 export const postUploadPhotoApi = async (bodyFormData) => {
   const token = getToken();
-  console.log(token);
   const res = await axios({
     method: 'post',
     url: `${process.env.REACT_APP_END_POINT}/users/upload-photo`,
