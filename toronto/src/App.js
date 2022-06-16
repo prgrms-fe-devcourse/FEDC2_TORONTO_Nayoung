@@ -9,6 +9,7 @@ import {
   PostPage,
   UserProfilePage,
   EditProfilePage,
+  ResultPage,
 } from '@pages';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path='/profile/edit' element={<EditProfilePage />} />
         <Route path='/login' element={<Login />} />
         <Route path='/sign-up' element={<SignUp />} />
+        <Route path='/controversy/result/:postId' element={<ResultPage />} />
       </Route>
       <Route path='*' element={<NotFoundPage />} />
     </Routes>
