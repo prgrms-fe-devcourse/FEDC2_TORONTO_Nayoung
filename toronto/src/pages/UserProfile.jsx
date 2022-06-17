@@ -26,7 +26,6 @@ const UserProfile = () => {
 
       // 특정 사용자의 User 객체
       const userDummy = await getUserDummyApi();
-      console.log(userDummy);
       const userLikesPostsId = userDummy.data.likes.map((like) => like.post);
 
       // 특정 채널의 전체 Post 배열
@@ -41,9 +40,6 @@ const UserProfile = () => {
     };
     fetchData();
   }, []);
-  // console.log('postsDummy: ', postsDummy);
-  // console.log('userDummy: ', userDummy);
-  // console.log('channelPosts', channelPosts);
 
   //전체 posts 중에서 id값이 userLikesPostsId인 값이 속하는지 판단해서 return post
   if (loading) return <Loader type='spinner' />;
