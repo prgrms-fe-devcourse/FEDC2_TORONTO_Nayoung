@@ -1,13 +1,12 @@
 import styled from 'styled-components';
-import Text from '@/components/atoms/Text';
-import Button from '@/components/atoms/Button';
+import { Text, Button, Loader } from '@/components/atoms/';
 import FormField from '@/components/molecules/FormField';
 import useForm from '@/hooks/useForm';
 import {
   postLogin,
   useUsersDispatch,
   useUsersState,
-} from '../../../contexts/UserContext.js';
+} from '@/contexts/UserContext.js';
 import { useNavigate } from 'react-router-dom';
 
 const CardForm = styled.form`
@@ -51,7 +50,7 @@ const LoginForm = () => {
     },
   });
 
-  if (loading) return <div>로딩중..</div>;
+  if (loading) return <Loader type='spinner' />;
   if (error) return <div>에러가 발생했습니다</div>;
   if (!user) {
     return (
@@ -82,7 +81,7 @@ const LoginForm = () => {
     );
   }
   if (user) {
-    return <Text>로그인 Navigation을 Logout으로 변경</Text>;
+    return <Text>유저 객체가 있습니다 처리가 필요합니다!</Text>;
   }
 };
 
