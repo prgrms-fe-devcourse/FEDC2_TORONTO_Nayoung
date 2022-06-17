@@ -10,7 +10,7 @@ const limit = 2;
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
-  const offset = useRef(0);
+  const offset = useRef(limit);
   const navigation = useNavigate();
 
   const initialPosts = useCallback(async () => {
@@ -18,14 +18,13 @@ const Home = () => {
       `${process.env.REACT_APP_END_POINT}/posts/channel/${process.env.REACT_APP_CHANNEL_ID}`,
       {
         params: {
-          offset: offset.current,
+          offset: 0,
           limit: limit,
         },
       },
     );
 
     setPosts([...res.data]);
-    offset.current += limit;
   }, []);
 
   const loadPosts = useCallback(async () => {
@@ -45,7 +44,7 @@ const Home = () => {
 
   useEffect(() => {
     initialPosts();
-  }, []);
+  }, [initialPosts]);
 
   return (
     <Container>
