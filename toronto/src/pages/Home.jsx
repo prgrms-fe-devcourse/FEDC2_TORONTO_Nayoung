@@ -45,14 +45,14 @@ const Home = () => {
     offset.current += limit;
   }, []);
 
-  const handleNavigate = () => {
+  const handleNavigate = useCallback(() => {
     if (!user) {
       navigation(`/login`);
       return;
     }
 
     navigation(`/create-post`);
-  };
+  }, [navigation, user]);
 
   useEffect(() => {
     initialPosts();
@@ -64,7 +64,7 @@ const Home = () => {
         <InputBar
           placeholder={'게시물 검색'}
           buttonType={'inside'}
-          onSubmit={(value) => navigation(`/search/${value}`)}
+          onSubmit={(value) => navigation(`/search/post/${value}`)}
         />
         <Button onClick={handleNavigate}>논쟁 올리기</Button>
       </Wrapper>
