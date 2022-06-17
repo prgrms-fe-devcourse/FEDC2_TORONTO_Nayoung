@@ -9,8 +9,7 @@ import {
   createAsyncHandler,
   initialAsyncState,
 } from '@/utils/asyncActionUtils';
-import { getAuthUser, putUpdateUserApi } from '../api/Api';
-//TODO: 새로고침해도 쿠키가 있을경우 로그인 상태로 유지, get auth  => cookie 동작
+import { getAuthUser, putUpdateUserApi } from '@/api/Api';
 //TODO: 로그아웃 시 쿠키 삭제
 
 const initialState = {
@@ -134,6 +133,7 @@ export async function getAuth(dispatch) {
   try {
     const response = await getAuthUser();
     dispatch({ type: 'GET_AUTH_USER_SUCCESS', data: response.data });
+    return response;
   } catch (e) {
     dispatch({ type: 'GET_AUTH_USER_ERROR', error: e });
   }
