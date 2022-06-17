@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import InputBar from '@/components/molecules/InputBar';
 import Button from '@/components/atoms/Button';
 import axios from 'axios';
+import { useUsersState } from '../contexts/UserContext';
 
 const limit = 2;
 
@@ -12,6 +13,8 @@ const Home = () => {
   const [posts, setPosts] = useState([]);
   const offset = useRef(limit);
   const navigation = useNavigate();
+  const state = useUsersState();
+  const { data: user } = state.user;
 
   const initialPosts = useCallback(async () => {
     const res = await axios.get(
@@ -42,6 +45,15 @@ const Home = () => {
     offset.current += limit;
   }, []);
 
+  const handleNavigate = () => {
+    if (!user) {
+      navigation(`/login`);
+      return;
+    }
+
+    navigation(`/create-post`);
+  };
+
   useEffect(() => {
     initialPosts();
   }, [initialPosts]);
@@ -54,7 +66,7 @@ const Home = () => {
           buttonType={'inside'}
           onSubmit={(value) => navigation(`/search/${value}`)}
         />
-        <Button onClick={() => navigation(`/create-post`)}>논쟁 올리기</Button>
+        <Button onClick={handleNavigate}>논쟁 올리기</Button>
       </Wrapper>
       <PostList posts={posts} />
       {offset.current < posts[0]?.channel.posts.length && (
