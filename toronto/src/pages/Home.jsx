@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useUsersState } from '../contexts/UserContext';
 import Skeleton from '@/components/atoms/Skeleton';
 
-const limit = 10;
+const limit = 2;
 
 const renderSkeleton = () => {
   const skeletons = [];
@@ -30,6 +30,7 @@ const Home = () => {
 
   const initialPosts = useCallback(async () => {
     setIsLoading(true);
+    offset.current = limit;
 
     const res = await axios.get(
       `${process.env.REACT_APP_END_POINT}/posts/channel/${process.env.REACT_APP_CHANNEL_ID}`,
@@ -76,13 +77,39 @@ const Home = () => {
     initialPosts();
   }, [initialPosts]);
 
+  const handleSubmit = useCallback(
+    async (value) => {
+      if (/[a-zA-Z]/g.test(value)) {
+        alert('영문 검색은 불가능 합니다.');
+        return;
+      }
+
+      if (!value) {
+        initialPosts();
+        return;
+      }
+
+      setIsLoading(true);
+
+      const res = await axios.get(
+        `${process.env.REACT_APP_END_POINT}/search/all/${value}`,
+      );
+
+      const filterPosts = res.data.filter((data) => !data.role);
+
+      setPosts([...filterPosts]);
+      setIsLoading(false);
+    },
+    [initialPosts],
+  );
+
   return (
     <Container>
       <Wrapper>
         <InputBar
           placeholder={'게시물 검색'}
           buttonType={'inside'}
-          onSubmit={(value) => navigation(`/search/post/${value}`)}
+          onSubmit={(value) => handleSubmit(value)}
         />
         <Button onClick={handleNavigate}>논쟁 올리기</Button>
       </Wrapper>
@@ -90,10 +117,14 @@ const Home = () => {
         <PostList posts={posts} />
         {isLoading ? renderSkeleton() : undefined}
       </GridContainer>
-      {offset.current < posts[0]?.channel.posts.length && (
+      {offset.current < posts[0]?.channel.posts?.length && (
         <Button
           onClick={loadPosts}
-          style={{ display: 'flex', justifyContent: 'center', marginTop: 20 }}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: 20,
+          }}
         >
           더 보기
         </Button>
