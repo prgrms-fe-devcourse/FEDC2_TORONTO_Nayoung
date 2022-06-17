@@ -30,6 +30,11 @@ export const postLogout = async () => {
   return res;
 };
 
+export const getPostApi = async (postId) => {
+  const res = await Send.get(`/posts/${postId}`);
+  return res;
+};
+
 export const getUsersApi = async ({ offset, limit }) => {
   const res = await Send.get('/users/get-users', { offset, limit });
   return res;

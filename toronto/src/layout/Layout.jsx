@@ -30,7 +30,10 @@ const Layout = () => {
         <nav>
           <StyledLink to='/'>Home</StyledLink> |
           <StyledLink to={user._id}>Profile</StyledLink> |
-          <StyledLink to='logout'>Logout</StyledLink> |
+          <StyledLink to='post/62a9a9a96e38b64af1f0882a'>
+            Controversy
+          </StyledLink>{' '}
+          |<StyledLink to='logout'>Logout</StyledLink> |
         </nav>
         <div className='content'>
           <Outlet />

@@ -9,6 +9,7 @@ import {
   PostPage,
   UserProfilePage,
   EditProfilePage,
+  Controversy,
 } from '@pages';
 import UsersProvider from './contexts/UserContext';
 
@@ -24,6 +25,7 @@ function App() {
           <Route path='/:userId/edit' element={<EditProfilePage />} />
           <Route path='/login' element={<Login />} />
           <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/post/:postId' element={<Controversy />} />
         </Route>
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
