@@ -25,7 +25,7 @@ export const getAuthUser = async () => {
   return res;
 };
 
-export const postLogout = async () => {
+export const postLogoutApi = async () => {
   const res = await Send.post('/logout');
   return res;
 };

@@ -4,13 +4,14 @@ import {
   getUserApi,
   postLoginApi,
   postUploadPhotoApi,
+  getAuthUser,
+  putUpdateUserApi,
+  postLogoutApi,
 } from '@/api/Api';
 import {
   createAsyncHandler,
   initialAsyncState,
 } from '@/utils/asyncActionUtils';
-import { getAuthUser, putUpdateUserApi } from '@/api/Api';
-//TODO: 로그아웃 시 쿠키 삭제
 
 const initialState = {
   users: initialAsyncState,
@@ -20,6 +21,7 @@ const initialState = {
 const usersHandler = createAsyncHandler('GET_USERS', 'users');
 const userHandler = createAsyncHandler('GET_USER', 'user');
 const loginHandler = createAsyncHandler('POST_LOGIN', 'user');
+const logoutHandler = createAsyncHandler('POST_LOGOUT', 'user');
 const authHandler = createAsyncHandler('GET_AUTH_USER', 'user');
 const updateHandler = createAsyncHandler('PUT_UPDATE_USER', 'user');
 const uploadProfileImageHandler = createAsyncHandler(
@@ -41,6 +43,10 @@ const usersReducer = (state, action) => {
     case 'POST_LOGIN_SUCCESS':
     case 'POST_LOGIN_ERROR':
       return loginHandler(state, action);
+    case 'POST_LOGOUT':
+    case 'POST_LOGOUT_SUCCESS':
+    case 'POST_LOGOUT_ERROR':
+      return logoutHandler(state, action);
     case 'GET_AUTH_USER':
     case 'GET_AUTH_USER_SUCCESS':
     case 'GET_AUTH_USER_ERROR':
@@ -124,6 +130,18 @@ export async function postLogin(dispatch, formEmail, formPassword) {
     return response;
   } catch (e) {
     dispatch({ type: 'POST_LOGIN_ERROR', error: e });
+  }
+}
+
+//postLogoutAPI 연동
+export async function postLogout(dispatch) {
+  dispatch({ type: 'POST_LOGOUT' });
+  try {
+    const response = await postLogoutApi();
+    dispatch({ type: 'POST_LOGOUT_SUCCESS', data: null });
+    return response;
+  } catch (e) {
+    dispatch({ type: 'POST_LOGOUT_ERROR', error: e });
   }
 }
 
