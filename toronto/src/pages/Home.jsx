@@ -93,7 +93,7 @@ const Home = () => {
       {offset.current < posts[0]?.channel.posts.length && (
         <Button
           onClick={loadPosts}
-          style={{ display: 'flex', justifyContent: 'center' }}
+          style={{ display: 'flex', justifyContent: 'center', marginTop: 20 }}
         >
           더 보기
         </Button>
@@ -122,5 +122,7 @@ const GridContainer = styled.ul`
   padding: 0;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows: 300px;
+  grid-auto-columns: 300px;
   grid-gap: 30px;
 `;
