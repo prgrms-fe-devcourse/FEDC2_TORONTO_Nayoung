@@ -6,7 +6,6 @@ import Text from '@/components/atoms/Text';
 import Icon from '@/components/atoms/Icon';
 import Loader from '@/components/atoms/Loader';
 import styled from 'styled-components';
-import axios from 'axios';
 import { useState } from 'react';
 
 const StyledLi = styled.li`
@@ -56,30 +55,32 @@ const PostItem = ({ post }) => {
     setIsLoading(true);
 
     if (!isLike) {
-      await axios.post(
-        `${process.env.REACT_APP_END_POINT}/likes/create`,
-        {
-          postId: postId,
-        },
-        {
-          headers: {
-            Authorization: `bearer ${process.env.REACT_APP_USER_TOKEN}`,
-          },
-        },
-      );
+      // await axios.post(
+      //   `${process.env.REACT_APP_END_POINT}/likes/create`,
+      //   {
+      //     postId: postId,
+      //   },
+      //   {
+      //     headers: {
+      //       Authorization: `bearer ${process.env.REACT_APP_USER_TOKEN}`,
+      //     },
+      //   },
+      // );
+      console.log('Like Success!!');
     } else {
-      await axios.delete(`${process.env.REACT_APP_END_POINT}/likes/delete`, {
-        headers: {
-          Authorization: `bearer ${process.env.REACT_APP_USER_TOKEN}`,
-        },
-        data: {
-          id: like._id,
-        },
-      });
+      // await axios.delete(`${process.env.REACT_APP_END_POINT}/likes/delete`, {
+      //   headers: {
+      //     Authorization: `bearer ${process.env.REACT_APP_USER_TOKEN}`,
+      //   },
+      //   data: {
+      //     id: like._id,
+      //   },
+      // });
+      console.log('disLike Success!!');
     }
 
-    setIsLoading(false);
     setIsLike((like) => !like);
+    setIsLoading(false);
   };
 
   return (
