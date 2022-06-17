@@ -17,6 +17,7 @@ export const postSignUpApi = async ({ email, fullName, password }) => {
     fullName,
     password,
   });
+  onSaveToken(res.data.token);
   return res;
 };
 
