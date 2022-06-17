@@ -6,17 +6,31 @@ import InputBar from '@/components/molecules/InputBar';
 import Button from '@/components/atoms/Button';
 import axios from 'axios';
 import { useUsersState } from '../contexts/UserContext';
+import Skeleton from '@/components/atoms/Skeleton';
 
-const limit = 2;
+const limit = 10;
+
+const renderSkeleton = () => {
+  const skeletons = [];
+
+  for (let i = 0; i < limit; i++) {
+    skeletons.push(<Skeleton.Box key={i} width={'100%'} height={'100%'} />);
+  }
+
+  return skeletons;
+};
 
 const Home = () => {
-  const [posts, setPosts] = useState([]);
-  const offset = useRef(limit);
-  const navigation = useNavigate();
   const state = useUsersState();
   const { data: user } = state.user;
+  const [posts, setPosts] = useState([]);
+  const offset = useRef(limit);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigation = useNavigate();
 
   const initialPosts = useCallback(async () => {
+    setIsLoading(true);
+
     const res = await axios.get(
       `${process.env.REACT_APP_END_POINT}/posts/channel/${process.env.REACT_APP_CHANNEL_ID}`,
       {
@@ -28,9 +42,12 @@ const Home = () => {
     );
 
     setPosts([...res.data]);
+    setIsLoading(false);
   }, []);
 
   const loadPosts = useCallback(async () => {
+    setIsLoading(true);
+
     const res = await axios.get(
       `${process.env.REACT_APP_END_POINT}/posts/channel/${process.env.REACT_APP_CHANNEL_ID}`,
       {
@@ -42,6 +59,7 @@ const Home = () => {
     );
 
     setPosts((prev) => [...prev, ...res.data]);
+    setIsLoading(false);
     offset.current += limit;
   }, []);
 
@@ -68,7 +86,10 @@ const Home = () => {
         />
         <Button onClick={handleNavigate}>논쟁 올리기</Button>
       </Wrapper>
-      <PostList posts={posts} />
+      <GridContainer>
+        <PostList posts={posts} />
+        {isLoading ? renderSkeleton() : undefined}
+      </GridContainer>
       {offset.current < posts[0]?.channel.posts.length && (
         <Button
           onClick={loadPosts}
@@ -94,4 +115,12 @@ const Container = styled.div`
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
+`;
+
+const GridContainer = styled.ul`
+  display: grid;
+  padding: 0;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 30px;
 `;
