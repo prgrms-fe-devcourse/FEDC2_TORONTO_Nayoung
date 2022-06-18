@@ -1,9 +1,13 @@
 import styled from 'styled-components';
-import Text from '@/components/atoms/Text';
-import Button from '@/components/atoms/Button';
+import { Text, Button, Loader } from '@/components/atoms/';
 import FormField from '@/components/molecules/FormField';
 import useForm from '@/hooks/useForm';
-import { requestApi } from '@/api';
+import {
+  useUsersDispatch,
+  useUsersState,
+  postSignUp,
+} from '@/contexts/UserContext.js';
+import { useNavigate } from 'react-router-dom';
 
 const CardForm = styled.form`
   padding: 7% 14%;
@@ -16,6 +20,11 @@ const CardForm = styled.form`
 `;
 
 const SignUpForm = () => {
+  const state = useUsersState();
+  const dispatch = useUsersDispatch();
+  const { data: user, loading, error } = state.user;
+  const navigate = useNavigate();
+
   const { errors, isLoading, handleChange, handleSubmit } = useForm({
     initialValues: {
       name: '',
@@ -24,16 +33,17 @@ const SignUpForm = () => {
       passwordConfirm: '',
     },
     onSubmit: async (values) => {
-      const res = await requestApi('/signup', {
-        method: 'POST',
-        data: {
-          email: values.email,
-          fullName: values.name,
-          password: values.password,
-        },
-      });
-      if (res) alert('회원가입 되었습니다.');
-      else alert('회원가입 되지 않았습니다.');
+      const res = await postSignUp(
+        dispatch,
+        values.email,
+        values.name,
+        values.password,
+      );
+      if (res) {
+        navigate('/');
+      } else {
+        navigate('/sign-up');
+      }
     },
     validate: ({ name, email, password, passwordConfirm }) => {
       const newErrors = {};
@@ -51,49 +61,52 @@ const SignUpForm = () => {
       return newErrors;
     },
   });
-
-  return (
-    <CardForm onSubmit={handleSubmit}>
-      <Text strong style={{ marginBottom: '32px' }}>
-        회원가입
-      </Text>
-      <FormField
-        textTitle='성명'
-        inputType='text'
-        inputName='name'
-        inputPlaceholder='성명'
-        inputOnChange={handleChange}
-        textError={errors.name}
-      />
-      <FormField
-        textTitle='이메일'
-        inputType='email'
-        inputName='email'
-        inputPlaceholder='이메일'
-        inputOnChange={handleChange}
-        textError={errors.email}
-      />
-      <FormField
-        textTitle='비밀번호'
-        inputType='password'
-        inputName='password'
-        inputPlaceholder='비밀번호'
-        inputOnChange={handleChange}
-        textError={errors.password}
-      />
-      <FormField
-        textTitle='비밀번호 확인'
-        inputType='password'
-        inputName='passwordConfirm'
-        inputPlaceholder='비밀번호 확인'
-        inputOnChange={handleChange}
-        textError={errors.passwordConfirm}
-      />
-      <Button disabled={isLoading} style={{ marginTop: '32px' }}>
-        회원가입
-      </Button>
-    </CardForm>
-  );
+  if (loading) return <Loader type='spinner' />;
+  if (error) return <div>에러가 발생했습니다</div>;
+  if (!user) {
+    return (
+      <CardForm onSubmit={handleSubmit}>
+        <Text strong style={{ marginBottom: '32px' }}>
+          회원가입
+        </Text>
+        <FormField
+          textTitle='성명'
+          inputType='text'
+          inputName='name'
+          inputPlaceholder='성명'
+          inputOnChange={handleChange}
+          textError={errors.name}
+        />
+        <FormField
+          textTitle='이메일'
+          inputType='email'
+          inputName='email'
+          inputPlaceholder='이메일'
+          inputOnChange={handleChange}
+          textError={errors.email}
+        />
+        <FormField
+          textTitle='비밀번호'
+          inputType='password'
+          inputName='password'
+          inputPlaceholder='비밀번호'
+          inputOnChange={handleChange}
+          textError={errors.password}
+        />
+        <FormField
+          textTitle='비밀번호 확인'
+          inputType='password'
+          inputName='passwordConfirm'
+          inputPlaceholder='비밀번호 확인'
+          inputOnChange={handleChange}
+          textError={errors.passwordConfirm}
+        />
+        <Button disabled={isLoading} style={{ marginTop: '32px' }}>
+          회원가입
+        </Button>
+      </CardForm>
+    );
+  }
 };
 
 export default SignUpForm;
