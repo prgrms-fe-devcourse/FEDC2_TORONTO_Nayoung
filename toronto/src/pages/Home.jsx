@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useUsersState } from '../contexts/UserContext';
 import Skeleton from '@/components/atoms/Skeleton';
 
-const limit = 2;
+const limit = 10;
 
 const renderSkeleton = () => {
   const skeletons = [];
