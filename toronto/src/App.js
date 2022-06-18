@@ -11,6 +11,7 @@ import {
   EditProfilePage,
 } from '@pages';
 import UsersProvider from './contexts/UserContext';
+import UserListPage from './pages/UserListPage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path='/:userId/edit' element={<EditProfilePage />} />
           <Route path='/login' element={<Login />} />
           <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/user/list' element={<UserListPage />} />
         </Route>
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
