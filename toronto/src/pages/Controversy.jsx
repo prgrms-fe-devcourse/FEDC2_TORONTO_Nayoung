@@ -1,11 +1,9 @@
 import styled from 'styled-components';
-import ControversyVote from '@/components/molecules/ControversyVote';
-import Header from '@/components/atoms/Header';
-import Text from '@/components/atoms/Text';
-import { useParams } from 'react-router-dom';
+import { ControversyVote } from '@/components/molecules';
+import { Header, Text } from '@/components/atoms';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { getPostApi, postCommentApi } from '../api/Api';
-import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
   height: 100vh;
