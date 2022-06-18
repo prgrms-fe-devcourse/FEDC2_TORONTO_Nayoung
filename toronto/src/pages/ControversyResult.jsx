@@ -1,14 +1,11 @@
 import { useCallback, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import Header from '@/components/atoms/Header';
-import DoughnutChart from '@/components/atoms/DoughnutChart';
-import Icon from '@/components/atoms/Icon';
-import Vote from '@/components/molecules/Vote';
-import InputBar from '@/components/molecules/InputBar';
-import CommentList from '@/components/organisms/CommentList';
-import { getToken } from '../lib/Login';
-import { useUsersState } from '../contexts/UserContext';
+import { Header, DoughnutChart, Icon } from '@/components/atoms';
+import { Vote, InputBar } from '@/components/molecules';
+import { CommentList } from '@/components/organisms';
+import { getToken } from '@/lib/Login';
+import { useUsersState } from '@/contexts/UserContext';
 
 const ResultPage = () => {
   const [data, setData] = useState({
@@ -23,6 +20,7 @@ const ResultPage = () => {
   const { postId } = useParams();
   const token = getToken();
   const userData = useUsersState();
+  const navigate = useNavigate();
 
   const getPostData = useCallback(() => {
     axios(`${process.env.REACT_APP_END_POINT}/posts/${postId}`).then((res) => {
@@ -33,8 +31,6 @@ const ResultPage = () => {
           id: res.data._id,
           title: titleData.postTitle,
         },
-        agree: titleData.agree.length,
-        disagree: titleData.disagree.length,
         comments: res.data.comments,
         likes: res.data.likes,
       });
@@ -46,10 +42,18 @@ const ResultPage = () => {
             : false,
         likeId: res.data.likes.filter(
           ({ user }) => user === userData.user.data._id,
-        )[0]._id,
+        )[0]?._id,
       });
     });
   }, [postId, userData]);
+
+  const checkValidPost = useCallback(() => {
+    axios(`${process.env.REACT_APP_END_POINT}/posts/${postId}`).then((res) => {
+      if (res.data._id !== postId) {
+        navigate('/no-matched-post', { replace: true });
+      }
+    });
+  }, [navigate, postId]);
 
   const deleteComment = (id) => {
     axios(`${process.env.REACT_APP_END_POINT}/comments/delete`, {
@@ -60,12 +64,13 @@ const ResultPage = () => {
       data: {
         id,
       },
-    }).then((res) => getPostData());
+    }).then(() => getPostData());
   };
 
   useEffect(() => {
+    checkValidPost();
     getPostData();
-  }, [getPostData]);
+  }, [getPostData, checkValidPost]);
 
   const agreeComments = data.comments
     .filter((item) => {
@@ -81,12 +86,23 @@ const ResultPage = () => {
     })
     .reverse();
 
+  const votes = data.comments.filter((item) => {
+    const type = JSON.parse(item.comment).type;
+    return type === 'vote';
+  });
+
+  const agreeVotes = votes.filter((item) => {
+    return JSON.parse(item.comment).content === 'agree';
+  });
+
+  const disagreeVotes = votes.filter((item) => {
+    return JSON.parse(item.comment).content === 'disagree';
+  });
+
   const isLiked =
     data.likes.filter(({ user }) => user === userData.user.data?._id).length > 0
       ? true
       : false;
-
-  console.log(userData);
 
   const handleChange = (opinionState) => {
     setOpinion(opinionState);
@@ -101,7 +117,7 @@ const ResultPage = () => {
       axios(`${process.env.REACT_APP_END_POINT}/comments/create`, {
         method: 'post',
         headers: {
-          Authorization: `bearer ${process.env.REACT_APP_USER_TOKEN}`,
+          Authorization: `bearer ${token}`,
         },
         data: {
           comment: JSON.stringify({
@@ -110,7 +126,7 @@ const ResultPage = () => {
           }),
           postId: postId,
         },
-      }).then((res) => getPostData());
+      }).then(() => getPostData());
     }
   };
 
@@ -127,7 +143,7 @@ const ResultPage = () => {
         data: {
           id: likeData.likeId,
         },
-      }).then((res) => getPostData());
+      }).then(() => getPostData());
     } else {
       // 좋아요 추가
       axios(`${process.env.REACT_APP_END_POINT}/likes/create`, {
@@ -138,7 +154,7 @@ const ResultPage = () => {
         data: {
           postId,
         },
-      }).then((res) => getPostData());
+      }).then(() => getPostData());
     }
   };
 
@@ -147,7 +163,6 @@ const ResultPage = () => {
       <div>
         <Header>{data?.post.title}</Header>
       </div>
-      <div>{JSON.stringify(likeData)}</div>
       <div
         style={{
           position: 'relative',
@@ -159,7 +174,7 @@ const ResultPage = () => {
         }}
       >
         <DoughnutChart
-          data={[data?.agree, data?.disagree]}
+          data={[agreeVotes?.length, disagreeVotes?.length]}
           labels={['찬성', '반대']}
           backgroundColor={[
             'rgba(54, 162, 235, 0.2)',
