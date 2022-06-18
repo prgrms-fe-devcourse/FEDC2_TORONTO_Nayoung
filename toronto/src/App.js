@@ -9,6 +9,7 @@ import {
   PostPage,
   UserProfilePage,
   EditProfilePage,
+  NotificationsPage,
 } from '@pages';
 import UsersProvider from './contexts/UserContext';
 
@@ -20,10 +21,11 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path='/about' element={<AboutPage />} />
           <Route path='/create-post' element={<PostPage />} />
-          <Route path='/:userId' element={<UserProfilePage />} />
-          <Route path='/:userId/edit' element={<EditProfilePage />} />
+          <Route path='/users/:userId' element={<UserProfilePage />} />
+          <Route path='/users/:userId/edit' element={<EditProfilePage />} />
           <Route path='/login' element={<Login />} />
           <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/notifications' element={<NotificationsPage />} />
         </Route>
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
