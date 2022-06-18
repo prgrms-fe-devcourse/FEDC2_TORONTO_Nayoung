@@ -35,6 +35,14 @@ export const getPostApi = async (postId) => {
   return res;
 };
 
+export const postPostApi = async (postId, bodyFormData) => {
+  const res = await axios({
+    method: 'POST',
+    url: `${process.env.REACT_APP_END_POINT}/post/${postId}`,
+    data: bodyFormData,
+    
+  })
+}
 export const getUsersApi = async ({ offset, limit }) => {
   const res = await Send.get('/users/get-users', { offset, limit });
   return res;

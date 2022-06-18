@@ -92,7 +92,7 @@ const ControversyVote = ({
 ControversyVote.propTypes = {
   agreeTitle: PropTypes.string,
   disagreeTitle: PropTypes.string,
-  imgSrc: PropTypes.string.isRequired,
+  imgSrc: PropTypes.string,
 };
 
 export default ControversyVote;
