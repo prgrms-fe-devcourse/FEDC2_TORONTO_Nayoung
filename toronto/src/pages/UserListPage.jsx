@@ -90,7 +90,7 @@ const GridContainer = styled.ul`
   padding: 0;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
-  grid-auto-rows: 300px;
-  grid-auto-columns: 300px;
-  grid-gap: 30px;
+  grid-auto-rows: minmax(300, 1fr);
+  grid-auto-columns: minmax(300, 1fr);
+  gap: 30px;
 `;
