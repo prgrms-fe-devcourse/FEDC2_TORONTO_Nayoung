@@ -4,12 +4,15 @@ import Header from '@/components/atoms/Header';
 import Text from '@/components/atoms/Text';
 import { useParams } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
-import { getPostApi } from '../api/Api';
+import { getPostApi, postCommentApi } from '../api/Api';
 import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
+  height: 100vh;
+  padding: 150px 320px;
   display: flex;
   flex-direction: column;
+  background-color: #f9fafb;
 `;
 
 const Controversy = () => {
@@ -33,20 +36,17 @@ const Controversy = () => {
     getpostData();
   }, [getpostData]);
 
-  const handleChange = (opinionState) => {
-    
-    switch (opinionState) {
-      case 'agree':
-        console.log('>>>', 'agree');
-        break;
-      case 'disagree':
-        console.log('disagree');
-        navigate('/');
-        break;
-      default:
-    }
+  const handleChange = async (opinionState) => {
+    if (!opinionState || !postId) return;
+    await postCommentApi({
+      comment: JSON.stringify({
+        type: 'vote',
+        content: opinionState,
+      }),
+      postId: postId,
+    });
+    navigate(`/controversy/result/${postId}`);
   };
-
   return (
     <div>
       {data && (
@@ -64,5 +64,4 @@ const Controversy = () => {
     </div>
   );
 };
-
 export default Controversy;

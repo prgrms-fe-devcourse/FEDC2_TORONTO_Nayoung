@@ -20,6 +20,18 @@ export const postSignUpApi = async ({ email, fullName, password }) => {
   return res;
 };
 
+export const postCommentApi = async (commentBody) => {
+  const token = getToken();
+  await axios({
+    method: 'POST',
+    url: `${process.env.REACT_APP_END_POINT}/comments/create`,
+    data: commentBody,
+    headers: {
+      Authorization: `bearer ${token}`,
+    },
+  });
+};
+
 export const getAuthUser = async () => {
   const res = await Send.get('/auth-user');
   return res;
@@ -31,18 +43,11 @@ export const postLogout = async () => {
 };
 
 export const getPostApi = async (postId) => {
+  if (!postId) return;
   const res = await Send.get(`/posts/${postId}`);
   return res;
 };
 
-export const postPostApi = async (postId, bodyFormData) => {
-  const res = await axios({
-    method: 'POST',
-    url: `${process.env.REACT_APP_END_POINT}/post/${postId}`,
-    data: bodyFormData,
-    
-  })
-}
 export const getUsersApi = async ({ offset, limit }) => {
   const res = await Send.get('/users/get-users', { offset, limit });
   return res;
