@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import { StyledLink, Loader } from '@components/atoms/';
+import { Loader } from '@components/atoms/';
 import { useUsersState } from '../contexts/UserContext.js';
+import NavigationBar from '@/components/organisms/NavigationBar/index.js';
 
 const Layout = () => {
   const state = useUsersState();
@@ -11,12 +12,8 @@ const Layout = () => {
   if (!user) {
     return (
       <div>
-        <h1>토론토</h1>
         <nav>
-          <StyledLink to='/'>Home</StyledLink> |
-          <StyledLink to='about'>About</StyledLink> |
-          <StyledLink to='login'>Login</StyledLink> |
-          <StyledLink to='sign-up'>Sign Up</StyledLink> |
+          <NavigationBar user={user} />
         </nav>
         <div className='content'>
           <Outlet />
@@ -26,11 +23,8 @@ const Layout = () => {
   } else {
     return (
       <div>
-        <h1>토론토</h1>
         <nav>
-          <StyledLink to='/'>Home</StyledLink> |
-          <StyledLink to={user._id}>Profile</StyledLink> |
-          <StyledLink to='logout'>Logout</StyledLink> |
+          <NavigationBar user={user} />
         </nav>
         <div className='content'>
           <Outlet />
