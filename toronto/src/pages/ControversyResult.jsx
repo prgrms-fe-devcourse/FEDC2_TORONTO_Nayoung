@@ -9,7 +9,9 @@ import { useUsersState } from '@/contexts/UserContext';
 
 const ResultPage = () => {
   const [data, setData] = useState({
-    post: {},
+    post: {
+      title: '',
+    },
     agree: 0,
     disagree: 0,
     comments: [],
@@ -36,12 +38,12 @@ const ResultPage = () => {
       });
       setLikeData({
         isLiked:
-          res.data.likes.filter(({ user }) => user === userData.user.data._id)
+          res.data.likes.filter(({ user }) => user === userData.user.data?._id)
             .length > 0
             ? true
             : false,
         likeId: res.data.likes.filter(
-          ({ user }) => user === userData.user.data._id,
+          ({ user }) => user === userData.user.data?._id,
         )[0]?._id,
       });
     });
@@ -130,7 +132,6 @@ const ResultPage = () => {
     }
   };
 
-  // 함수 만들어 두긴 했는데 언제 서버가 터질 지 모름.
   const handleLikeClick = () => {
     if (likeData.isLiked) {
       if (!likeData.likeId) return;
@@ -143,7 +144,9 @@ const ResultPage = () => {
         data: {
           id: likeData.likeId,
         },
-      }).then(() => getPostData());
+      }).then(() => {
+        getPostData();
+      });
     } else {
       // 좋아요 추가
       axios(`${process.env.REACT_APP_END_POINT}/likes/create`, {
@@ -154,14 +157,16 @@ const ResultPage = () => {
         data: {
           postId,
         },
-      }).then(() => getPostData());
+      }).then(() => {
+        getPostData();
+      });
     }
   };
 
   return (
     <div style={{ backgroundColor: '#efefef' }}>
       <div>
-        <Header>{data?.post.title}</Header>
+        <Header>{data?.post?.title}</Header>
       </div>
       <div
         style={{
