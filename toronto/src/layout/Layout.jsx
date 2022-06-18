@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
-import { StyledLink, Loader, Button } from '@/components/atoms/';
+import { Loader } from '@/components/atoms/';
 import {
   useUsersState,
   useUsersDispatch,
   getAuth,
   postLogout,
 } from '@/contexts/UserContext.js';
+import { NavigationBar } from '@/components/organisms';
 import { getToken } from '@/lib/Login.js';
 
 const Layout = () => {
@@ -42,12 +43,8 @@ const Layout = () => {
   if (!user) {
     return (
       <div>
-        <h1>토론토</h1>
         <nav>
-          <StyledLink to='/'>Home</StyledLink> |
-          <StyledLink to='about'>About</StyledLink> |
-          <StyledLink to='login'>Login</StyledLink> |
-          <StyledLink to='sign-up'>Sign Up</StyledLink> |
+          <NavigationBar user={user} />
         </nav>
         <div className='content'>
           <Outlet />
@@ -57,13 +54,8 @@ const Layout = () => {
   } else if (user && token) {
     return (
       <div>
-        <h1>토론토</h1>
         <nav>
-          <StyledLink to='/'>Home</StyledLink> |
-          <StyledLink to={user._id}>Profile</StyledLink> |
-          <StyledLink to={'/'}>
-            <Button onClick={handleLogout}>Logout</Button>
-          </StyledLink>
+          <NavigationBar user={user} handleLogout={handleLogout} />
         </nav>
         <div className='content'>
           <Outlet />
