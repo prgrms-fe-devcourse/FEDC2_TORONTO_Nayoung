@@ -1,9 +1,13 @@
 import React, { createContext, useReducer, useContext } from 'react';
 import {
+  postSignUpApi,
   getUsersApi,
   getUserApi,
   postLoginApi,
   postUploadPhotoApi,
+  getAuthUser,
+  putUpdateUserApi,
+  postLogoutApi,
 } from '@/api/Api';
 import {
   createAsyncHandler,
@@ -18,9 +22,11 @@ const initialState = {
   user: initialAsyncState,
 };
 
+const signUpHandler = createAsyncHandler('POST_SIGNUP', 'user');
 const usersHandler = createAsyncHandler('GET_USERS', 'users');
 const userHandler = createAsyncHandler('GET_USER', 'user');
 const loginHandler = createAsyncHandler('POST_LOGIN', 'user');
+const logoutHandler = createAsyncHandler('POST_LOGOUT', 'user');
 const authHandler = createAsyncHandler('GET_AUTH_USER', 'user');
 const updateHandler = createAsyncHandler('PUT_UPDATE_USER', 'user');
 const uploadProfileImageHandler = createAsyncHandler(
@@ -30,6 +36,10 @@ const uploadProfileImageHandler = createAsyncHandler(
 
 const usersReducer = (state, action) => {
   switch (action.type) {
+    case 'POST_SIGNUP':
+    case 'POST_SIGNUP_SUCCESS':
+    case 'POST_SIGNUP_ERROR':
+      return signUpHandler(state, action);
     case 'GET_USERS':
     case 'GET_USERS_SUCCESS':
     case 'GET_USERS_ERROR':
@@ -42,6 +52,10 @@ const usersReducer = (state, action) => {
     case 'POST_LOGIN_SUCCESS':
     case 'POST_LOGIN_ERROR':
       return loginHandler(state, action);
+    case 'POST_LOGOUT':
+    case 'POST_LOGOUT_SUCCESS':
+    case 'POST_LOGOUT_ERROR':
+      return logoutHandler(state, action);
     case 'GET_AUTH_USER':
     case 'GET_AUTH_USER_SUCCESS':
     case 'GET_AUTH_USER_ERROR':
@@ -92,6 +106,22 @@ export const useUsersDispatch = () => {
   return dispatch;
 };
 
+// postSignUpAPI 연동
+export async function postSignUp(dispatch, email, fullName, password) {
+  dispatch({ type: 'POST_SIGNUP' });
+  try {
+    const response = await postSignUpApi({
+      email: email,
+      fullName: fullName,
+      password: password,
+    });
+    dispatch({ type: 'POST_SIGNUP_SUCCESS', data: response.data.user });
+    return response;
+  } catch (e) {
+    dispatch({ type: 'POST_SIGNUP_ERROR', error: e });
+  }
+}
+
 // getUsersAPI 연동
 export async function getUsers(dispatch) {
   dispatch({ type: 'GET_USERS' });
@@ -114,17 +144,29 @@ export async function getUser(dispatch, id) {
 }
 
 // postLoginAPI 연동
-export async function postLogin(dispatch, formEmail, formPassword) {
+export async function postLogin(dispatch, email, password) {
   dispatch({ type: 'POST_LOGIN' });
   try {
     const response = await postLoginApi({
-      email: formEmail,
-      password: formPassword,
+      email: email,
+      password: password,
     });
     dispatch({ type: 'POST_LOGIN_SUCCESS', data: response.data.user });
     return response;
   } catch (e) {
     dispatch({ type: 'POST_LOGIN_ERROR', error: e });
+  }
+}
+
+//postLogoutAPI 연동
+export async function postLogout(dispatch) {
+  dispatch({ type: 'POST_LOGOUT' });
+  try {
+    const response = await postLogoutApi();
+    dispatch({ type: 'POST_LOGOUT_SUCCESS', data: null });
+    return response;
+  } catch (e) {
+    dispatch({ type: 'POST_LOGOUT_ERROR', error: e });
   }
 }
 
@@ -134,6 +176,7 @@ export async function getAuth(dispatch) {
   try {
     const response = await getAuthUser();
     dispatch({ type: 'GET_AUTH_USER_SUCCESS', data: response.data });
+    return response;
   } catch (e) {
     dispatch({ type: 'GET_AUTH_USER_ERROR', error: e });
   }
