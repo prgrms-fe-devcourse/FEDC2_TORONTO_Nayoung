@@ -115,7 +115,7 @@ const Home = () => {
       </Wrapper>
       <GridContainer>
         <PostList posts={posts} />
-        {isLoading ? renderSkeleton() : undefined}
+        {isLoading && renderSkeleton()}
       </GridContainer>
       {offset.current < posts[0]?.channel.posts?.length && (
         <Button
@@ -153,7 +153,7 @@ const GridContainer = styled.ul`
   padding: 0;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
-  grid-auto-rows: 300px;
-  grid-auto-columns: 300px;
+  grid-auto-rows: minmax(300px, 1fr);
+  grid-auto-columns: minmax(300px, 1fr);
   grid-gap: 30px;
 `;
