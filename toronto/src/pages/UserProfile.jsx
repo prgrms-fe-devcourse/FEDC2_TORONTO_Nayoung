@@ -13,11 +13,6 @@ import { useUsersState } from '@/contexts/UserContext.js';
 import { getUserPostApi, getUserDummyApi, getPostsChannel } from '@/api/Api';
 import { useState, useEffect } from 'react';
 
-import {
-  // getUser,
-  useUsersState,
-} from '../contexts/UserContext.js';
-
 const UserProfile = () => {
   const state = useUsersState();
   const { data: user, loading, error } = state.user;

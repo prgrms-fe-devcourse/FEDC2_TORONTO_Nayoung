@@ -5,6 +5,7 @@ import Image from '@/components/atoms/Image';
 import Text from '@/components/atoms/Text';
 import Icon from '@/components/atoms/Icon';
 import Loader from '@/components/atoms/Loader';
+import axios from 'axios';
 import styled from 'styled-components';
 import { useState } from 'react';
 
@@ -49,34 +50,35 @@ const PostItem = ({ post }) => {
     : undefined;
   const [isLike, setIsLike] = useState(Boolean(like));
   const [isLoading, setIsLoading] = useState(false);
+  const [likeId, setLikeId] = useState(like?._id);
 
   const handleClick = async () => {
     if (!userId) return;
     setIsLoading(true);
 
     if (!isLike) {
-      // await axios.post(
-      //   `${process.env.REACT_APP_END_POINT}/likes/create`,
-      //   {
-      //     postId: postId,
-      //   },
-      //   {
-      //     headers: {
-      //       Authorization: `bearer ${process.env.REACT_APP_USER_TOKEN}`,
-      //     },
-      //   },
-      // );
-      console.log('Like Success!!');
+      const res = await axios.post(
+        `${process.env.REACT_APP_END_POINT}/likes/create`,
+        {
+          postId: postId,
+        },
+        {
+          headers: {
+            Authorization: `bearer ${process.env.REACT_APP_USER_TOKEN}`,
+          },
+        },
+      );
+
+      setLikeId(res.data._id);
     } else {
-      // await axios.delete(`${process.env.REACT_APP_END_POINT}/likes/delete`, {
-      //   headers: {
-      //     Authorization: `bearer ${process.env.REACT_APP_USER_TOKEN}`,
-      //   },
-      //   data: {
-      //     id: like._id,
-      //   },
-      // });
-      console.log('disLike Success!!');
+      await axios.delete(`${process.env.REACT_APP_END_POINT}/likes/delete`, {
+        headers: {
+          Authorization: `bearer ${process.env.REACT_APP_USER_TOKEN}`,
+        },
+        data: {
+          id: likeId,
+        },
+      });
     }
 
     setIsLike((like) => !like);
