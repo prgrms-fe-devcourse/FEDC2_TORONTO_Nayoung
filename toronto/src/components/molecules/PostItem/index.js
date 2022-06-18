@@ -8,6 +8,8 @@ import Loader from '@/components/atoms/Loader';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useState } from 'react';
+import { useUsersState } from '@/contexts/UserContext';
+import { getToken } from '@/lib/Login';
 
 const StyledLi = styled.li`
   list-style: none;
@@ -42,7 +44,9 @@ const StyledButton = styled.button`
 `;
 
 const PostItem = ({ post }) => {
-  const userId = null;
+  const state = useUsersState();
+  const { data: user } = state.user;
+  const userId = user?._id;
   const { _id: postId, image, likes } = post;
   const { postTitle, postContent } = JSON.parse(post.title);
   const like = likes
@@ -67,7 +71,7 @@ const PostItem = ({ post }) => {
         },
         {
           headers: {
-            Authorization: `bearer ${process.env.REACT_APP_USER_TOKEN}`,
+            Authorization: `bearer ${getToken()}`,
           },
         },
       );
@@ -76,7 +80,7 @@ const PostItem = ({ post }) => {
     } else {
       await axios.delete(`${process.env.REACT_APP_END_POINT}/likes/delete`, {
         headers: {
-          Authorization: `bearer ${process.env.REACT_APP_USER_TOKEN}`,
+          Authorization: `bearer ${getToken()}`,
         },
         data: {
           id: likeId,
