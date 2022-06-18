@@ -1,8 +1,6 @@
-import Icon from '@/components/atoms/Icon';
-import Divider from '@/components/atoms/Divider';
-import StyledLink from '@/components/atoms/StyledLink';
 import { useNavigate } from 'react-router-dom';
-import Tooltip from '../../molecules/Tooltip';
+import { Icon, Divider, StyledLink } from '@/components/atoms';
+import { Tooltip } from '@/components/molecules';
 
 const NavigationBar = ({ user }) => {
   const navigate = useNavigate();
@@ -59,12 +57,19 @@ const NavigationBar = ({ user }) => {
           </>
         ) : (
           <>
-            {/* <Icon size={20} iconName='users' fill='#111' /> */}
+            <Tooltip text='사용자 목록 보기'>
+              <StyledLink to='/'>
+                <Icon
+                  size={20}
+                  iconName='users'
+                  style={{ verticalAlign: 'bottom' }}
+                />
+              </StyledLink>
+            </Tooltip>
             <StyledLink to='/login' style={{ color: 'inherit' }}>
               로그인
             </StyledLink>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              {/* <Icon size={20} iconName='user' /> */}
               <StyledLink to='/sign-up' style={{ color: 'inherit' }}>
                 회원가입
               </StyledLink>
