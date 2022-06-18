@@ -2,6 +2,7 @@ import Icon from '@/components/atoms/Icon';
 import Divider from '@/components/atoms/Divider';
 import StyledLink from '@/components/atoms/StyledLink';
 import { useNavigate } from 'react-router-dom';
+import Tooltip from '../../molecules/Tooltip';
 
 const NavigationBar = ({ user }) => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const NavigationBar = ({ user }) => {
       <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
         {user ? (
           <>
-            <div>
+            <Tooltip text='사용자 목록 보기'>
               <StyledLink to='/'>
                 <Icon
                   size={20}
@@ -30,8 +31,8 @@ const NavigationBar = ({ user }) => {
                   style={{ verticalAlign: 'bottom' }}
                 />
               </StyledLink>
-            </div>
-            <div>
+            </Tooltip>
+            <Tooltip text='로그아웃'>
               <StyledLink
                 to='/logout'
                 style={{
@@ -40,11 +41,8 @@ const NavigationBar = ({ user }) => {
               >
                 로그아웃
               </StyledLink>
-            </div>
-            <div
-              onClick={() => navigate(`/${user._id}`)}
-              style={{ display: 'flex', alignItems: 'center' }}
-            >
+            </Tooltip>
+            <Tooltip text='내 정보 보기'>
               <StyledLink
                 to={`/${user._id}`}
                 style={{
@@ -57,7 +55,7 @@ const NavigationBar = ({ user }) => {
                 <Icon size={20} iconName='user' />
                 {user.fullName}
               </StyledLink>
-            </div>
+            </Tooltip>
           </>
         ) : (
           <>
