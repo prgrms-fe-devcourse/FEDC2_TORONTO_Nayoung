@@ -12,6 +12,7 @@ import {
   Controversy,
 } from '@pages';
 import UsersProvider from './contexts/UserContext';
+import UserListPage from './pages/UserListPage';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/sign-up' element={<SignUp />} />
           <Route path='/controversy/:postId' element={<Controversy />} />
+          <Route path='/user/list' element={<UserListPage />} />
         </Route>
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
