@@ -19,7 +19,7 @@ const initialState = {
   user: initialAsyncState,
 };
 
-const singUpHandler = createAsyncHandler('POST_SIGNUP', 'user');
+const signUpHandler = createAsyncHandler('POST_SIGNUP', 'user');
 const usersHandler = createAsyncHandler('GET_USERS', 'users');
 const userHandler = createAsyncHandler('GET_USER', 'user');
 const loginHandler = createAsyncHandler('POST_LOGIN', 'user');
@@ -36,7 +36,7 @@ const usersReducer = (state, action) => {
     case 'POST_SIGNUP':
     case 'POST_SIGNUP_SUCCESS':
     case 'POST_SIGNUP_ERROR':
-      return singUpHandler(state, action);
+      return signUpHandler(state, action);
     case 'GET_USERS':
     case 'GET_USERS_SUCCESS':
     case 'GET_USERS_ERROR':

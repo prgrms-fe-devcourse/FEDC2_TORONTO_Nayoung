@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
-import { StyledLink, Loader, Button } from '@components/atoms/';
+import { StyledLink, Loader, Button } from '@/components/atoms/';
 import {
   useUsersState,
   useUsersDispatch,
