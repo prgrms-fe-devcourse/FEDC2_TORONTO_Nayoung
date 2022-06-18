@@ -3,10 +3,12 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from '@/components/atoms/Header';
 import DoughnutChart from '@/components/atoms/DoughnutChart';
+import Icon from '@/components/atoms/Icon';
 import Vote from '@/components/molecules/Vote';
 import InputBar from '@/components/molecules/InputBar';
 import CommentList from '@/components/organisms/CommentList';
 import { getToken } from '../lib/Login';
+import { useUsersState } from '../contexts/UserContext';
 
 const ResultPage = () => {
   const [data, setData] = useState({
@@ -14,10 +16,13 @@ const ResultPage = () => {
     agree: 0,
     disagree: 0,
     comments: [],
+    likes: [],
   });
   const [opinion, setOpinion] = useState('');
+  const [likeData, setLikeData] = useState({});
   const { postId } = useParams();
   const token = getToken();
+  const userData = useUsersState();
 
   const getPostData = useCallback(() => {
     axios(`${process.env.REACT_APP_END_POINT}/posts/${postId}`).then((res) => {
@@ -31,9 +36,20 @@ const ResultPage = () => {
         agree: titleData.agree.length,
         disagree: titleData.disagree.length,
         comments: res.data.comments,
+        likes: res.data.likes,
+      });
+      setLikeData({
+        isLiked:
+          res.data.likes.filter(({ user }) => user === userData.user.data._id)
+            .length > 0
+            ? true
+            : false,
+        likeId: res.data.likes.filter(
+          ({ user }) => user === userData.user.data._id,
+        )[0]._id,
       });
     });
-  }, [postId]);
+  }, [postId, userData]);
 
   const deleteComment = (id) => {
     axios(`${process.env.REACT_APP_END_POINT}/comments/delete`, {
@@ -65,6 +81,13 @@ const ResultPage = () => {
     })
     .reverse();
 
+  const isLiked =
+    data.likes.filter(({ user }) => user === userData.user.data?._id).length > 0
+      ? true
+      : false;
+
+  console.log(userData);
+
   const handleChange = (opinionState) => {
     setOpinion(opinionState);
   };
@@ -91,14 +114,43 @@ const ResultPage = () => {
     }
   };
 
+  // 함수 만들어 두긴 했는데 언제 서버가 터질 지 모름.
+  const handleLikeClick = () => {
+    if (likeData.isLiked) {
+      if (!likeData.likeId) return;
+      // 좋아요 삭제
+      axios(`${process.env.REACT_APP_END_POINT}/likes/delete`, {
+        method: 'delete',
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+        data: {
+          id: likeData.likeId,
+        },
+      }).then((res) => getPostData());
+    } else {
+      // 좋아요 추가
+      axios(`${process.env.REACT_APP_END_POINT}/likes/create`, {
+        method: 'post',
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+        data: {
+          postId,
+        },
+      }).then((res) => getPostData());
+    }
+  };
+
   return (
     <div style={{ backgroundColor: '#efefef' }}>
       <div>
         <Header>{data?.post.title}</Header>
       </div>
-      <div></div>
+      <div>{JSON.stringify(likeData)}</div>
       <div
         style={{
+          position: 'relative',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -117,12 +169,37 @@ const ResultPage = () => {
           chartSize={500}
         />
         <Vote onChange={handleChange} agreeText='찬성' disagreeText='반대' />
-        <InputBar
-          totalWidth={500}
-          placeholder='댓글을 작성해주세요.'
-          buttonText='댓글 작성'
-          onSubmit={handleSubmit}
-        />
+        <div
+          style={{
+            width: '100%',
+            position: 'relative',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <InputBar
+            totalWidth={500}
+            placeholder='댓글을 작성해주세요.'
+            buttonText='댓글 작성'
+            onSubmit={handleSubmit}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              width: '100px',
+              height: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <div onClick={handleLikeClick} style={{ cursor: 'pointer' }}>
+              <Icon fill={isLiked ? 'blue' : undefined} iconName='thumbs-up' />
+            </div>
+          </div>
+        </div>
       </div>
       <div
         style={{
