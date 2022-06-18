@@ -42,7 +42,7 @@ const StyledButton = styled.button`
 `;
 
 const PostItem = ({ post }) => {
-  const userId = `${process.env.REACT_APP_USER_ID}`; // 더미 데이터, 추후 Context API로 교체 예정;
+  const userId = null;
   const { _id: postId, image, likes } = post;
   const { postTitle, postContent } = JSON.parse(post.title);
   const like = likes
@@ -53,7 +53,10 @@ const PostItem = ({ post }) => {
   const [likeId, setLikeId] = useState(like?._id);
 
   const handleClick = async () => {
-    if (!userId) return;
+    if (!userId) {
+      alert('좋아요는 로그인 한 사용자만 누를 수 있습니다.');
+      return;
+    }
     setIsLoading(true);
 
     if (!isLike) {
