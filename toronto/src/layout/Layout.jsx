@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import { Loader } from '@components/atoms/';
-import { useUsersState } from '../contexts/UserContext.js';
-import NavigationBar from '@/components/organisms/NavigationBar/index.js';
+import { Loader } from '@/components/atoms';
+import { useUsersState } from '@/contexts/UserContext.js';
+import { NavigationBar } from '@/components/organisms';
 
 const Layout = () => {
   const state = useUsersState();
