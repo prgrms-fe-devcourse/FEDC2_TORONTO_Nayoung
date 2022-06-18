@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { Icon, Divider, StyledLink } from '@/components/atoms';
 import { Tooltip } from '@/components/molecules';
 
-const NavigationBar = ({ user }) => {
+const NavigationBar = ({ user, handleLogout }) => {
   const navigate = useNavigate();
 
   const handleLogoClick = () => {
@@ -22,7 +22,7 @@ const NavigationBar = ({ user }) => {
         {user ? (
           <>
             <Tooltip text='사용자 목록 보기'>
-              <StyledLink to='/'>
+              <StyledLink to='/user/list'>
                 <Icon
                   size={20}
                   iconName='users'
@@ -32,10 +32,11 @@ const NavigationBar = ({ user }) => {
             </Tooltip>
             <Tooltip text='로그아웃'>
               <StyledLink
-                to='/logout'
+                to='/'
                 style={{
                   color: 'inherit',
                 }}
+                onClick={handleLogout}
               >
                 로그아웃
               </StyledLink>
@@ -58,7 +59,7 @@ const NavigationBar = ({ user }) => {
         ) : (
           <>
             <Tooltip text='사용자 목록 보기'>
-              <StyledLink to='/'>
+              <StyledLink to='/user/list'>
                 <Icon
                   size={20}
                   iconName='users'

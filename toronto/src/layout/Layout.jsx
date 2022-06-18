@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
-import { StyledLink, Loader, Button } from '@/components/atoms/';
+import { Loader } from '@/components/atoms/';
 import {
   useUsersState,
   useUsersDispatch,
@@ -55,12 +55,7 @@ const Layout = () => {
     return (
       <div>
         <nav>
-          <NavigationBar user={user} />
-          <StyledLink to='/'>Home</StyledLink> |
-          <StyledLink to={user._id}>Profile</StyledLink> |
-          <StyledLink to={'/'}>
-            <Button onClick={handleLogout}>Logout</Button>
-          </StyledLink>
+          <NavigationBar user={user} handleLogout={handleLogout} />
         </nav>
         <div className='content'>
           <Outlet />
