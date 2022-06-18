@@ -79,3 +79,33 @@ export const putUpdatePasswordApi = async (password) => {
 };
 
 // TODO: 채널부터 추가
+
+// EditProfile 내 게시물 임시 더미데이터 API
+export const getUserPostApi = async () => {
+  const res = await axios.get('/data/postDummy.json');
+  return res;
+};
+
+// EditProfile 좋아요 게시물 임시 더미데이터 API
+export const getUserDummyApi = async () => {
+  const res = await axios.get('/data/userDummy.json');
+  return res;
+};
+
+// 채널 목록 불러오기
+export const getChannels = async () => {
+  const res = await Send.get('/channels');
+  return res;
+};
+
+// 특정 채널 목록 불러오기
+export const getChannelsName = async (channelName) => {
+  const res = await Send.get(`/channels/${channelName}`);
+  return res;
+};
+
+// 특정 채널의 포스트 목록
+export const getPostsChannel = async (channelId) => {
+  const res = await Send.get(`posts/channel/${channelId}`);
+  return res;
+};
