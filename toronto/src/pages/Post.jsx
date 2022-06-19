@@ -1,33 +1,33 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Button from '@/components/atoms/Button';
-import Card from '@/components/atoms/Card';
-import Input from '@/components/atoms/Input';
-import Upload from '@/components/molecules/Upload';
-import DraggableArea from '@/components/molecules/Upload/UploadArea';
 import axios from 'axios';
+import { Button, Card, Input } from '@/components/atoms';
+import { Upload, DraggableArea } from '@/components/molecules';
+import { getToken } from '@/lib/Login';
 
 const Post = () => {
   const [postData, setPostData] = useState({
-    title: '',
-    content: '',
-    agree: '',
-    disagree: '',
+    postTitle: '',
+    postContent: '',
+    agreeContent: '',
+    disagreeContent: '',
     image: null,
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const token = getToken();
 
-  const { title, content, agree, disagree, image } = postData;
+  const { postTitle, postContent, agreeContent, disagreeContent, image } =
+    postData;
 
   const handleClick = (e) => {
     const formData = new FormData();
     const titleData = {
-      title,
-      content,
-      agree,
-      disagree,
+      postTitle,
+      postContent,
+      agreeContent,
+      disagreeContent,
     };
     formData.append('title', JSON.stringify(titleData));
     formData.append('image', image);
@@ -38,7 +38,7 @@ const Post = () => {
       url: `${process.env.REACT_APP_END_POINT}/posts/create`,
       method: 'post',
       headers: {
-        Authorization: `bearer ${process.env.REACT_APP_USER_TOKEN}`,
+        Authorization: `bearer ${token}`,
       },
       data: formData,
     })
@@ -46,6 +46,9 @@ const Post = () => {
         if (res.status === 200) {
           navigate('/'); // 글쓰기가 성공하면 지정한 페이지로 이동
         }
+      })
+      .catch((e) => {
+        throw new Error(e);
       })
       .finally(() => {
         setLoading(false);
@@ -72,8 +75,8 @@ const Post = () => {
       <Wrapper>
         <Input
           block
-          name='title'
-          value={title}
+          name='postTitle'
+          value={postTitle}
           onChange={handleChange}
           placeholder='제목'
         />
@@ -90,8 +93,8 @@ const Post = () => {
         </Upload>
         <Input
           block
-          name='content'
-          value={content}
+          name='postContent'
+          value={postContent}
           onChange={handleChange}
           placeholder='내용'
         />
@@ -103,8 +106,8 @@ const Post = () => {
           }}
         >
           <Input
-            name='agree'
-            value={agree}
+            name='agreeContent'
+            value={agreeContent}
             onChange={handleChange}
             placeholder='찬성'
             wrapperProps={{
@@ -112,8 +115,8 @@ const Post = () => {
             }}
           />
           <Input
-            name='disagree'
-            value={disagree}
+            name='disagreeContent'
+            value={disagreeContent}
             onChange={handleChange}
             placeholder='반대'
             wrapperProps={{
