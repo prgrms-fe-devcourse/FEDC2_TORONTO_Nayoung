@@ -41,9 +41,23 @@ const NavigationBar = ({ user, handleLogout }) => {
                 로그아웃
               </StyledLink>
             </Tooltip>
+            <Tooltip text='알림'>
+              <StyledLink
+                to='/notifications'
+                style={{
+                  color: 'inherit',
+                }}
+              >
+                <Icon
+                  size={20}
+                  iconName='bell'
+                  style={{ verticalAlign: 'bottom' }}
+                />
+              </StyledLink>
+            </Tooltip>
             <Tooltip text='내 정보 보기'>
               <StyledLink
-                to={`/${user._id}`}
+                to={`/users/${user._id}`}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
