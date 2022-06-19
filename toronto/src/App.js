@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import Layout from './layout/Layout';
+import Layout from '@layout/Layout';
 import {
   HomePage,
   AboutPage,
@@ -11,7 +11,7 @@ import {
   EditProfilePage,
   Controversy,
 } from '@pages';
-import UsersProvider from './contexts/UserContext';
+import UsersProvider from '@contexts/UserContext';
 
 function App() {
   return (

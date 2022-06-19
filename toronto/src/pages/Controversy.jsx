@@ -3,7 +3,7 @@ import { ControversyVote } from '@/components/molecules';
 import { Header, Text } from '@/components/atoms';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
-import { getPostApi, postCommentApi } from '../api/Api';
+import { getPostApi, postCommentApi } from '@api/Api';
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -18,7 +18,7 @@ const Controversy = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
 
-  const getpostData = useCallback(async () => {
+  const getPostData = useCallback(async () => {
     const postData = await getPostApi(postId);
     const postTitleData = JSON.parse(postData.data.title);
     setData({
@@ -31,8 +31,8 @@ const Controversy = () => {
   }, [postId]);
 
   useEffect(() => {
-    getpostData();
-  }, [getpostData]);
+    getPostData();
+  }, [getPostData]);
 
   const handleChange = async (opinionState) => {
     if (!opinionState || !postId) return;
