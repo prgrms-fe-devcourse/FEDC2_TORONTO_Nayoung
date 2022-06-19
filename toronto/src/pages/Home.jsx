@@ -1,19 +1,159 @@
+import PostList from '@/components/organisms/PostList';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import InputBar from '@/components/molecules/InputBar';
+import Button from '@/components/atoms/Button';
+import axios from 'axios';
+import { useUsersState } from '../contexts/UserContext';
+import Skeleton from '@/components/atoms/Skeleton';
 
-const Box = styled.div`
-  width: 100px;
-  height: 100px;
-  background-color: red;
-`;
+const limit = 10;
+
+const renderSkeleton = () => {
+  const skeletons = [];
+
+  for (let i = 0; i < limit; i++) {
+    skeletons.push(<Skeleton.Box key={i} width={'100%'} height={'100%'} />);
+  }
+
+  return skeletons;
+};
 
 const Home = () => {
+  const state = useUsersState();
+  const { data: user } = state.user;
+  const [posts, setPosts] = useState([]);
+  const offset = useRef(limit);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigation = useNavigate();
+
+  const initialPosts = useCallback(async () => {
+    setIsLoading(true);
+    offset.current = limit;
+
+    const res = await axios.get(
+      `${process.env.REACT_APP_END_POINT}/posts/channel/${process.env.REACT_APP_CHANNEL_ID}`,
+      {
+        params: {
+          offset: 0,
+          limit: limit,
+        },
+      },
+    );
+
+    setPosts([...res.data]);
+    setIsLoading(false);
+  }, []);
+
+  const loadPosts = useCallback(async () => {
+    setIsLoading(true);
+
+    const res = await axios.get(
+      `${process.env.REACT_APP_END_POINT}/posts/channel/${process.env.REACT_APP_CHANNEL_ID}`,
+      {
+        params: {
+          offset: offset.current,
+          limit: limit,
+        },
+      },
+    );
+
+    setPosts((prev) => [...prev, ...res.data]);
+    setIsLoading(false);
+    offset.current += limit;
+  }, []);
+
+  const handleNavigate = useCallback(() => {
+    if (!user) {
+      navigation(`/login`);
+      return;
+    }
+
+    navigation(`/create-post`);
+  }, [navigation, user]);
+
+  useEffect(() => {
+    initialPosts();
+  }, [initialPosts]);
+
+  const handleSubmit = useCallback(
+    async (value) => {
+      if (/[a-zA-Z]/g.test(value)) {
+        alert('영문 검색은 불가능 합니다.');
+        return;
+      }
+
+      if (!value) {
+        initialPosts();
+        return;
+      }
+
+      setIsLoading(true);
+
+      const res = await axios.get(
+        `${process.env.REACT_APP_END_POINT}/search/all/${value}`,
+      );
+
+      const filterPosts = res.data.filter((data) => !data.role);
+
+      setPosts([...filterPosts]);
+      setIsLoading(false);
+    },
+    [initialPosts],
+  );
+
   return (
-    <div>
-      <h1>홈</h1>
-      <p>가장 먼저 보여지는 페이지입니다.</p>
-      <Box />
-    </div>
+    <Container>
+      <Wrapper>
+        <InputBar
+          placeholder={'게시물 검색'}
+          buttonType={'inside'}
+          onSubmit={(value) => handleSubmit(value)}
+        />
+        <Button onClick={handleNavigate}>논쟁 올리기</Button>
+      </Wrapper>
+      <GridContainer>
+        <PostList posts={posts} />
+        {isLoading && renderSkeleton()}
+      </GridContainer>
+      {offset.current < posts[0]?.channel.posts?.length && (
+        <Button
+          onClick={loadPosts}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: 20,
+          }}
+        >
+          더 보기
+        </Button>
+      )}
+    </Container>
   );
 };
 
 export default Home;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const GridContainer = styled.ul`
+  display: grid;
+  padding: 0;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows: minmax(300px, 1fr);
+  grid-auto-columns: minmax(300px, 1fr);
+  grid-gap: 30px;
+`;

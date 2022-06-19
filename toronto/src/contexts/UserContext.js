@@ -13,6 +13,8 @@ import {
   createAsyncHandler,
   initialAsyncState,
 } from '@/utils/asyncActionUtils';
+//TODO: 새로고침해도 쿠키가 있을경우 로그인 상태로 유지, get auth  => cookie 동작
+//TODO: 로그아웃 시 쿠키 삭제
 
 const initialState = {
   users: initialAsyncState,
