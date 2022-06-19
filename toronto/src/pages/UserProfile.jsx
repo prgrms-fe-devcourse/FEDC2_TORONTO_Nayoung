@@ -74,9 +74,17 @@ const UserProfile = () => {
             <ProfileWrapper>
               <Text size={18}>{user.email}</Text>
               <Text size={18}>{user.username}</Text>
-              <StyledLink to={'edit'}>
-                <Button>프로필 편집</Button>
-              </StyledLink>
+              {loginUser ? (
+                userId === loginUser._id ? (
+                  <StyledLink to={'edit'}>
+                    <Button>프로필 편집</Button>
+                  </StyledLink>
+                ) : (
+                  <div></div>
+                )
+              ) : (
+                <div></div>
+              )}
             </ProfileWrapper>
           </ProfileSection>
           <Tab>
