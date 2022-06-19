@@ -9,6 +9,7 @@ import {
   PostPage,
   UserProfilePage,
   EditProfilePage,
+  ResultPage,
   Controversy,
 } from '@pages';
 import UsersProvider from './contexts/UserContext';
@@ -26,6 +27,7 @@ function App() {
           <Route path='/:userId/edit' element={<EditProfilePage />} />
           <Route path='/login' element={<Login />} />
           <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/controversy/result/:postId' element={<ResultPage />} />
           <Route path='/controversy/:postId' element={<Controversy />} />
           <Route path='/user/list' element={<UserListPage />} />
         </Route>
