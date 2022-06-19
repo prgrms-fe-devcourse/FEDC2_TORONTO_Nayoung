@@ -16,7 +16,6 @@ const EditProfile = () => {
   const state = useUsersState();
   const dispatch = useUsersDispatch();
   const { data: user, loading, error } = state.user;
-
   const [inputs, setInputs] = useState({
     name: '',
     password: '',

@@ -128,7 +128,7 @@ const PostItem = ({ post }) => {
               <Loader size={24} loading={isLoading} />
             )}
           </TitleContainer>
-          <StyledLink to={`/posts/${postId}`} style={{ color: 'black' }}>
+          <StyledLink to={`/controversy/${postId}`} style={{ color: 'black' }}>
             <ContentContainer>
               <Image
                 src={image || 'https://via.placeholder.com/200'}
