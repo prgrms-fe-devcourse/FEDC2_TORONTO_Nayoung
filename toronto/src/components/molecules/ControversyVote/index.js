@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 const ControversyVoteWrapper = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 `;
 
@@ -92,7 +92,7 @@ const ControversyVote = ({
 ControversyVote.propTypes = {
   agreeTitle: PropTypes.string,
   disagreeTitle: PropTypes.string,
-  imgSrc: PropTypes.string.isRequired,
+  imgSrc: PropTypes.string,
 };
 
 export default ControversyVote;
