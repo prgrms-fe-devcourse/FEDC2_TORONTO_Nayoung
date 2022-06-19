@@ -20,12 +20,13 @@ const Controversy = () => {
 
   const getPostData = useCallback(async () => {
     const postData = await getPostApi(postId);
-    const postTitleData = JSON.parse(postData.data.title);
+    const { postTitle, postContent, agreeContent, disagreeContent } =
+      JSON.parse(postData.data.title);
     setData({
-      postTitle: postTitleData.postTitle,
-      postContent: postTitleData.postContent,
-      agreeContent: postTitleData.agreeContent,
-      disagreeContent: postTitleData.disagreeContent,
+      postTitle,
+      postContent,
+      agreeContent,
+      disagreeContent,
       image: postData.data.image,
     });
   }, [postId]);
