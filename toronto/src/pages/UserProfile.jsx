@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import styled from 'styled-components';
 import {
   Button,
@@ -10,40 +11,52 @@ import {
 import Tab from '@/components/molecules/Tab';
 import PostList from '@/components/organisms/PostList';
 import { useUsersState } from '@/contexts/UserContext.js';
-import { getUserPostApi, getUserDummyApi, getPostsChannel } from '@/api/Api';
+import { getUserApi, getPostsApi } from '@/api/Api';
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
 
 const UserProfile = () => {
   const state = useUsersState();
-  const { data: user, loading, error } = state.user;
-  const [postsDummy, setPostsDummy] = useState([]);
+  const { data: loginUser, loading, error } = state.user;
+  const { userId } = useParams();
+  const [user, setUser] = useState({
+    image: '',
+    email: '',
+    _id: '',
+    username: '',
+    posts: [],
+    likes: [],
+  });
+  const [myPosts, setMyPosts] = useState([]);
   const [likesPosts, setLikesPosts] = useState([]);
-
   useEffect(() => {
     const fetchData = async () => {
-      // 특정 사용자의 User 객체의 posts key에 해당하는 Post[]
-      const postsDummy = await getUserPostApi();
+      const userRes = await getUserApi(userId);
+      const userPostsIdArray = userRes.data.posts;
+      const userLikesPostsIdArray = userRes.data.likes.map((like) => like.post);
 
-      // 특정 사용자의 User 객체
-      const userDummy = await getUserDummyApi();
-      const userLikesPostsId = userDummy.data.likes.map((like) => like.post);
-
-      // 특정 채널의 전체 Post 배열
-      const channelId = postsDummy.data.posts[0].channel._id;
-      const channelPosts = await getPostsChannel(channelId);
-
-      const likePosts = channelPosts.data.filter((post) =>
-        userLikesPostsId.includes(post._id),
-      );
-      setPostsDummy(postsDummy.data.posts);
-      setLikesPosts(likePosts);
+      if (userRes.data.posts.length >= 1 || userRes.data.posts.length >= 1) {
+        const posts = await getPostsApi();
+        const myPosts = posts.data.filter((post) =>
+          userPostsIdArray.includes(post._id),
+        );
+        const likesPosts = posts.data.filter((post) =>
+          userLikesPostsIdArray.includes(post._id),
+        );
+        setMyPosts(myPosts);
+        setLikesPosts(likesPosts);
+      } else {
+        setMyPosts([]);
+        setLikesPosts([]);
+      }
+      setUser(userRes.data);
     };
     fetchData();
-  }, []);
+  }, [userId]);
 
   //전체 posts 중에서 id값이 userLikesPostsId인 값이 속하는지 판단해서 return post
   if (loading) return <Loader type='spinner' />;
-  if (error) return <div>에러가 발생했습니다</div>;
+  if (error) return <div>{error}</div>;
   if (!user) {
     return (
       <div>
@@ -68,12 +81,10 @@ const UserProfile = () => {
           </ProfileSection>
           <Tab>
             <Tab.Item title='내 게시물' index='item1'>
-              {/* TODO: User 객체에 포스트를 작성 후  */}
-              {/* {user.posts ? <PostList posts={user.posts} /> : []} */}
-              {postsDummy ? <PostList posts={postsDummy} /> : []}
+              {user.posts ? <PostList posts={myPosts} /> : []}
             </Tab.Item>
             <Tab.Item title='좋아요 게시물' index='item2'>
-              <PostList posts={likesPosts} />
+              {user.likes ? <PostList posts={likesPosts} /> : []}
             </Tab.Item>
           </Tab>
         </Wrapper>
