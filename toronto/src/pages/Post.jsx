@@ -8,25 +8,26 @@ import { getToken } from '@/lib/Login';
 
 const Post = () => {
   const [postData, setPostData] = useState({
-    title: '',
-    content: '',
-    agree: '',
-    disagree: '',
+    postTitle: '',
+    postContent: '',
+    agreeContent: '',
+    disagreeContent: '',
     image: null,
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const token = getToken();
 
-  const { title, content, agree, disagree, image } = postData;
+  const { postTitle, postContent, agreeContent, disagreeContent, image } =
+    postData;
 
   const handleClick = (e) => {
     const formData = new FormData();
     const titleData = {
-      postTitle: title,
-      postContent: content,
-      agreeContent: agree,
-      disagreeContent: disagree,
+      postTitle,
+      postContent,
+      agreeContent,
+      disagreeContent,
     };
     formData.append('title', JSON.stringify(titleData));
     formData.append('image', image);
@@ -74,8 +75,8 @@ const Post = () => {
       <Wrapper>
         <Input
           block
-          name='title'
-          value={title}
+          name='postTitle'
+          value={postTitle}
           onChange={handleChange}
           placeholder='제목'
         />
@@ -92,8 +93,8 @@ const Post = () => {
         </Upload>
         <Input
           block
-          name='content'
-          value={content}
+          name='postContent'
+          value={postContent}
           onChange={handleChange}
           placeholder='내용'
         />
@@ -105,8 +106,8 @@ const Post = () => {
           }}
         >
           <Input
-            name='agree'
-            value={agree}
+            name='agreeContent'
+            value={agreeContent}
             onChange={handleChange}
             placeholder='찬성'
             wrapperProps={{
@@ -114,8 +115,8 @@ const Post = () => {
             }}
           />
           <Input
-            name='disagree'
-            value={disagree}
+            name='disagreeContent'
+            value={disagreeContent}
             onChange={handleChange}
             placeholder='반대'
             wrapperProps={{
