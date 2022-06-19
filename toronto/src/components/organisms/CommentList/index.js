@@ -6,7 +6,7 @@ import CommentItem from '@/components/molecules/CommentItem';
 
 const CommentList = ({ name, width, comments, limit, onDelete }) => {
   const [commentList, setCommentList] = useState([]);
-  const indexRef = useRef(0);
+  const indexRef = useRef(limit);
 
   const handleClick = () => {
     setCommentList([
@@ -21,22 +21,21 @@ const CommentList = ({ name, width, comments, limit, onDelete }) => {
   };
 
   useEffect(() => {
-    setCommentList([...comments.slice(indexRef.current, limit)]);
-    indexRef.current += limit;
+    setCommentList([...comments.slice(0, limit)]);
   }, [comments, limit]);
 
   return (
-    <Card padding={10}>
-      <div style={{ width: width }}>
+    <Card padding={10} style={{ width: width }}>
+      <div>
         <Header level={3}>{name}</Header>
         {commentList?.map((item) => (
           <CommentItem
             key={item._id}
             id={item._id}
             width='100%'
-            author={item.author}
-            content={item.comment}
-            isAuthor={true}
+            author={item.author.fullName}
+            authorId={item.author._id}
+            content={JSON.parse(item.comment).content}
             onDelete={handleDelete}
             style={{ marginTop: '10px' }}
           />

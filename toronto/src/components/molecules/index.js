@@ -7,5 +7,6 @@ export { default as PostItem } from './PostItem';
 export { default as Tab } from './Tab';
 export { default as Tooltip } from './Tooltip';
 export { default as Upload } from './Upload';
+export { default as DraggableArea } from './Upload/UploadArea';
 export { default as Vote } from './Vote';
 export { default as Notification } from './Notification';

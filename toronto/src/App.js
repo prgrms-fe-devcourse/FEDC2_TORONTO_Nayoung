@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import Layout from './layout/Layout';
+import Layout from '@layout/Layout';
 import {
   HomePage,
   AboutPage,
@@ -10,8 +10,11 @@ import {
   UserProfilePage,
   EditProfilePage,
   NotificationsPage,
+  ResultPage,
+  Controversy,
 } from '@pages';
 import UsersProvider from './contexts/UserContext';
+import UserListPage from './pages/UserListPage';
 
 function App() {
   return (
@@ -26,6 +29,9 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/sign-up' element={<SignUp />} />
           <Route path='/notifications' element={<NotificationsPage />} />
+          <Route path='/controversy/result/:postId' element={<ResultPage />} />
+          <Route path='/controversy/:postId' element={<Controversy />} />
+          <Route path='/user/list' element={<UserListPage />} />
         </Route>
         <Route path='*' element={<NotFoundPage />} />
       </Routes>

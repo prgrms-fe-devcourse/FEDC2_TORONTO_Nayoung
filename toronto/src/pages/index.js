@@ -7,3 +7,5 @@ export { default as EditProfilePage } from './EditProfile';
 export { default as SignUp } from './SignUp';
 export { default as Login } from './Login';
 export { default as NotificationsPage } from './Notifications';
+export { default as ResultPage } from './ControversyResult';
+export { default as Controversy } from './Controversy';

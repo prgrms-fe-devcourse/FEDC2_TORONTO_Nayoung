@@ -21,6 +21,18 @@ export const postSignUpApi = async ({ email, fullName, password }) => {
   return res;
 };
 
+export const postCommentApi = async (commentBody) => {
+  const token = getToken();
+  await axios({
+    method: 'POST',
+    url: `${process.env.REACT_APP_END_POINT}/comments/create`,
+    data: commentBody,
+    headers: {
+      Authorization: `bearer ${token}`,
+    },
+  });
+};
+
 export const getAuthUser = async () => {
   const res = await Send.get('/auth-user');
   return res;
@@ -28,6 +40,12 @@ export const getAuthUser = async () => {
 
 export const postLogoutApi = async () => {
   const res = await Send.post('/logout');
+  return res;
+};
+
+export const getPostApi = async (postId) => {
+  if (!postId) return;
+  const res = await Send.get(`/posts/${postId}`);
   return res;
 };
 
