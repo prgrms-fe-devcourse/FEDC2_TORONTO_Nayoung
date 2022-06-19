@@ -19,16 +19,20 @@ const Controversy = () => {
   const navigate = useNavigate();
 
   const getPostData = useCallback(async () => {
-    const postData = await getPostApi(postId);
-    const { postTitle, postContent, agreeContent, disagreeContent } =
-      JSON.parse(postData.data.title);
-    setData({
-      postTitle,
-      postContent,
-      agreeContent,
-      disagreeContent,
-      image: postData.data.image,
-    });
+    try {
+      const postData = await getPostApi(postId);
+      const { postTitle, postContent, agreeContent, disagreeContent } =
+        JSON.parse(postData.data.title);
+      setData({
+        postTitle,
+        postContent,
+        agreeContent,
+        disagreeContent,
+        image: postData.data.image,
+      });
+    } catch (e) {
+      navigate('/404/notFound');
+    }
   }, [postId]);
 
   useEffect(() => {
