@@ -2,23 +2,23 @@ import axios from 'axios';
 import Send from '.';
 import { getToken, onSaveToken } from '@/lib/Login.js';
 
-export const postLoginApi = async ({ email, password }) => {
+export const postLoginApi = async (email, password) => {
   const res = await Send.post('/login', {
     email,
     password,
   });
   onSaveToken(res.data.token);
-  return res;
+  return res.data.user;
 };
 
-export const postSignUpApi = async ({ email, fullName, password }) => {
+export const postSignUpApi = async (email, fullName, password) => {
   const res = await Send.post('/signup', {
     email,
     fullName,
     password,
   });
   onSaveToken(res.data.token);
-  return res;
+  return res.data.user;
 };
 
 export const postCommentApi = async (commentBody) => {
@@ -35,7 +35,7 @@ export const postCommentApi = async (commentBody) => {
 
 export const getAuthUser = async () => {
   const res = await Send.get('/auth-user');
-  return res;
+  return res.data;
 };
 
 export const postLogoutApi = async () => {
@@ -77,7 +77,7 @@ export const postUploadPhotoApi = async (bodyFormData) => {
       Authorization: `Bearer ${token}`,
     },
   });
-  return res;
+  return res.data;
 };
 
 // 내 정보 변경
@@ -86,7 +86,7 @@ export const putUpdateUserApi = async (fullName, username) => {
     fullName,
     username,
   });
-  return res;
+  return res.data;
 };
 
 // 비밀번호 변경
@@ -96,8 +96,6 @@ export const putUpdatePasswordApi = async (password) => {
   });
   return res;
 };
-
-// TODO: 채널부터 추가
 
 // EditProfile 내 게시물 임시 더미데이터 API
 export const getUserPostApi = async () => {
