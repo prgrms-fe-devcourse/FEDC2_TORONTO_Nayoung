@@ -1,7 +1,5 @@
-import StyledLink from '@/components/atoms/StyledLink';
-import Card from '@/components/atoms/Card';
-import Header from '@/components/atoms/Header';
-import Image from '@/components/atoms/Image';
+import { StyledLink, Card, Header, Image } from '@/components/atoms';
+import placeholder from '@/assets/images/user_placeholder.png';
 import styled from 'styled-components';
 
 const StyledLi = styled.li`
@@ -11,6 +9,8 @@ const StyledLi = styled.li`
 const UserContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
 `;
 
 const UserItem = ({ user }) => {
@@ -19,22 +19,32 @@ const UserItem = ({ user }) => {
       <StyledLink to={`/users/${user._id}`} style={{ color: 'black' }}>
         <Card
           hover={true}
-          radius={5}
-          style={{ width: '100%', boxSizing: 'border-box', overflow: 'hidden' }}
+          radius={0}
+          style={{
+            width: '100%',
+            height: '100%',
+            boxSizing: 'border-box',
+          }}
         >
           <UserContainer>
             <Image
-              src={user.image || 'https://via.placeholder.com/200'}
+              src={user.image || placeholder}
               width={'100%'}
-              height={300}
+              height={200}
+              style={{
+                flexGrow: 1,
+              }}
             ></Image>
             <Header
               level={3}
               style={{
-                padding: 10,
+                margin: 0,
+                padding: 20,
+                borderTop: '1px solid #b1b1b182',
                 textOverflow: 'ellipsis',
                 overflow: 'hidden',
                 whiteSpace: 'nowrap',
+                fontFamily: 'S-CoreDream-Medium',
               }}
             >
               {user.fullName}
