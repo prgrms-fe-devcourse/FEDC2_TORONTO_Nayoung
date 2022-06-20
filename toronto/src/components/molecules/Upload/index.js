@@ -106,7 +106,7 @@ const Upload = ({
 };
 
 Upload.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
   droppable: PropTypes.bool,
   name: PropTypes.string,
   accept: PropTypes.string,
