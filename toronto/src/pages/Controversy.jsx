@@ -19,11 +19,14 @@ const Controversy = () => {
   const navigate = useNavigate();
   const state = useUsersState();
   const [data, setData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const { postId } = useParams();
   const { data: user } = state.user;
   const userId = user?._id;
 
   const getPostData = useCallback(async () => {
+    setIsLoading(true);
+
     try {
       const postData = await getPostApi(postId);
       const isVoted = postData.data.comments.some(
@@ -45,6 +48,8 @@ const Controversy = () => {
     } catch (e) {
       navigate('/404/notFound');
     }
+
+    setIsLoading(false);
   }, [navigate, postId, userId]);
 
   useEffect(() => {
@@ -70,7 +75,7 @@ const Controversy = () => {
 
   return (
     <>
-      {data && (
+      {data && !isLoading && (
         <Wrapper>
           <Header>{data.postTitle}</Header>
           <Text style={{ whiteSpace: 'pre-line' }}>{data.postContent}</Text>
