@@ -82,7 +82,7 @@ const EditProfile = () => {
       formData.append('isCover', false);
       formData.append('image', file);
       postProfileImage(dispatch, formData);
-      navigate(`/${user._id}`);
+      navigate(`users/${user._id}`);
     }
   };
 
