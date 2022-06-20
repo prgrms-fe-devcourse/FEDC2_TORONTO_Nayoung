@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import Text from '@/components/atoms/Text';
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { Text } from '@/components/atoms';
 
 const AgreeButton = styled.button`
   outline: none;
@@ -90,9 +90,6 @@ const Vote = ({ agreeText, disagreeText, onChange }) => {
         >
           {disagreeText}
         </DisagreeButton>
-      </div>
-      <div style={{ display: agree === '' ? 'block' : 'none' }}>
-        <Text>의견을 선택해주세요.</Text>
       </div>
     </div>
   );
