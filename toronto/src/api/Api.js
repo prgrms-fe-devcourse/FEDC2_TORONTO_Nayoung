@@ -134,3 +134,9 @@ export const getPostsChannel = async (channelId) => {
   const res = await Send.get(`posts/channel/${channelId}`);
   return res;
 };
+
+// 전체 알림 받아오기
+export const getNotifications = async () => {
+  const res = await Send.get('notifications');
+  return res;
+};
