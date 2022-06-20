@@ -1,7 +1,7 @@
-import Text from '@/components/atoms/Text';
+import { Text } from '@/components/atoms';
 
 export default {
-  title: 'Component/Text',
+  title: 'Components/Atoms/Text',
   component: Text,
   argTypes: {
     size: { control: 'number' },

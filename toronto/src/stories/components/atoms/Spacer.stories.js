@@ -1,7 +1,7 @@
-import Spacer from '../../../components/atoms/Spacer';
+import { Spacer } from '@/components/atoms';
 
 export default {
-  title: 'Component/Spacer',
+  title: 'Components/Atoms/Spacer',
   component: Spacer,
   argTypes: {
     size: {

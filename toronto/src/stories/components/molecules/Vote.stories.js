@@ -1,7 +1,7 @@
-import Vote from '@/components/molecules/Vote';
+import { Vote } from '@/components/molecules';
 
 export default {
-  title: 'Component/Molecules/Vote',
+  title: 'Components/Molecules/Vote',
   component: Vote,
   argTypes: {
     agreeText: { control: 'text' },

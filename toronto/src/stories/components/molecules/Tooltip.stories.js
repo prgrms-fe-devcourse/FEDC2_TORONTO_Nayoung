@@ -1,7 +1,7 @@
-import Tooltip from '@/components/molecules/Tooltip';
+import { Tooltip } from '@/components/molecules';
 
 export default {
-  title: 'Component/Molecules/Tooltip',
+  title: 'Components/Molecules/Tooltip',
   component: Tooltip,
 };
 

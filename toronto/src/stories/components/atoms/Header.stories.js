@@ -1,7 +1,7 @@
-import Header from '@/components/atoms/Header';
+import { Header } from '@/components/atoms';
 
 export default {
-  title: 'Component/Header',
+  title: 'Components/Atoms/Header',
   component: Header,
   argTypes: {
     level: { control: { type: 'range', min: 1, max: 6 } },
