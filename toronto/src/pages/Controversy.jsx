@@ -8,11 +8,10 @@ import { useUsersState } from '@contexts/UserContext';
 
 const Wrapper = styled.div`
   height: 100vh;
-  padding: 0 240px;
-  min-width: 1000px;
+  width: 80%;
   display: flex;
+  margin: auto;
   flex-direction: column;
-  background-color: #f9fafb;
   justify-content: center;
 `;
 
@@ -62,7 +61,7 @@ const Controversy = () => {
   };
 
   return (
-    <div>
+    <>
       {data && (
         <Wrapper>
           <Header>{data.postTitle}</Header>
@@ -75,7 +74,7 @@ const Controversy = () => {
           />
         </Wrapper>
       )}
-    </div>
+    </>
   );
 };
 export default Controversy;

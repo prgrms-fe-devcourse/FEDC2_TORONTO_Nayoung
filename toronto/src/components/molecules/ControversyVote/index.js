@@ -11,7 +11,7 @@ const ControversyVoteWrapper = styled.div`
   margin: 80px 0;
 `;
 
-const AgreeButton = styled.div`
+const ControversyButton = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,39 +23,14 @@ const AgreeButton = styled.div`
   padding: 16px;
   height: 500px;
   width: 350px;
-  background-color: ${({ selected }) => (selected ? '#649dd6' : '')};
+  background-color: ${({ selected, backgroundColor }) =>
+    selected ? backgroundColor : ''};
 
   &:hover {
-    background-color: #5488ce;
+    background-color: ${(hoverBackgroundColor) => hoverBackgroundColor};
   }
   &:active {
-    background-color: #2f66d2:
-  }
-  &:focus {
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
-  }
-`;
-
-const DisagreeButton = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-  padding: 16px;
-  height: 500px;
-  width: 350px;
-
-  background-color: ${({ selected }) => (selected ? '#ef5941' : '')};
-
-  &:hover {
-    background-color: #ef3322;
-  }
-  &:active {
-    background-color: #de3322;
+    background-color: ${(activeBackgroundColor) => activeBackgroundColor};
   }
   &:focus {
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
@@ -77,9 +52,12 @@ const ControversyVote = ({
 
   return (
     <ControversyVoteWrapper {...props}>
-      <AgreeButton
+      <ControversyButton
         onClick={(e) => setAgree('agree')}
         selected={agree === 'agree' ? true : false}
+        backgroundColor='#649dd6'
+        hoverBackgroundColor='#5488ce'
+        activeBackgroundColor='#2f66d2'
       >
         <Text block strong size={16}>
           {agreeTitle}
@@ -91,13 +69,16 @@ const ControversyVote = ({
           mode={'fill'}
           style={{ borderRadius: '4px' }}
         />
-      </AgreeButton>
+      </ControversyButton>
       <Text strong size={48}>
         VS
       </Text>
-      <DisagreeButton
+      <ControversyButton
         onClick={(e) => setAgree('disagree')}
         selected={agree === 'disagree' ? true : false}
+        backgroundColor='#ef5941'
+        hoverBackgroundColor='#ef3322'
+        activeBackgroundColor='de3322'
       >
         <Text block strong size={16}>
           {disagreeTitle}
@@ -109,7 +90,7 @@ const ControversyVote = ({
           mode={'fill'}
           style={{ borderRadius: '4px' }}
         />
-      </DisagreeButton>
+      </ControversyButton>
     </ControversyVoteWrapper>
   );
 };
