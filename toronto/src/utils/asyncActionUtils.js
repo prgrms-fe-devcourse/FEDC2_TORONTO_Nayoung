@@ -10,6 +10,7 @@ export const createAsyncDispatcher = (type, promiseFn) => {
         type: SUCCESS,
         data,
       });
+      return data;
     } catch (e) {
       dispatch({
         type: ERROR,

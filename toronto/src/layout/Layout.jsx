@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
@@ -31,14 +32,13 @@ const Layout = () => {
 
   const handleLogout = async () => {
     const response = await postLogout(dispatch);
-    if (response.statusText === 'OK') {
+    if (response.data === 'You have been successfully logged out.') {
       const cookies = new Cookies();
       cookies.remove('USER_TOKEN');
+      dispatch({ type: 'POST_LOGOUT_SUCCESS', data: null });
       navigate('/login');
     }
   };
-
-  if (loading) return <Loader type='spinner' />;
   if (error) return <div>에러가 발생했습니다</div>;
   if (!user) {
     return (

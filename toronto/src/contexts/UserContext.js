@@ -12,6 +12,7 @@ import {
 import {
   createAsyncHandler,
   initialAsyncState,
+  createAsyncDispatcher,
 } from '@/utils/asyncActionUtils';
 
 const initialState = {
@@ -104,99 +105,29 @@ export const useUsersDispatch = () => {
 };
 
 // postSignUpAPI 연동
-export async function postSignUp(dispatch, email, fullName, password) {
-  dispatch({ type: 'POST_SIGNUP' });
-  try {
-    const response = await postSignUpApi({
-      email: email,
-      fullName: fullName,
-      password: password,
-    });
-    dispatch({ type: 'POST_SIGNUP_SUCCESS', data: response.data.user });
-    return response;
-  } catch (e) {
-    dispatch({ type: 'POST_SIGNUP_ERROR', error: e });
-  }
-}
+export const postSignUp = createAsyncDispatcher('POST_SIGNUP', postSignUpApi);
 
 // getUsersAPI 연동
-export async function getUsers(dispatch) {
-  dispatch({ type: 'GET_USERS' });
-  try {
-    const response = getUsersApi();
-    dispatch({ type: 'GET_USERS_SUCCESS', data: response.data });
-  } catch (e) {
-    dispatch({ type: 'GET_USERS_ERROR', error: e });
-  }
-}
+export const getUsers = createAsyncDispatcher('GET_USERS', getUsersApi);
+
 // getUserAPI 연동
-export async function getUser(dispatch, id) {
-  dispatch({ type: 'GET_USER' });
-  try {
-    const response = getUserApi(id);
-    dispatch({ type: 'GET_USER_SUCCESS', data: response.data });
-  } catch (e) {
-    dispatch({ type: 'GET_USER_ERROR', error: e });
-  }
-}
+export const getUser = createAsyncDispatcher('GET_USER', getUserApi);
 
 // postLoginAPI 연동
-export async function postLogin(dispatch, email, password) {
-  dispatch({ type: 'POST_LOGIN' });
-  try {
-    const response = await postLoginApi({
-      email: email,
-      password: password,
-    });
-    dispatch({ type: 'POST_LOGIN_SUCCESS', data: response.data.user });
-    return response;
-  } catch (e) {
-    dispatch({ type: 'POST_LOGIN_ERROR', error: e });
-  }
-}
+export const postLogin = createAsyncDispatcher('POST_LOGIN', postLoginApi);
 
 //postLogoutAPI 연동
-export async function postLogout(dispatch) {
-  dispatch({ type: 'POST_LOGOUT' });
-  try {
-    const response = await postLogoutApi();
-    dispatch({ type: 'POST_LOGOUT_SUCCESS', data: null });
-    return response;
-  } catch (e) {
-    dispatch({ type: 'POST_LOGOUT_ERROR', error: e });
-  }
-}
+export const postLogout = createAsyncDispatcher('POST_LOGOUT', postLogoutApi);
 
 // getAuthUserAPI 연동
-export async function getAuth(dispatch) {
-  dispatch({ type: 'GET_AUTH_USER' });
-  try {
-    const response = await getAuthUser();
-    dispatch({ type: 'GET_AUTH_USER_SUCCESS', data: response.data });
-    return response;
-  } catch (e) {
-    dispatch({ type: 'GET_AUTH_USER_ERROR', error: e });
-  }
-}
+export const getAuth = createAsyncDispatcher('GET_AUTH_USER', getAuthUser);
 
-export async function putUpdateUser(dispatch, fullName, username) {
-  dispatch({ type: 'PUT_UPDATE_USER' });
-  try {
-    const response = await putUpdateUserApi(fullName, username);
-    dispatch({ type: 'PUT_UPDATE_USER_SUCCESS', data: response.data });
-    alert('성명이 성공적으로 바뀌었습니다!');
-  } catch (e) {
-    dispatch({ type: 'PUT_UPDATE_USER_ERROR', error: e });
-  }
-}
+export const putUpdateUser = createAsyncDispatcher(
+  'PUT_UPDATE_USER',
+  putUpdateUserApi,
+);
 
-export async function postProfileImage(dispatch, bodyFormData) {
-  dispatch({ type: 'POST_PROFILE_IMAGE' });
-  try {
-    const response = await postUploadPhotoApi(bodyFormData);
-    dispatch({ type: 'POST_PROFILE_IMAGE_SUCCESS', data: response.data });
-    alert('이미지가 성공적으로 바뀌었습니다!');
-  } catch (e) {
-    dispatch({ type: 'POST_PROFILE_IMAGE_ERROR', error: e });
-  }
-}
+export const postProfileImage = createAsyncDispatcher(
+  'POST_PROFILE_IMAGE',
+  postUploadPhotoApi,
+);
