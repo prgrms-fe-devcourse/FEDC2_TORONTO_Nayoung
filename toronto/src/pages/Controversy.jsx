@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { ControversyVote } from '@components/molecules';
-import { Header, Text } from '@components/atoms';
-import { useParams, useNavigate } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getPostApi, postCommentApi } from '@api/Api';
 import { useUsersState } from '@contexts/UserContext';
+import { Header, Text } from '@components/atoms';
+import { ControversyVote } from '@components/molecules';
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -16,15 +16,23 @@ const Wrapper = styled.div`
 `;
 
 const Controversy = () => {
+  const navigate = useNavigate();
   const state = useUsersState();
-  const { data: user } = state.user;
   const [data, setData] = useState({});
   const { postId } = useParams();
-  const navigate = useNavigate();
+  const { data: user } = state.user;
+  const userId = user?._id;
 
   const getPostData = useCallback(async () => {
     try {
       const postData = await getPostApi(postId);
+      const isVoted = postData.data.comments.some(
+        (comment) => comment.author?._id === userId,
+      );
+      if (userId && isVoted) {
+        navigate(`/controversy/result/${postId}`);
+        return;
+      }
       const { postTitle, postContent, agreeContent, disagreeContent } =
         JSON.parse(postData.data.title);
       setData({
@@ -37,7 +45,7 @@ const Controversy = () => {
     } catch (e) {
       navigate('/404/notFound');
     }
-  }, [postId]);
+  }, [navigate, postId, userId]);
 
   useEffect(() => {
     getPostData();

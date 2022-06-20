@@ -1,9 +1,5 @@
 import { StyledLink, Card, Header, Image, Text } from '@/components/atoms';
 import styled from 'styled-components';
-import { useUsersState } from '@/contexts/UserContext';
-import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-
 const StyledLi = styled.li`
   list-style: none;
 `;
@@ -16,31 +12,12 @@ const PostContainer = styled.div`
 `;
 
 const PostItem = ({ post }) => {
-  const state = useUsersState();
-  const navigate = useNavigate();
-  const { data: user } = state.user;
-  const userId = user?._id;
-  const { _id: postId, image, comments } = post;
+  const { _id: postId, image } = post;
   const { postTitle, postContent } = JSON.parse(post.title);
-  const isVoted = comments.some((comment) => comment.author?._id === userId);
-
-  const handleClick = useCallback(
-    (e) => {
-      if (userId && isVoted) {
-        e.preventDefault();
-        navigate(`/controversy/result/${postId}`);
-      }
-    },
-    [isVoted, userId, postId, navigate],
-  );
 
   return (
     <StyledLi>
-      <StyledLink
-        to={`/controversy/${postId}`}
-        onClick={handleClick}
-        style={{ color: 'black' }}
-      >
+      <StyledLink to={`/controversy/${postId}`} style={{ color: 'black' }}>
         <Card
           padding={10}
           hover={true}
