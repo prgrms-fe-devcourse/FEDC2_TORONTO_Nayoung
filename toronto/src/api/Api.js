@@ -128,3 +128,20 @@ export const getPostsChannel = async (channelId) => {
   const res = await Send.get(`posts/channel/${channelId}`);
   return res;
 };
+
+// 특정 채널의 포스트 목록 offset, limit으로 불러오기
+export const getPostsSlice = async (channelId, offset, limit) => {
+  const res = await Send.get(`posts/channel/${channelId}`, {
+    params: {
+      offset,
+      limit,
+    },
+  });
+  return res;
+};
+
+// 모든 검색 결과 불러오기
+export const getSearchAll = async (value) => {
+  const res = await Send.get(`/search/all/${value}`);
+  return res;
+};
