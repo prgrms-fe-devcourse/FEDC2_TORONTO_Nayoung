@@ -37,6 +37,7 @@ const Tooltip = ({ text, children }) => {
           backgroundColor: 'rgba(0, 0, 0, 0.8)',
           borderRadius: '4px',
           color: '#fff',
+          zIndex: 100,
         }}
       >
         <Text>{text}</Text>
