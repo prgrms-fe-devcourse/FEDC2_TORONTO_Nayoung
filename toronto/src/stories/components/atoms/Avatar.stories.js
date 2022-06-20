@@ -1,7 +1,7 @@
-import Avatar from '@/components/atoms/Avatar';
+import { Avatar } from '@/components/atoms';
 
 export default {
-  title: 'Component/Avatar',
+  title: 'Components/Atoms/Avatar',
   component: 'Avatar',
   argTypes: {
     src: { defaultValue: 'https://picsum.photos/200' },

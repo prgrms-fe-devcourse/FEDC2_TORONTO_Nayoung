@@ -1,7 +1,7 @@
-import Image from '@/components/atoms/Image';
+import { Image } from '@/components/atoms';
 
 export default {
-  title: 'Component/Image',
+  title: 'Components/Atoms/Image',
   component: Image,
   argTypes: {
     lazy: {
@@ -55,7 +55,7 @@ export const Default = (args) => {
   return <Image {...args} />;
 };
 
-export const multy = (args) => {
+export const Multiple = (args) => {
   return (
     <>
       <Image {...args} />
@@ -65,7 +65,7 @@ export const multy = (args) => {
   );
 };
 
-export const lazy = (args) => {
+export const Lazy = (args) => {
   return (
     <div>
       {Array.from(new Array(20), (_, k) => k).map((i) => (

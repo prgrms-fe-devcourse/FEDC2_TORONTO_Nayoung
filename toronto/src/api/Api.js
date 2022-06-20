@@ -111,6 +111,12 @@ export const getUserDummyApi = async () => {
   return res;
 };
 
+// 전체 posts 목록 불러오기
+export const getPostsApi = async () => {
+  const res = await Send.get('/posts');
+  return res;
+};
+
 // 채널 목록 불러오기
 export const getChannels = async () => {
   const res = await Send.get('/channels');

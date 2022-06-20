@@ -1,9 +1,9 @@
-import styled from 'styled-components';
-import UserList from '@/components/organisms/UserList';
 import { BrowserRouter } from 'react-router-dom';
+import { UserList } from '@/components/organisms';
+import styled from 'styled-components';
 
 export default {
-  title: 'Component/Organisms/UserList',
+  title: 'Components/Organisms/UserList',
   component: UserList,
 };
 

@@ -1,7 +1,7 @@
-import Input from '@/components/atoms/Input';
+import { Input } from '@/components/atoms';
 
 export default {
-  title: 'Component/Input',
+  title: 'Components/Atoms/Input',
   component: Input,
   argTypes: {
     label: {
