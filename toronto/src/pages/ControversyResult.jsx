@@ -2,10 +2,11 @@ import { useCallback, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Header, DoughnutChart, Icon } from '@/components/atoms';
-import { Vote, InputBar } from '@/components/molecules';
+import { Vote, InputBar, Tooltip } from '@/components/molecules';
 import { CommentList } from '@/components/organisms';
 import { getToken } from '@/lib/Login';
 import { useUsersState } from '@/contexts/UserContext';
+import { deletePost } from '@/api/Api';
 
 const ResultPage = () => {
   const [data, setData] = useState({
@@ -16,6 +17,7 @@ const ResultPage = () => {
     disagree: 0,
     comments: [],
     likes: [],
+    author: {},
   });
   const [opinion, setOpinion] = useState('');
   const [likeData, setLikeData] = useState({});
@@ -23,6 +25,7 @@ const ResultPage = () => {
   const token = getToken();
   const userData = useUsersState();
   const navigate = useNavigate();
+  const isAuthor = userData.user.data?._id === data.author?._id;
 
   const getPostData = useCallback(() => {
     axios(`${process.env.REACT_APP_END_POINT}/posts/${postId}`).then((res) => {
@@ -35,6 +38,7 @@ const ResultPage = () => {
         },
         comments: res.data.comments,
         likes: res.data.likes,
+        author: res.data.author,
       });
       setLikeData({
         isLiked:
@@ -57,6 +61,13 @@ const ResultPage = () => {
     });
   }, [navigate, postId]);
 
+  const checkAuthUser = useCallback(() => {
+    if (!userData?.user?.loading && !userData?.user?.data) {
+      alert('로그인 된 사용자만 접근할 수 있습니다.');
+      navigate('/');
+    }
+  }, [userData, navigate]);
+
   const deleteComment = (id) => {
     axios(`${process.env.REACT_APP_END_POINT}/comments/delete`, {
       method: 'delete',
@@ -70,9 +81,10 @@ const ResultPage = () => {
   };
 
   useEffect(() => {
+    checkAuthUser();
     checkValidPost();
     getPostData();
-  }, [getPostData, checkValidPost]);
+  }, [getPostData, checkValidPost, checkAuthUser]);
 
   const agreeComments = data.comments
     .filter((item) => {
@@ -163,10 +175,34 @@ const ResultPage = () => {
     }
   };
 
+  const handleDeleteClick = async () => {
+    if (window.confirm('정말 삭제하시겠어요?')) {
+      const res = await deletePost(postId);
+      if (res.statusText === 'OK') {
+        navigate('/');
+      }
+    }
+  };
+
   return (
     <div style={{ backgroundColor: '#efefef' }}>
-      <div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <Header>{data?.post?.title}</Header>
+        <div style={{ display: isAuthor ? 'block' : 'none' }}>
+          <Tooltip text='글 삭제하기'>
+            <Icon
+              onClick={handleDeleteClick}
+              iconName='trash-2'
+              style={{ cursor: 'pointer' }}
+            />
+          </Tooltip>
+        </div>
       </div>
       <div
         style={{
@@ -188,7 +224,15 @@ const ResultPage = () => {
           borderColor={['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)']}
           chartSize={500}
         />
-        <Vote onChange={handleChange} agreeText='찬성' disagreeText='반대' />
+        <Vote
+          onChange={handleChange}
+          agreeText={`찬성 (${Math.floor(
+            (agreeVotes.length / votes.length) * 100,
+          )}%)`}
+          disagreeText={`반대 (${Math.floor(
+            (disagreeVotes.length / votes.length) * 100,
+          )}%)`}
+        />
         <div
           style={{
             width: '100%',
@@ -199,7 +243,7 @@ const ResultPage = () => {
         >
           <InputBar
             totalWidth={500}
-            placeholder='댓글을 작성해주세요.'
+            placeholder='찬성/반대 의견을 선택하고 댓글을 작성해주세요.'
             buttonText='댓글 작성'
             onSubmit={handleSubmit}
           />

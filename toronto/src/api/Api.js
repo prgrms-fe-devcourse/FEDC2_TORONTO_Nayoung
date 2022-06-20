@@ -128,3 +128,14 @@ export const getPostsChannel = async (channelId) => {
   const res = await Send.get(`posts/channel/${channelId}`);
   return res;
 };
+
+// 포스트 삭제
+export const deletePost = async (postId) => {
+  if (!postId) return;
+  const res = await Send.delete(`posts/delete`, {
+    data: {
+      id: postId,
+    },
+  });
+  return res;
+};
