@@ -6,7 +6,7 @@ import { Vote, InputBar, Tooltip } from '@/components/molecules';
 import { CommentList } from '@/components/organisms';
 import { getToken } from '@/lib/Login';
 import { useUsersState } from '@/contexts/UserContext';
-import { deletePost } from '@/api/Api';
+import { deletePost, getPostApi, deleteCommentApi } from '@/api/Api';
 
 const ResultPage = () => {
   const [data, setData] = useState({
@@ -27,38 +27,37 @@ const ResultPage = () => {
   const navigate = useNavigate();
   const isAuthor = userData.user.data?._id === data.author?._id;
 
-  const getPostData = useCallback(() => {
-    axios(`${process.env.REACT_APP_END_POINT}/posts/${postId}`).then((res) => {
-      const titleData = JSON.parse(res.data.title);
+  const getPostData = useCallback(async () => {
+    const res = await getPostApi(postId);
+    const titleData = JSON.parse(res.data.title);
 
-      setData({
-        post: {
-          id: res.data._id,
-          title: titleData.postTitle,
-        },
-        comments: res.data.comments,
-        likes: res.data.likes,
-        author: res.data.author,
-      });
-      setLikeData({
-        isLiked:
-          res.data.likes.filter(({ user }) => user === userData.user.data?._id)
-            .length > 0
-            ? true
-            : false,
-        likeId: res.data.likes.filter(
-          ({ user }) => user === userData.user.data?._id,
-        )[0]?._id,
-      });
+    setData({
+      post: {
+        id: res.data._id,
+        title: titleData.postTitle,
+      },
+      comments: res.data.comments,
+      likes: res.data.likes,
+      author: res.data.author,
+    });
+    setLikeData({
+      isLiked:
+        res.data.likes.filter(({ user }) => user === userData.user.data?._id)
+          .length > 0
+          ? true
+          : false,
+      likeId: res.data.likes.filter(
+        ({ user }) => user === userData.user.data?._id,
+      )[0]?._id,
     });
   }, [postId, userData]);
 
-  const checkValidPost = useCallback(() => {
-    axios(`${process.env.REACT_APP_END_POINT}/posts/${postId}`).then((res) => {
-      if (res.data._id !== postId) {
-        navigate('/no-matched-post', { replace: true });
-      }
-    });
+  const checkValidPost = useCallback(async () => {
+    const res = await getPostApi(postId);
+
+    if (res.data._id !== postId) {
+      navigate('/no-matched-post', { replace: true });
+    }
   }, [navigate, postId]);
 
   const checkAuthUser = useCallback(() => {
@@ -68,16 +67,13 @@ const ResultPage = () => {
     }
   }, [userData, navigate]);
 
-  const deleteComment = (id) => {
-    axios(`${process.env.REACT_APP_END_POINT}/comments/delete`, {
-      method: 'delete',
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-      data: {
-        id,
-      },
-    }).then(() => getPostData());
+  const deleteComment = async (id) => {
+    if (window.confirm('정말 삭제하시겠어요?')) {
+      const res = await deleteCommentApi(id);
+      if (res.statusText === 'OK') {
+        getPostData();
+      }
+    }
   };
 
   useEffect(() => {
@@ -226,12 +222,13 @@ const ResultPage = () => {
         />
         <Vote
           onChange={handleChange}
-          agreeText={`찬성 (${Math.floor(
-            (agreeVotes.length / votes.length) * 100,
-          )}%)`}
-          disagreeText={`반대 (${Math.floor(
-            (disagreeVotes.length / votes.length) * 100,
-          )}%)`}
+          agreeText={`찬성 (${
+            votes.length && Math.floor((agreeVotes.length / votes.length) * 100)
+          }%)`}
+          disagreeText={`반대 (${
+            votes.length &&
+            Math.floor((disagreeVotes.length / votes.length) * 100)
+          }%)`}
         />
         <div
           style={{

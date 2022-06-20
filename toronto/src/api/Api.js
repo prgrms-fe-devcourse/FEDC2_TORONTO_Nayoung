@@ -139,3 +139,14 @@ export const deletePost = async (postId) => {
   });
   return res;
 };
+
+// 댓글 삭제
+export const deleteCommentApi = async (commentId) => {
+  if (!commentId) return;
+  const res = await Send.delete(`comments/delete`, {
+    data: {
+      id: commentId,
+    },
+  });
+  return res;
+};
