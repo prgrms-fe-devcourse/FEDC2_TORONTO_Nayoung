@@ -69,7 +69,7 @@ const Controversy = () => {
           <ControversyVote
             agreeTitle={data.agreeContent}
             disagreeTitle={data.disagreeContent}
-            imgSrc={data.image}
+            imgSrc={data.image || 'https://picsum.photos/200'}
             onChange={handleChange}
           />
         </Wrapper>
