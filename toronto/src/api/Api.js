@@ -140,8 +140,36 @@ export const getPostsSlice = async (channelId, offset, limit) => {
   return res;
 };
 
+// 글 쓰기
+export const postPost = async (formData) => {
+  const res = await Send.post(`posts/create`, formData);
+  return res;
+};
+
+// 포스트 삭제
+export const deletePost = async (postId) => {
+  if (!postId) return;
+  const res = await Send.delete(`posts/delete`, {
+    data: {
+      id: postId,
+    },
+  });
+  return res;
+};
+
 // 모든 검색 결과 불러오기
 export const getSearchAll = async (value) => {
   const res = await Send.get(`/search/all/${value}`);
+  return res;
+};
+
+// 댓글 삭제
+export const deleteCommentApi = async (commentId) => {
+  if (!commentId) return;
+  const res = await Send.delete(`comments/delete`, {
+    data: {
+      id: commentId,
+    },
+  });
   return res;
 };
