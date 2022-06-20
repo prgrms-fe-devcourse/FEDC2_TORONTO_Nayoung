@@ -1,7 +1,7 @@
-import Divider from '@/components/atoms/Divider';
+import { Divider } from '@/components/atoms';
 
 export default {
-  title: 'Component/Divider',
+  title: 'Components/Atoms/Divider',
   component: Divider,
 };
 

@@ -1,7 +1,7 @@
-import ControversyVote from '@/components/molecules/ControversyVote';
+import { ControversyVote } from '@/components/molecules';
 
 export default {
-  title: 'Component/ControversyVote',
+  title: 'Components/Molecules/ControversyVote',
   component: ControversyVote,
   argTypes: {
     agreeTitle: { defaultValue: '해도된다.', control: { type: 'text' } },

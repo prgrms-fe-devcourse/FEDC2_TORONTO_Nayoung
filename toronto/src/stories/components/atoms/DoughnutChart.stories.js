@@ -1,7 +1,7 @@
-import DoughnutChart from '@/components/atoms/DoughnutChart';
+import { DoughnutChart } from '@/components/atoms';
 
 export default {
-  title: 'Component/DoughnutChart',
+  title: 'Components/Atoms/DoughnutChart',
   component: DoughnutChart,
   argTypes: {
     borderWidth: { defulatValue: 1, control: 'number' },
@@ -9,7 +9,7 @@ export default {
   },
 };
 
-export const Defualt = (args) => {
+export const Default = (args) => {
   return (
     <DoughnutChart
       {...args}
