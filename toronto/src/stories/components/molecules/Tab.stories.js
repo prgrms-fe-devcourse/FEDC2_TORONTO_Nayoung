@@ -1,7 +1,7 @@
-import Tab from '@/components/molecules/Tab';
+import { Tab } from '@/components/molecules';
 
 export default {
-  title: 'Component/Tab',
+  title: 'Components/Molecules/Tab',
   component: Tab,
 };
 

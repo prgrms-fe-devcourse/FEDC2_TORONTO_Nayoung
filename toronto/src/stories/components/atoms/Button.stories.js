@@ -1,7 +1,7 @@
-import Button from '@/components/atoms/Button';
+import { Button } from '@/components/atoms';
 
 export default {
-  title: 'Component/Button',
+  title: 'Components/Atoms/Button',
   component: Button,
   argTypes: {
     type: {
