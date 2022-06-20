@@ -4,6 +4,7 @@ import { Header, Text } from '@/components/atoms';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { getPostApi, postCommentApi } from '@api/Api';
+import { useUsersState } from '@contexts/UserContext';
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -14,6 +15,8 @@ const Wrapper = styled.div`
 `;
 
 const Controversy = () => {
+  const state = useUsersState();
+  const { data: user } = state.user;
   const [data, setData] = useState({});
   const { postId } = useParams();
   const navigate = useNavigate();
@@ -40,6 +43,11 @@ const Controversy = () => {
   }, [getPostData]);
 
   const handleChange = async (opinionState) => {
+    if (!user) {
+      alert('로그인 하셔야 합니다.!');
+      navigate('/');
+      return;
+    }
     if (!opinionState || !postId) return;
     await postCommentApi({
       comment: JSON.stringify({
@@ -50,6 +58,7 @@ const Controversy = () => {
     });
     navigate(`/controversy/result/${postId}`);
   };
+
   return (
     <div>
       {data && (
