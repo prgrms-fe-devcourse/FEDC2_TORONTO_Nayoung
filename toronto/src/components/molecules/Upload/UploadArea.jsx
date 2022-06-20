@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Text from '@/components/atoms/Text';
-import Header from '@/components/atoms/Header';
-import Image from '@/components/atoms/Image';
-import Loader from '@/components/atoms/Loader';
-import Button from '@/components/atoms/Button';
+import { Text, Header, Image, Loader, Button } from '@/components/atoms';
 
 const DraggableContainer = styled.div`
   display: flex;

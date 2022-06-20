@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import axios from 'axios';
 import { Button, Card, Input } from '@/components/atoms';
 import { Upload, DraggableArea } from '@/components/molecules';
-import { getToken } from '@/lib/Login';
+import { useUsersState } from '@/contexts/UserContext';
+import { postPost } from '@/api/Api';
 
 const Post = () => {
   const [postData, setPostData] = useState({
@@ -16,12 +16,19 @@ const Post = () => {
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const token = getToken();
+  const { data: user } = useUsersState();
 
   const { postTitle, postContent, agreeContent, disagreeContent, image } =
     postData;
 
-  const handleClick = (e) => {
+  useEffect(() => {
+    if (!user) {
+      alert('로그인 된 사용자만 접근할 수 있습니다.');
+      navigate('/');
+    }
+  }, [user, navigate]);
+
+  const handleClick = async (e) => {
     const formData = new FormData();
     const titleData = {
       postTitle,
@@ -34,25 +41,11 @@ const Post = () => {
     formData.append('channelId', '629f0b8ed648c11b1bd9d300');
 
     setLoading(true);
-    axios({
-      url: `${process.env.REACT_APP_END_POINT}/posts/create`,
-      method: 'post',
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-      data: formData,
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          navigate('/'); // 글쓰기가 성공하면 지정한 페이지로 이동
-        }
-      })
-      .catch((e) => {
-        throw new Error(e);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    const res = await postPost(formData);
+    if (res.statusText === 'OK') {
+      navigate(`/controversy/${res.data._id}`);
+    }
+    setLoading(false);
   };
 
   const handleChange = (e) => {
