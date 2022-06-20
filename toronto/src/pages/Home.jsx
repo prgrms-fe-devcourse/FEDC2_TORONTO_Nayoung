@@ -1,12 +1,11 @@
-import PostList from '@/components/organisms/PostList';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import InputBar from '@/components/molecules/InputBar';
-import Button from '@/components/atoms/Button';
 import axios from 'axios';
-import { useUsersState } from '../contexts/UserContext';
-import Skeleton from '@/components/atoms/Skeleton';
+import styled from 'styled-components';
+import { useUsersState } from '@/contexts/UserContext';
+import { InputBar } from '@/components/molecules';
+import { Button, Skeleton } from '@/components/atoms';
+import { PostList } from '@/components/organisms';
 
 const limit = 10;
 
