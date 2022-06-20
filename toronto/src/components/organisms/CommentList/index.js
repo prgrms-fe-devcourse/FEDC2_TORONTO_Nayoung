@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import Card from '@/components/atoms/Card';
-import Header from '@/components/atoms/Header';
-import Button from '@/components/atoms/Button';
-import CommentItem from '@/components/molecules/CommentItem';
+import { Card, Header, Button } from '@/components/atoms';
+import { CommentItem } from '@/components/molecules';
 
 const CommentList = ({ name, width, comments, limit, onDelete }) => {
   const [commentList, setCommentList] = useState([]);
