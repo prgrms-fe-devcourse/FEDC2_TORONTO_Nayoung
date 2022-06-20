@@ -1,4 +1,5 @@
 import { StyledLink, Card, Header, Image } from '@/components/atoms';
+import placeholder from '@/assets/images/user_placeholder.png';
 import styled from 'styled-components';
 
 const StyledLi = styled.li`
@@ -27,7 +28,7 @@ const UserItem = ({ user }) => {
         >
           <UserContainer>
             <Image
-              src={user.image || 'https://via.placeholder.com/200'}
+              src={user.image || placeholder}
               width={'100%'}
               height={200}
               style={{
