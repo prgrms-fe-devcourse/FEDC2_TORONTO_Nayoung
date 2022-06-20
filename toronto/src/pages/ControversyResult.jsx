@@ -61,11 +61,11 @@ const ResultPage = () => {
   }, [navigate, postId]);
 
   const checkAuthUser = useCallback(() => {
-    if (!userData?.user?.loading && !userData?.user?.data) {
+    if (!token) {
       alert('로그인 된 사용자만 접근할 수 있습니다.');
       navigate('/');
     }
-  }, [userData, navigate]);
+  }, [token, navigate]);
 
   const deleteComment = async (id) => {
     if (window.confirm('정말 삭제하시겠어요?')) {
