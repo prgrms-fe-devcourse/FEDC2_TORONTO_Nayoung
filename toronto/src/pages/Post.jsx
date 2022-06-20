@@ -16,7 +16,7 @@ const Post = () => {
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { data: user } = useUsersState();
+  const { data: user } = useUsersState().user;
 
   const { postTitle, postContent, agreeContent, disagreeContent, image } =
     postData;
