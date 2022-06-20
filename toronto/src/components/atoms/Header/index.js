@@ -36,4 +36,8 @@ Header.propTypes = {
   color: PropTypes.string,
 };
 
+Header.defaultProps = {
+  children: '',
+};
+
 export default Header;

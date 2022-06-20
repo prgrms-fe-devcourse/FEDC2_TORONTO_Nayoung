@@ -55,4 +55,8 @@ Text.propTypes = {
   color: PropTypes.string,
 };
 
+Text.defaultProps = {
+  children: '',
+};
+
 export default Text;

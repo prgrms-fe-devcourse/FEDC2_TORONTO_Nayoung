@@ -84,4 +84,8 @@ Image.propTypes = {
   mode: PropTypes.string,
 };
 
+Image.defaultProps = {
+  src: '',
+};
+
 export default Image;
