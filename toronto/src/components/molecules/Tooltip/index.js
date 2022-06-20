@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Text } from '@/components/atoms';
+import styled from 'styled-components';
 
 const Tooltip = ({ text, children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,38 +13,36 @@ const Tooltip = ({ text, children }) => {
     setIsOpen(false);
   };
 
-  const node = React.Children.toArray(children).map(
-    (element, index, elements) => {
-      return React.cloneElement(element, {
-        ...element.props,
-        onMouseOver: handleMouseOver,
-        onMouseOut: handleMouseOut,
-      });
-    },
-  );
+  const node = React.Children.toArray(children).map((element) => {
+    return React.cloneElement(element, {
+      ...element.props,
+      onMouseOver: handleMouseOver,
+      onMouseOut: handleMouseOut,
+    });
+  });
 
   return (
     <div style={{ position: 'relative', display: 'inline-block' }}>
       {node}
-      <div
-        style={{
-          position: 'absolute',
-          top: '110%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: 'max-content',
-          display: isOpen ? 'inline-block' : 'none',
-          padding: 5,
-          backgroundColor: 'rgba(0, 0, 0, 0.8)',
-          borderRadius: '4px',
-          color: '#fff',
-          zIndex: 100,
-        }}
-      >
+      <TooltipContainer isOpen={isOpen}>
         <Text>{text}</Text>
-      </div>
+      </TooltipContainer>
     </div>
   );
 };
 
 export default Tooltip;
+
+const TooltipContainer = styled.div`
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  display: ${({ isOpen }) => (isOpen ? 'inline-block' : 'none')};
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 4px;
+  color: #fff;
+  z-index: 100;
+`;
