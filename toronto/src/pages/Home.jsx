@@ -125,6 +125,7 @@ const Container = styled.div`
   width: 80%;
   height: 100%;
   margin: 0 auto;
+  padding-top: 3rem;
 `;
 
 const Wrapper = styled.div`
