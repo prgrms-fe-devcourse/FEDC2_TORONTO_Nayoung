@@ -4,7 +4,9 @@ import Header from '@/components/atoms/Header';
 import Image from '@/components/atoms/Image';
 import Text from '@/components/atoms/Text';
 import styled from 'styled-components';
-// import { useUsersState } from '@/contexts/UserContext';
+import { useUsersState } from '@/contexts/UserContext';
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const StyledLi = styled.li`
   list-style: none;
@@ -28,11 +30,23 @@ const ContentContainer = styled.div`
 `;
 
 const PostItem = ({ post }) => {
-  // const state = useUsersState();
-  // const { data: user } = state.user;
-  // const userId = user?._id;
-  const { _id: postId, image } = post;
+  const state = useUsersState();
+  const navigate = useNavigate();
+  const { data: user } = state.user;
+  const userId = user?._id;
+  const { _id: postId, image, comments } = post;
   const { postTitle, postContent } = JSON.parse(post.title);
+  const isVoted = comments.some((comment) => comment.author?._id === userId);
+
+  const handleClick = useCallback(
+    (e) => {
+      if (userId && isVoted) {
+        e.preventDefault();
+        navigate(`/controversy/result/${postId}`);
+      }
+    },
+    [isVoted, userId, postId, navigate],
+  );
 
   return (
     <StyledLi>
@@ -55,7 +69,11 @@ const PostItem = ({ post }) => {
               {postTitle}
             </Header>
           </TitleContainer>
-          <StyledLink to={`/controversy/${postId}`} style={{ color: 'black' }}>
+          <StyledLink
+            to={`/controversy/${postId}`}
+            onClick={handleClick}
+            style={{ color: 'black' }}
+          >
             <ContentContainer>
               <Image
                 src={image || 'https://via.placeholder.com/200'}
