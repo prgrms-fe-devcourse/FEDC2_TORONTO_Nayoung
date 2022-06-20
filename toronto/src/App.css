@@ -1,0 +1,62 @@
+@font-face {
+  font-family: 'S-CoreDream-Thin';
+  src: url('@/assets/fonts/SCDream1.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'S-CoreDream-ExtraLight';
+  src: url('@/assets/fonts/SCDream2.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'S-CoreDream-Light';
+  src: url('@/assets/fonts/SCDream3.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'S-CoreDream-Regular';
+  src: url('@/assets/fonts/SCDream4.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'S-CoreDream-Medium';
+  src: url('@/assets/fonts/SCDream5.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'S-CoreDream-Bold';
+  src: url('@/assets/fonts/SCDream6.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'S-CoreDream-ExtraBold';
+  src: url('@/assets/fonts/SCDream7.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'S-CoreDream-Heavy';
+  src: url('@/assets/fonts/SCDream8.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'S-CoreDream-Black';
+  src: url('@/assets/fonts/SCDream9.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
