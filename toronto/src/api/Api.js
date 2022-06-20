@@ -109,6 +109,12 @@ export const getUserDummyApi = async () => {
   return res;
 };
 
+// 전체 posts 목록 불러오기
+export const getPostsApi = async () => {
+  const res = await Send.get('/posts');
+  return res;
+};
+
 // 채널 목록 불러오기
 export const getChannels = async () => {
   const res = await Send.get('/channels');
@@ -124,5 +130,50 @@ export const getChannelsName = async (channelName) => {
 // 특정 채널의 포스트 목록
 export const getPostsChannel = async (channelId) => {
   const res = await Send.get(`posts/channel/${channelId}`);
+  return res;
+};
+
+// 특정 채널의 포스트 목록 offset, limit으로 불러오기
+export const getPostsSlice = async (channelId, offset, limit) => {
+  const res = await Send.get(`posts/channel/${channelId}`, {
+    params: {
+      offset,
+      limit,
+    },
+  });
+  return res;
+};
+
+// 글 쓰기
+export const postPost = async (formData) => {
+  const res = await Send.post(`posts/create`, formData);
+  return res;
+};
+
+// 포스트 삭제
+export const deletePost = async (postId) => {
+  if (!postId) return;
+  const res = await Send.delete(`posts/delete`, {
+    data: {
+      id: postId,
+    },
+  });
+  return res;
+};
+
+// 모든 검색 결과 불러오기
+export const getSearchAll = async (value) => {
+  const res = await Send.get(`/search/all/${value}`);
+  return res;
+};
+
+// 댓글 삭제
+export const deleteCommentApi = async (commentId) => {
+  if (!commentId) return;
+  const res = await Send.delete(`comments/delete`, {
+    data: {
+      id: commentId,
+    },
+  });
   return res;
 };

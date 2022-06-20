@@ -43,7 +43,7 @@ const NavigationBar = ({ user, handleLogout }) => {
             </Tooltip>
             <Tooltip text='내 정보 보기'>
               <StyledLink
-                to={`/${user._id}`}
+                to={`/users/${user._id}`}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
