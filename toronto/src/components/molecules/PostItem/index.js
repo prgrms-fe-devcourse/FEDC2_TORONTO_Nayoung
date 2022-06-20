@@ -1,8 +1,4 @@
-import StyledLink from '@/components/atoms/StyledLink';
-import Card from '@/components/atoms/Card';
-import Header from '@/components/atoms/Header';
-import Image from '@/components/atoms/Image';
-import Text from '@/components/atoms/Text';
+import { StyledLink, Card, Header, Image, Text } from '@/components/atoms';
 import styled from 'styled-components';
 import { useUsersState } from '@/contexts/UserContext';
 import { useCallback } from 'react';
