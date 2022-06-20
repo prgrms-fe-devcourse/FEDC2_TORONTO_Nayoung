@@ -1,12 +1,11 @@
-import PostList from '@/components/organisms/PostList';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import InputBar from '@/components/molecules/InputBar';
-import Button from '@/components/atoms/Button';
-import axios from 'axios';
-import { useUsersState } from '../contexts/UserContext';
-import Skeleton from '@/components/atoms/Skeleton';
+import { useUsersState } from '@/contexts/UserContext';
+import { InputBar } from '@/components/molecules';
+import { Button, Skeleton } from '@/components/atoms';
+import { PostList } from '@/components/organisms';
+import { getPostsSlice, getSearchAll } from '@/api/Api';
 
 const limit = 10;
 
@@ -32,15 +31,7 @@ const Home = () => {
     setIsLoading(true);
     offset.current = limit;
 
-    const res = await axios.get(
-      `${process.env.REACT_APP_END_POINT}/posts/channel/${process.env.REACT_APP_CHANNEL_ID}`,
-      {
-        params: {
-          offset: 0,
-          limit: limit,
-        },
-      },
-    );
+    const res = await getPostsSlice(process.env.REACT_APP_CHANNEL_ID, 0, limit);
 
     setPosts([...res.data]);
     setIsLoading(false);
@@ -49,14 +40,10 @@ const Home = () => {
   const loadPosts = useCallback(async () => {
     setIsLoading(true);
 
-    const res = await axios.get(
-      `${process.env.REACT_APP_END_POINT}/posts/channel/${process.env.REACT_APP_CHANNEL_ID}`,
-      {
-        params: {
-          offset: offset.current,
-          limit: limit,
-        },
-      },
+    const res = await getPostsSlice(
+      process.env.REACT_APP_CHANNEL_ID,
+      offset.current,
+      limit,
     );
 
     setPosts((prev) => [...prev, ...res.data]);
@@ -91,10 +78,7 @@ const Home = () => {
 
       setIsLoading(true);
 
-      const res = await axios.get(
-        `${process.env.REACT_APP_END_POINT}/search/all/${value}`,
-      );
-
+      const res = await getSearchAll(value);
       const filterPosts = res.data.filter((data) => !data.role);
 
       setPosts([...filterPosts]);
