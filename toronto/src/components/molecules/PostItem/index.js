@@ -12,17 +12,7 @@ const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-`;
-
-const TitleContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const ContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  max-height: 300px;
 `;
 
 const PostItem = ({ post }) => {
@@ -46,44 +36,49 @@ const PostItem = ({ post }) => {
 
   return (
     <StyledLi>
-      <Card
-        padding={10}
-        hover={true}
-        radius={5}
-        style={{ width: '100%', boxSizing: 'border-box' }}
+      <StyledLink
+        to={`/controversy/${postId}`}
+        onClick={handleClick}
+        style={{ color: 'black' }}
       >
-        <PostContainer>
-          <TitleContainer>
+        <Card
+          padding={10}
+          hover={true}
+          radius={5}
+          style={{ width: '100%', boxSizing: 'border-box' }}
+        >
+          <PostContainer>
             <Header
               level={3}
               style={{
                 textOverflow: 'ellipsis',
                 overflow: 'hidden',
                 whiteSpace: 'nowrap',
+                flexShrink: 0,
               }}
             >
               {postTitle}
             </Header>
-          </TitleContainer>
-          <StyledLink
-            to={`/controversy/${postId}`}
-            onClick={handleClick}
-            style={{ color: 'black' }}
-          >
-            <ContentContainer>
-              <Image
-                src={image || 'https://via.placeholder.com/200'}
-                width={'100%'}
-                height={200}
-                mode={'cover'}
-              />
-              <Text size='normal' style={{ paddingTop: 20 }}>
-                {postContent}
-              </Text>
-            </ContentContainer>
-          </StyledLink>
-        </PostContainer>
-      </Card>
+            <Image
+              src={image || 'https://via.placeholder.com/200'}
+              width={'100%'}
+              height={200}
+              mode={'cover'}
+            />
+            <Text
+              size='normal'
+              style={{
+                paddingTop: 20,
+                textOverflow: 'ellipsis',
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {postContent}
+            </Text>
+          </PostContainer>
+        </Card>
+      </StyledLink>
     </StyledLi>
   );
 };
