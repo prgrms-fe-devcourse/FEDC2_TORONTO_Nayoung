@@ -16,7 +16,7 @@ const UserContainer = styled.div`
 const UserItem = ({ user }) => {
   return (
     <StyledLi>
-      <StyledLink to={`/${user._id}`} style={{ color: 'black' }}>
+      <StyledLink to={`/users/${user._id}`} style={{ color: 'black' }}>
         <Card
           hover={true}
           radius={5}

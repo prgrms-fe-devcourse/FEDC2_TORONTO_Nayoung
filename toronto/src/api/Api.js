@@ -21,6 +21,18 @@ export const postSignUpApi = async ({ email, fullName, password }) => {
   return res;
 };
 
+export const postCommentApi = async (commentBody) => {
+  const token = getToken();
+  await axios({
+    method: 'POST',
+    url: `${process.env.REACT_APP_END_POINT}/comments/create`,
+    data: commentBody,
+    headers: {
+      Authorization: `bearer ${token}`,
+    },
+  });
+};
+
 export const getAuthUser = async () => {
   const res = await Send.get('/auth-user');
   return res;
@@ -28,6 +40,12 @@ export const getAuthUser = async () => {
 
 export const postLogoutApi = async () => {
   const res = await Send.post('/logout');
+  return res;
+};
+
+export const getPostApi = async (postId) => {
+  if (!postId) return;
+  const res = await Send.get(`/posts/${postId}`);
   return res;
 };
 
@@ -114,5 +132,25 @@ export const getPostsChannel = async (channelId) => {
 // 글 쓰기
 export const postPost = async (formData) => {
   const res = await Send.post(`posts/create`, formData);
+
+// 포스트 삭제
+export const deletePost = async (postId) => {
+  if (!postId) return;
+  const res = await Send.delete(`posts/delete`, {
+    data: {
+      id: postId,
+    },
+  });
+  return res;
+};
+
+// 댓글 삭제
+export const deleteCommentApi = async (commentId) => {
+  if (!commentId) return;
+  const res = await Send.delete(`comments/delete`, {
+    data: {
+      id: commentId,
+    },
+  });
   return res;
 };
