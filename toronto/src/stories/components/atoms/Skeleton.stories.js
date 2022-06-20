@@ -1,7 +1,7 @@
-import Skeleton from '@/components/atoms/Skeleton';
+import { Skeleton } from '@/components/atoms';
 
 export default {
-  title: 'Component/Skeleton',
+  title: 'Components/Atoms/Skeleton',
   component: Skeleton,
 };
 

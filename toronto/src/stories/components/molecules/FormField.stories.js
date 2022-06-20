@@ -1,7 +1,7 @@
-import FormField from '@/components/molecules/FormField';
+import { FormField } from '@/components/molecules';
 
 export default {
-  title: 'Component/molecules/FormField',
+  title: 'Components/Molecules/FormField',
   component: FormField,
 };
 
