@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Text, Image } from '@components/atoms';
 
@@ -22,8 +21,6 @@ const ControversyButton = styled.div`
   padding: 16px;
   height: 500px;
   width: 350px;
-  background-color: ${({ selected, backgroundColor }) =>
-    selected ? backgroundColor : ''};
 
   &:hover {
     background-color: ${(hoverBackgroundColor) => hoverBackgroundColor};
@@ -43,16 +40,12 @@ const ControversyVote = ({
   onChange,
   ...props
 }) => {
-  const [agree, setAgree] = useState('');
-
   return (
     <ControversyVoteWrapper {...props}>
       <ControversyButton
         onClick={(e) => {
-          setAgree('agree');
-          onChange(agree);
+          onChange('agree');
         }}
-        selected={agree === 'agree' ? true : false}
         backgroundColor='#649dd6'
         hoverBackgroundColor='#5488ce'
         activeBackgroundColor='#2f66d2'
@@ -73,10 +66,8 @@ const ControversyVote = ({
       </Text>
       <ControversyButton
         onClick={(e) => {
-          setAgree('disagree');
-          onChange(agree);
+          onChange('disagree');
         }}
-        selected={agree === 'disagree' ? true : false}
         backgroundColor='#ef5941'
         hoverBackgroundColor='#ef3322'
         activeBackgroundColor='de3322'
