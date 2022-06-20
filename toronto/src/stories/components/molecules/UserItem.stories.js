@@ -1,9 +1,9 @@
-import UserItem from '@/components/molecules/UserItem';
 import { BrowserRouter } from 'react-router-dom';
+import { UserItem } from '@/components/molecules';
 import styled from 'styled-components';
 
 export default {
-  title: 'Component/Molecules/UserItem',
+  title: 'Components/Molecules/UserItem',
   component: UserItem,
 };
 

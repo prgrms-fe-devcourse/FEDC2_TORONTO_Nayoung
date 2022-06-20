@@ -40,6 +40,7 @@ const SignUpForm = () => {
         values.password,
       );
       if (res) {
+        alert('회원가입이 성공적으로 이뤄졌습니다!');
         navigate('/');
       } else {
         navigate('/sign-up');

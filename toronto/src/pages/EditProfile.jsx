@@ -45,7 +45,10 @@ const EditProfile = () => {
         nameError: '성명을 입력해주세요',
       });
     } else {
-      putUpdateUser(dispatch, inputs.name, inputs.name);
+      const res = putUpdateUser(dispatch, inputs.name, inputs.name);
+      if (res) {
+        alert('성명이 성공적으로 바뀌었습니다');
+      }
       setErrors({ ...errors, nameError: '' });
       navigate(`/${user._id}`);
     }

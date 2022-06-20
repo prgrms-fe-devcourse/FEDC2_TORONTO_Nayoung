@@ -1,7 +1,7 @@
-import Icon from '@/components/atoms/Icon';
+import { Icon } from '@/components/atoms';
 
 export default {
-  title: 'Component/Icon',
+  title: 'Components/Atoms/Icon',
   component: Icon,
   argTypes: {
     iconName: { defaultValue: 'github', control: 'text' },

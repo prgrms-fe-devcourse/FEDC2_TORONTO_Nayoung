@@ -1,8 +1,7 @@
-import Upload from '@/components/molecules/Upload';
-import DraggableArea from '@/components/molecules/Upload/UploadArea';
+import { Upload, DraggableArea } from '@/components/molecules';
 
 export default {
-  title: 'Component/Upload',
+  title: 'Components/Molecules/Upload',
   component: Upload,
   argTypes: {
     clickArea: { control: 'boolean', defaultValue: false },

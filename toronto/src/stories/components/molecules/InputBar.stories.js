@@ -1,7 +1,7 @@
-import InputBar from '@/components/molecules/InputBar';
+import { InputBar } from '@/components/molecules';
 
 export default {
-  title: 'Molecules/InputBar',
+  title: 'Components/Molecules/InputBar',
   component: InputBar,
   argTypes: {
     placeholder: {

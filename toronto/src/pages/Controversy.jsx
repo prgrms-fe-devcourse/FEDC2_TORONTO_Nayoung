@@ -1,26 +1,38 @@
 import styled from 'styled-components';
-import { ControversyVote } from '@/components/molecules';
-import { Header, Text } from '@/components/atoms';
-import { useParams, useNavigate } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getPostApi, postCommentApi } from '@api/Api';
+import { useUsersState } from '@contexts/UserContext';
+import { Header, Text } from '@components/atoms';
+import { ControversyVote } from '@components/molecules';
 
 const Wrapper = styled.div`
   height: 100vh;
-  padding: 150px 320px;
+  width: 80%;
   display: flex;
+  margin: auto;
   flex-direction: column;
-  background-color: #f9fafb;
+  justify-content: center;
 `;
 
 const Controversy = () => {
+  const navigate = useNavigate();
+  const state = useUsersState();
   const [data, setData] = useState({});
   const { postId } = useParams();
-  const navigate = useNavigate();
+  const { data: user } = state.user;
+  const userId = user?._id;
 
   const getPostData = useCallback(async () => {
     try {
       const postData = await getPostApi(postId);
+      const isVoted = postData.data.comments.some(
+        (comment) => comment.author?._id === userId,
+      );
+      if (userId && isVoted) {
+        navigate(`/controversy/result/${postId}`);
+        return;
+      }
       const { postTitle, postContent, agreeContent, disagreeContent } =
         JSON.parse(postData.data.title);
       setData({
@@ -33,13 +45,18 @@ const Controversy = () => {
     } catch (e) {
       navigate('/404/notFound');
     }
-  }, [postId]);
+  }, [navigate, postId, userId]);
 
   useEffect(() => {
     getPostData();
   }, [getPostData]);
 
   const handleChange = async (opinionState) => {
+    if (!user) {
+      alert('로그인 하셔야 합니다.!');
+      navigate('/');
+      return;
+    }
     if (!opinionState || !postId) return;
     await postCommentApi({
       comment: JSON.stringify({
@@ -50,21 +67,22 @@ const Controversy = () => {
     });
     navigate(`/controversy/result/${postId}`);
   };
+
   return (
-    <div>
+    <>
       {data && (
         <Wrapper>
           <Header>{data.postTitle}</Header>
-          <Text style={{ marginBottom: '24px' }}>{data.postContent}</Text>
+          <Text style={{ whiteSpace: 'pre-line' }}>{data.postContent}</Text>
           <ControversyVote
             agreeTitle={data.agreeContent}
             disagreeTitle={data.disagreeContent}
-            imgSrc={data.image}
+            imgSrc={data.image || 'https://picsum.photos/200'}
             onChange={handleChange}
           />
         </Wrapper>
       )}
-    </div>
+    </>
   );
 };
 export default Controversy;
