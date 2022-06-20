@@ -1,7 +1,4 @@
-import StyledLink from '@/components/atoms/StyledLink';
-import Card from '@/components/atoms/Card';
-import Header from '@/components/atoms/Header';
-import Image from '@/components/atoms/Image';
+import { StyledLink, Card, Header, Image } from '@/components/atoms';
 import styled from 'styled-components';
 
 const StyledLi = styled.li`
