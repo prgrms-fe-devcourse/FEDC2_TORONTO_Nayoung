@@ -8,7 +8,7 @@ const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-height: 300px;
+  height: 100%;
 `;
 
 const ContentContainer = styled.div`
@@ -31,6 +31,7 @@ const PostItem = ({ post }) => {
           radius={0}
           style={{
             width: '100%',
+            height: '100%',
             boxSizing: 'border-box',
           }}
         >
@@ -39,6 +40,9 @@ const PostItem = ({ post }) => {
               src={image || 'https://via.placeholder.com/200'}
               width={'100%'}
               height={200}
+              style={{
+                flexGrow: 1,
+              }}
             />
             <ContentContainer>
               <Header
