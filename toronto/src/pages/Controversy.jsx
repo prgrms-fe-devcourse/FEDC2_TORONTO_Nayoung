@@ -8,10 +8,12 @@ import { useUsersState } from '@contexts/UserContext';
 
 const Wrapper = styled.div`
   height: 100vh;
-  padding: 150px 320px;
+  padding: 0 240px;
+  min-width: 1000px;
   display: flex;
   flex-direction: column;
   background-color: #f9fafb;
+  justify-content: center;
 `;
 
 const Controversy = () => {
@@ -64,7 +66,7 @@ const Controversy = () => {
       {data && (
         <Wrapper>
           <Header>{data.postTitle}</Header>
-          <Text style={{ marginBottom: '24px' }}>{data.postContent}</Text>
+          <Text style={{ whiteSpace: 'pre-line' }}>{data.postContent}</Text>
           <ControversyVote
             agreeTitle={data.agreeContent}
             disagreeTitle={data.disagreeContent}

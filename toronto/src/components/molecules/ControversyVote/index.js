@@ -8,14 +8,21 @@ const ControversyVoteWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 80px 0;
 `;
 
-const AgreeButton = styled.button`
+const AgreeButton = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   outline: none;
   border: none;
   cursor: pointer;
   border-radius: 4px;
   padding: 16px;
+  height: 500px;
+  width: 350px;
   background-color: ${({ selected }) => (selected ? '#649dd6' : '')};
 
   &:hover {
@@ -29,13 +36,19 @@ const AgreeButton = styled.button`
   }
 `;
 
-const DisagreeButton = styled.button`
+const DisagreeButton = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   outline: none;
   border: none;
   cursor: pointer;
   border-radius: 4px;
   padding: 16px;
-  font-size: 16px;
+  height: 500px;
+  width: 350px;
+
   background-color: ${({ selected }) => (selected ? '#ef5941' : '')};
 
   &:hover {
@@ -71,7 +84,13 @@ const ControversyVote = ({
         <Text block strong size={16}>
           {agreeTitle}
         </Text>
-        <Image src={imgSrc} style={{ marginTop: '8px' }} />
+        <Image
+          src={imgSrc}
+          width={'100%'}
+          height={'95%'}
+          mode={'fill'}
+          style={{ borderRadius: '4px' }}
+        />
       </AgreeButton>
       <Text strong size={48}>
         VS
@@ -83,7 +102,13 @@ const ControversyVote = ({
         <Text block strong size={16}>
           {disagreeTitle}
         </Text>
-        <Image src={imgSrc} style={{ marginTop: '8px' }} />
+        <Image
+          src={imgSrc}
+          width={'100%'}
+          height={'95%'}
+          mode={'fill'}
+          style={{ borderRadius: '4px' }}
+        />
       </DisagreeButton>
     </ControversyVoteWrapper>
   );
