@@ -132,6 +132,8 @@ export const getPostsChannel = async (channelId) => {
 // 글 쓰기
 export const postPost = async (formData) => {
   const res = await Send.post(`posts/create`, formData);
+  return res;
+};
 
 // 포스트 삭제
 export const deletePost = async (postId) => {
