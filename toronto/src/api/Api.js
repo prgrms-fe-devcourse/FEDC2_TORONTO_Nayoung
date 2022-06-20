@@ -110,3 +110,9 @@ export const getPostsChannel = async (channelId) => {
   const res = await Send.get(`posts/channel/${channelId}`);
   return res;
 };
+
+// 글 쓰기
+export const postPost = async (formData) => {
+  const res = await Send.post(`posts/create`, formData);
+  return res;
+};
