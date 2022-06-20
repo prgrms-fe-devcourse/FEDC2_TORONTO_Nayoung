@@ -14,6 +14,7 @@ import {
 } from '@pages';
 import UsersProvider from './contexts/UserContext';
 import UserListPage from './pages/UserListPage';
+import '@/App.css';
 
 function App() {
   return (
