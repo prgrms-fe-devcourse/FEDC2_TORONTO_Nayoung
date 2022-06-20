@@ -1,5 +1,7 @@
 import { StyledLink, Card, Header, Image, Text } from '@/components/atoms';
 import styled from 'styled-components';
+import placeholder from '@/assets/images/post_placeholder.png';
+
 const StyledLi = styled.li`
   list-style: none;
 `;
@@ -37,7 +39,7 @@ const PostItem = ({ post }) => {
         >
           <PostContainer>
             <Image
-              src={image || 'https://via.placeholder.com/200'}
+              src={image || placeholder}
               width={'100%'}
               height={200}
               style={{
