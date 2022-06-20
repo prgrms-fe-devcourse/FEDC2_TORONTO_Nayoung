@@ -22,8 +22,6 @@ const Layout = () => {
     const fetchData = async () => {
       if (token) {
         await getAuth(dispatch);
-      } else {
-        navigate('/login');
       }
     };
     fetchData();
