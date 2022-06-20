@@ -10,13 +10,20 @@ const NavigationBar = ({ user, handleLogout }) => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '1rem',
+      }}
+    >
       <div
         onClick={handleLogoClick}
         style={{ fontSize: 24, color: '#2366F6', cursor: 'pointer' }}
       >
         토론토
         <Divider type='vertical' />
+        TORONTO
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
         {user ? (

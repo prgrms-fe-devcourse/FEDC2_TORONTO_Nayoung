@@ -44,7 +44,7 @@ const Layout = () => {
         <nav>
           <NavigationBar user={user} />
         </nav>
-        <div className='content'>
+        <div style={{ paddingLeft: '10rem', paddingRight: '10rem' }}>
           <Outlet />
         </div>
       </div>
@@ -55,7 +55,7 @@ const Layout = () => {
         <nav>
           <NavigationBar user={user} handleLogout={handleLogout} />
         </nav>
-        <div className='content'>
+        <div style={{ paddingLeft: '10rem', paddingRight: '10rem' }}>
           <Outlet />
         </div>
       </div>
