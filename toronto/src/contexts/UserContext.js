@@ -22,7 +22,7 @@ const initialState = {
 
 const signUpHandler = createAsyncHandler('POST_SIGNUP', 'user');
 const usersHandler = createAsyncHandler('GET_USERS', 'users');
-const userHandler = createAsyncHandler('GET_USER', 'testUser');
+const userHandler = createAsyncHandler('GET_USER', 'user');
 const loginHandler = createAsyncHandler('POST_LOGIN', 'user');
 const logoutHandler = createAsyncHandler('POST_LOGOUT', 'user');
 const authHandler = createAsyncHandler('GET_AUTH_USER', 'user');
