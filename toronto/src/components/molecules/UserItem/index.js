@@ -37,7 +37,9 @@ const UserItem = ({ user }) => {
             <Header
               level={3}
               style={{
-                padding: 10,
+                margin: 0,
+                padding: 20,
+                borderTop: '1px solid #b1b1b182',
                 textOverflow: 'ellipsis',
                 overflow: 'hidden',
                 whiteSpace: 'nowrap',
