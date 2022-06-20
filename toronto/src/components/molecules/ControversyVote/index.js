@@ -1,8 +1,7 @@
-import Text from '@/components/atoms/Text';
-import Image from '@/components/atoms/Image';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { Text, Image } from '@components/atoms';
+import PropTypes from 'prop-types';
 
 const ControversyVoteWrapper = styled.div`
   display: flex;
