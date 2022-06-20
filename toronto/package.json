@@ -24,6 +24,7 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
+    "dev": "netlify dev",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
