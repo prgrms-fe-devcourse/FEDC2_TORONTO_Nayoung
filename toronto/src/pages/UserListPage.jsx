@@ -75,22 +75,24 @@ export default UserListPage;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 100%;
   height: 100%;
   margin: 0 auto;
+  padding-top: 3rem;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1rem;
 `;
 
 const GridContainer = styled.ul`
   display: grid;
   padding: 0;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
-  grid-auto-rows: minmax(300px, 1fr);
-  grid-auto-columns: minmax(300px, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(360px, 1fr));
+  grid-auto-rows: minmax(360px, 1fr);
+  grid-auto-columns: minmax(360px, 1fr);
   gap: 30px;
 `;

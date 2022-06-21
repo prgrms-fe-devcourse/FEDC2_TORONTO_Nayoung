@@ -5,7 +5,6 @@ const Wrapper = styled.div`
   height: 100vh;
   padding: 150px 320px;
   display: flex;
-  background-color: #f9fafb;
   position: relative;
   justify-content: center;
 `;

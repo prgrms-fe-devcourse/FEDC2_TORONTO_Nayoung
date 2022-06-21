@@ -10,7 +10,7 @@ import {
   postProfileImage,
 } from '@/contexts/UserContext.js';
 import { putUpdatePasswordApi } from '@/api/Api.js';
-import FormField from '../components/molecules/FormField';
+import FormField from '@/components/molecules/FormField';
 
 const EditProfile = () => {
   const state = useUsersState();
@@ -50,7 +50,7 @@ const EditProfile = () => {
         alert('성명이 성공적으로 바뀌었습니다');
       }
       setErrors({ ...errors, nameError: '' });
-      navigate(`/${user._id}`);
+      navigate(`/users/${user._id}`);
     }
   };
 
@@ -70,7 +70,7 @@ const EditProfile = () => {
       const response = await putUpdatePasswordApi(inputs.password);
       alert(response.data);
       setErrors({ ...errors, passwordError: '', passwordConfirmError: '' });
-      navigate(`/${user._id}`);
+      navigate(`/users/${user._id}`);
     }
   };
 
@@ -82,7 +82,7 @@ const EditProfile = () => {
       formData.append('isCover', false);
       formData.append('image', file);
       postProfileImage(dispatch, formData);
-      navigate(`users/${user._id}`);
+      navigate(`/users/${user._id}`);
     }
   };
 
@@ -94,7 +94,9 @@ const EditProfile = () => {
     return (
       <ContentWrapper>
         <Wrapper>
-          <Header>프로필 편집</Header>
+          <Section>
+            <Header>프로필 편집</Header>
+          </Section>
           <Section>
             <Text strong>프로필 사진</Text>
             <Upload clickArea={true} onChange={handleChangeProfile}>
@@ -159,24 +161,23 @@ export default EditProfile;
 
 const ContentWrapper = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 80vh;
-  background-color: #f9fafb;
+  width: 100%;
+  min-height: 1000px;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
   background-color: #fff;
-  width: 700px;
-  height: 700px;
+  padding: 2rem 10rem 0 10rem;
 `;
 
 const Section = styled.section`
   display: flex;
-  width: 90%;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1rem;

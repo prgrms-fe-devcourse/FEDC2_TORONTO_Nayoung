@@ -15414,6 +15414,11 @@ react-merge-refs@^1.0.0:
   resolved "https://registry.yarnpkg.com/react-merge-refs/-/react-merge-refs-1.1.0.tgz#73d88b892c6c68cbb7a66e0800faa374f4c38b06"
   integrity sha512-alTKsjEL0dKH/ru1Iyn7vliS2QRcBp9zZPGoWxUOvRGWPUYgjo+V01is7p04It6KhgrzhJGnIj9GgX8W4bZoCQ==
 
+react-neon-ui@^1.0.19:
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/react-neon-ui/-/react-neon-ui-1.0.19.tgz#b3bf37ccd1f00a5073bf89d0cb4c490ca6fe95d8"
+  integrity sha512-6hw2kEDYvIJXFNRvpGghlPt++C7wyVqGm3TuSAN1pP2kTG8WE0wJwtWTny8TPdNwWY766TfUM0y5PRNRFUgBIw==
+
 react-refresh@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.11.0.tgz#77198b944733f0f1f1a90e791de4541f9f074046"

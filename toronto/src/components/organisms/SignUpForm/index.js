@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Text, Button, Loader } from '@/components/atoms/';
+import { Header, Button, Loader } from '@/components/atoms/';
 import FormField from '@/components/molecules/FormField';
 import useForm from '@/hooks/useForm';
 import {
@@ -66,9 +66,9 @@ const SignUpForm = () => {
   if (!user) {
     return (
       <CardForm onSubmit={handleSubmit}>
-        <Text strong style={{ marginBottom: '32px' }}>
-          회원가입
-        </Text>
+        <HeaderWrapper>
+          <Header>회원가입</Header>
+        </HeaderWrapper>
         <FormField
           textTitle='성명'
           inputType='text'
@@ -110,3 +110,7 @@ const SignUpForm = () => {
 };
 
 export default SignUpForm;
+
+const HeaderWrapper = styled.div`
+  margin-bottom: 32px;
+`;

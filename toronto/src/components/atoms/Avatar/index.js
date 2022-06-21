@@ -2,7 +2,7 @@ import ImageComponent from '@/components/atoms/Image';
 import AvatarGroup from '@/components/molecules/AvatarGroup';
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
-
+import userPlaceholder from '@/assets/images/user_placeholder.png';
 const ShapeToCssValue = {
   circle: '50%',
   round: '4px',
@@ -24,7 +24,7 @@ const AvatarWrapper = styled.div`
 const Avatar = ({
   lazy,
   threshold,
-  src,
+  src = userPlaceholder,
   size = 70,
   shape = 'circle',
   placeholder,

@@ -1,5 +1,7 @@
 import { StyledLink, Card, Header, Image, Text } from '@/components/atoms';
 import styled from 'styled-components';
+import placeholder from '@/assets/images/post_placeholder.png';
+
 const StyledLi = styled.li`
   list-style: none;
 `;
@@ -8,7 +10,14 @@ const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-height: 300px;
+  height: 100%;
+`;
+
+const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-top: 1px solid #b1b1b182;
 `;
 
 const PostItem = ({ post }) => {
@@ -19,39 +28,51 @@ const PostItem = ({ post }) => {
     <StyledLi>
       <StyledLink to={`/controversy/${postId}`} style={{ color: 'black' }}>
         <Card
-          padding={10}
+          padding={0}
           hover={true}
-          radius={5}
-          style={{ width: '100%', boxSizing: 'border-box' }}
+          radius={0}
+          style={{
+            width: '100%',
+            height: '100%',
+            boxSizing: 'border-box',
+          }}
         >
           <PostContainer>
-            <Header
-              level={3}
-              style={{
-                textOverflow: 'ellipsis',
-                overflow: 'hidden',
-                whiteSpace: 'nowrap',
-                flexShrink: 0,
-              }}
-            >
-              {postTitle}
-            </Header>
             <Image
-              src={image || 'https://via.placeholder.com/200'}
+              src={image || placeholder}
               width={'100%'}
               height={200}
-            />
-            <Text
-              size='normal'
               style={{
-                paddingTop: 20,
-                textOverflow: 'ellipsis',
-                overflow: 'hidden',
-                whiteSpace: 'nowrap',
+                flexGrow: 1,
               }}
-            >
-              {postContent}
-            </Text>
+            />
+            <ContentContainer>
+              <Header
+                level={3}
+                style={{
+                  margin: 0,
+                  textOverflow: 'ellipsis',
+                  overflow: 'hidden',
+                  whiteSpace: 'nowrap',
+                  flexShrink: 0,
+                  fontFamily: 'S-CoreDream-Medium',
+                }}
+              >
+                {postTitle}
+              </Header>
+              <Text
+                size='normal'
+                style={{
+                  paddingTop: 10,
+                  textOverflow: 'ellipsis',
+                  overflow: 'hidden',
+                  whiteSpace: 'nowrap',
+                  fontFamily: 'S-CoreDream-Regular',
+                }}
+              >
+                {postContent}
+              </Text>
+            </ContentContainer>
           </PostContainer>
         </Card>
       </StyledLink>

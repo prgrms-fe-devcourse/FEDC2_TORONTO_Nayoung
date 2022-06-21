@@ -11,7 +11,7 @@ const Button = ({
   ...props
 }) => {
   return (
-    <div {...props}>
+    <>
       <StyledButton
         type={type}
         icon={icon}
@@ -23,7 +23,7 @@ const Button = ({
       >
         {children}
       </StyledButton>
-    </div>
+    </>
   );
 };
 
