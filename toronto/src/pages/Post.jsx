@@ -71,7 +71,6 @@ const Post = () => {
             level={1}
             style={{
               fontFamily: 'S-CoreDream-Medium',
-              borderBottom: '1px solid rgba(0, 0, 0, 0.3)',
               paddingBottom: 10,
             }}
           >
