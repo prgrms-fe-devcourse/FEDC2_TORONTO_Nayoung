@@ -52,3 +52,90 @@
 다양한 SNS에서 산발적으로 토론이 이뤄지고 있습니다. 해당 주제에 대한 의견을 모아놓은 커뮤니티 구성함으로써 본인과 타인의 생각을 확인하고 의견을 교류할 수 있습니다.
 
 ## 폴더 구조
+```
+📦toronto
+ ┣ 📂.netlify
+ ┃ ┗ 📜edge-functions-import-map.json
+ ┣ 📂.storybook
+ ┃ ┣ 📜main.js
+ ┃ ┗ 📜preview.js
+ ┣ 📂functions
+ ┃ ┗ 📜request.js
+ ┣ 📂public
+ ┃ ┣ 📜favicon.ico
+ ┃ ┣ 📜index.html
+ ┃ ┣ 📜manifest.json
+ ┃ ┣ 📜robots.txt
+ ┣ 📂src
+ ┃ ┣ 📂api
+ ┃ ┃ ┣ 📜Api.js
+ ┃ ┃ ┗ 📜index.js
+ ┃ ┣ 📂assets
+ ┃ ┃ ┣ 📂fonts
+ ┃ ┃ ┃ ┣ 📜SCDream.otf
+ ┃ ┃ ┣ 📂images
+ ┃ ┃ ┃ ┣ 📜post_placeholder.png
+ ┃ ┃ ┃ ┣ 📜toronto.png
+ ┃ ┃ ┃ ┗ 📜user_placeholder.png
+ ┃ ┃ ┗ 📜index.js
+ ┃ ┣ 📂components
+ ┃ ┃ ┣ 📂atoms
+ ┃ ┃ ┣ ***
+ ┃ ┃ ┣ 📂molecules
+ ┃ ┃ ┃ ┣ ***
+ ┃ ┃ ┗ 📂organisms
+ ┃ ┃ ┃ ┣ ***
+ ┃ ┣ 📂constants
+ ┃ ┃ ┗ 📜index.js
+ ┃ ┣ 📂contexts
+ ┃ ┃ ┣ 📜UserContext.js
+ ┃ ┃ ┗ 📜index.js
+ ┃ ┣ 📂hooks
+ ┃ ┃ ┣ 📂useAsync
+ ┃ ┃ ┃ ┣ 📜index.js
+ ┃ ┃ ┃ ┗ 📜useAsyncFn.jsx
+ ┃ ┃ ┣ 📂useForm
+ ┃ ┃ ┃ ┗ 📜index.js
+ ┃ ┃ ┗ 📜index.js
+ ┃ ┣ 📂layout
+ ┃ ┃ ┗ 📜Layout.jsx
+ ┃ ┣ 📂lib
+ ┃ ┃ ┗ 📜Login.js
+ ┃ ┣ 📂pages
+ ┃ ┃ ┣ 📜About.jsx
+ ┃ ┃ ┣ 📜Controversy.jsx
+ ┃ ┃ ┣ 📜ControversyResult.jsx
+ ┃ ┃ ┣ 📜EditProfile.jsx
+ ┃ ┃ ┣ 📜Home.jsx
+ ┃ ┃ ┣ 📜Login.jsx
+ ┃ ┃ ┣ 📜NotFound.jsx
+ ┃ ┃ ┣ 📜Post.jsx
+ ┃ ┃ ┣ 📜SignUp.jsx
+ ┃ ┃ ┣ 📜UserListPage.jsx
+ ┃ ┃ ┣ 📜UserProfile.jsx
+ ┃ ┃ ┗ 📜index.js
+ ┃ ┣ 📂stories
+ ┃ ┃ ┗ 📂components
+ ┃ ┃ ┃ ┣ 📂atoms
+ ┃ ┃ ┃ ┃ ┣ 📜***
+ ┃ ┃ ┃ ┣ 📂molecules
+ ┃ ┃ ┃ ┃ ┣ 📜***
+ ┃ ┃ ┃ ┗ 📂organisms
+ ┃ ┃ ┃ ┃ ┗ 📜***
+ ┃ ┣ 📂templates
+ ┃ ┃ ┗ 📜index.js
+ ┃ ┣ 📂utils
+ ┃ ┃ ┗ 📜asyncActionUtils.js
+ ┃ ┣ 📜App.css
+ ┃ ┣ 📜App.js
+ ┃ ┗ 📜index.js
+ ┣ 📜.env
+ ┣ 📜.eslintrc
+ ┣ 📜.gitignore
+ ┣ 📜.prettierrc
+ ┣ 📜README.md
+ ┣ 📜craco.config.js
+ ┣ 📜netlify.toml
+ ┣ 📜package.json
+ ┗ 📜yarn.lock
+ 
