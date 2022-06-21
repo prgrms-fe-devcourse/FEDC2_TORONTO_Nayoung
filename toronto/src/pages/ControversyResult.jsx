@@ -47,6 +47,8 @@ const ResultPage = () => {
       post: {
         id: res.data._id,
         title: titleData.postTitle,
+        agreeContent: titleData.agreeContent,
+        disagreeContent: titleData.disagreeContent,
       },
       comments: res.data.comments,
       likes: res.data.likes,
@@ -264,7 +266,7 @@ const ResultPage = () => {
           >
             <DoughnutChart
               data={[agreeVotes?.length, disagreeVotes?.length]}
-              labels={['찬성', '반대']}
+              labels={[data.post.agreeContent, data.post.disagreeContent]}
               backgroundColor={[
                 'rgba(61, 67, 180, 0.2)',
                 'rgba(255, 18, 79, 0.2)',
