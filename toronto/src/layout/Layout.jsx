@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
+import styled from 'styled-components';
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
-import { Loader } from '@/components/atoms/';
 import {
   useUsersState,
   useUsersDispatch,
@@ -16,7 +15,7 @@ const Layout = () => {
   const state = useUsersState();
   const dispatch = useUsersDispatch();
   const navigate = useNavigate();
-  const { data: user, loading, error } = state.user;
+  const { data: user, error } = state.user;
   const token = getToken();
   useEffect(() => {
     const fetchData = async () => {
@@ -44,9 +43,9 @@ const Layout = () => {
         <nav>
           <NavigationBar user={user} />
         </nav>
-        <div className='content'>
+        <OutletWrapper>
           <Outlet />
-        </div>
+        </OutletWrapper>
       </div>
     );
   } else if (user && token) {
@@ -55,12 +54,17 @@ const Layout = () => {
         <nav>
           <NavigationBar user={user} handleLogout={handleLogout} />
         </nav>
-        <div className='content'>
+        <OutletWrapper>
           <Outlet />
-        </div>
+        </OutletWrapper>
       </div>
     );
   }
 };
 
 export default Layout;
+
+const OutletWrapper = styled.div`
+  display: flex;
+  padding: 0 15rem 0 15rem;
+`;

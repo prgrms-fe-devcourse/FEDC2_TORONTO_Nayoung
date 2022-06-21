@@ -10,7 +10,7 @@ import {
   postProfileImage,
 } from '@/contexts/UserContext.js';
 import { putUpdatePasswordApi } from '@/api/Api.js';
-import FormField from '../components/molecules/FormField';
+import FormField from '@/components/molecules/FormField';
 
 const EditProfile = () => {
   const state = useUsersState();
@@ -50,7 +50,7 @@ const EditProfile = () => {
         alert('성명이 성공적으로 바뀌었습니다');
       }
       setErrors({ ...errors, nameError: '' });
-      navigate(`/${user._id}`);
+      navigate(`/users/${user._id}`);
     }
   };
 
@@ -70,7 +70,7 @@ const EditProfile = () => {
       const response = await putUpdatePasswordApi(inputs.password);
       alert(response.data);
       setErrors({ ...errors, passwordError: '', passwordConfirmError: '' });
-      navigate(`/${user._id}`);
+      navigate(`/users/${user._id}`);
     }
   };
 
@@ -82,7 +82,7 @@ const EditProfile = () => {
       formData.append('isCover', false);
       formData.append('image', file);
       postProfileImage(dispatch, formData);
-      navigate(`users/${user._id}`);
+      navigate(`/users/${user._id}`);
     }
   };
 

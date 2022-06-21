@@ -5,15 +5,7 @@ import { getPostApi, postCommentApi } from '@api/Api';
 import { useUsersState } from '@contexts/UserContext';
 import { Header, Text } from '@components/atoms';
 import { ControversyVote } from '@components/molecules';
-
-const Wrapper = styled.div`
-  height: 100vh;
-  width: 80%;
-  display: flex;
-  margin: auto;
-  flex-direction: column;
-  justify-content: center;
-`;
+import placeholder from '@/assets/images/post_placeholder.png';
 
 const Controversy = () => {
   const navigate = useNavigate();
@@ -77,12 +69,26 @@ const Controversy = () => {
     <>
       {data && !isLoading && (
         <Wrapper>
-          <Header>{data.postTitle}</Header>
-          <Text style={{ whiteSpace: 'pre-line' }}>{data.postContent}</Text>
+          <HeaderWrapper>
+            <Header strong>{data.postTitle}</Header>
+          </HeaderWrapper>
+          <TextWrapper>
+            <Text
+              size={40}
+              style={{
+                whiteSpace: 'pre-line',
+                wordBreak: 'keep-all',
+                fontFamily: 'S-CoreDream-Regular',
+                fontSize: '16px',
+              }}
+            >
+              {data.postContent}
+            </Text>
+          </TextWrapper>
           <ControversyVote
             agreeTitle={data.agreeContent}
             disagreeTitle={data.disagreeContent}
-            imgSrc={data.image || 'https://picsum.photos/200'}
+            imgSrc={data.image || placeholder}
             onChange={handleChange}
           />
         </Wrapper>
@@ -91,3 +97,26 @@ const Controversy = () => {
   );
 };
 export default Controversy;
+
+const Wrapper = styled.div`
+  display: flex;
+  width: 1000px;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+`;
+
+const HeaderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-family: 'S-CoreDream-Regular';
+`;
+
+const TextWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-family: 'S-CoreDream-Regular';
+`;
