@@ -32,14 +32,14 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchData = async () => {
       const userRes = await getUserApi(userId);
-      const userPostsIdArray = userRes.data.posts;
+      const userPostsIdArray = userRes.data.posts.map((post) => post._id);
       const userLikesPostsIdArray = userRes.data.likes.map((like) => like.post);
 
-      if (userRes.data.posts.length >= 1 || userRes.data.posts.length >= 1) {
+      if (userPostsIdArray.length >= 1 || userLikesPostsIdArray.length >= 1) {
         const posts = await getPostsApi();
-        const myPosts = posts.data.filter((post) =>
-          userPostsIdArray.includes(post._id),
-        );
+        const myPosts = posts.data.filter((post) => {
+          return userPostsIdArray.includes(post._id);
+        });
         const likesPosts = posts.data.filter((post) =>
           userLikesPostsIdArray.includes(post._id),
         );
