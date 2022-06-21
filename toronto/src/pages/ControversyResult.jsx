@@ -1,12 +1,18 @@
 import { useCallback, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
 import { Header, DoughnutChart, Icon } from '@/components/atoms';
 import { Vote, InputBar, Tooltip } from '@/components/molecules';
 import { CommentList } from '@/components/organisms';
 import { getToken } from '@/lib/Login';
 import { useUsersState } from '@/contexts/UserContext';
-import { deletePost, getPostApi, deleteCommentApi } from '@/api/Api';
+import {
+  deletePost,
+  getPostApi,
+  deleteCommentApi,
+  deleteLikeApi,
+  postCommentApi,
+  postLikeApi,
+} from '@/api/Api';
 
 const ResultPage = () => {
   const [data, setData] = useState({
@@ -70,7 +76,7 @@ const ResultPage = () => {
   const deleteComment = async (id) => {
     if (window.confirm('정말 삭제하시겠어요?')) {
       const res = await deleteCommentApi(id);
-      if (res.statusText === 'OK') {
+      if (res.data) {
         getPostData();
       }
     }
@@ -118,63 +124,46 @@ const ResultPage = () => {
     setOpinion(opinionState);
   };
 
-  const handleSubmit = (text) => {
+  const handleSubmit = async (text) => {
     if (opinion === '') {
       alert('찬성/반대 의견을 선택해주세요.');
       return;
     }
     if (postId && text.trim().length > 2) {
-      axios(`${process.env.REACT_APP_END_POINT}/comments/create`, {
-        method: 'post',
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
-        data: {
-          comment: JSON.stringify({
-            type: opinion,
-            content: text,
-          }),
-          postId: postId,
-        },
-      }).then(() => getPostData());
+      const res = await postCommentApi({
+        comment: JSON.stringify({
+          type: opinion,
+          content: text,
+        }),
+        postId: postId,
+      });
+      if (res.data) {
+        getPostData();
+      }
     }
   };
 
-  const handleLikeClick = () => {
+  const handleLikeClick = async () => {
     if (likeData.isLiked) {
       if (!likeData.likeId) return;
       // 좋아요 삭제
-      axios(`${process.env.REACT_APP_END_POINT}/likes/delete`, {
-        method: 'delete',
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
-        data: {
-          id: likeData.likeId,
-        },
-      }).then(() => {
+      const res = await deleteLikeApi(likeData.likeId);
+      if (res.data) {
         getPostData();
-      });
+      }
     } else {
       // 좋아요 추가
-      axios(`${process.env.REACT_APP_END_POINT}/likes/create`, {
-        method: 'post',
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
-        data: {
-          postId,
-        },
-      }).then(() => {
+      const res = await postLikeApi(postId);
+      if (res.data) {
         getPostData();
-      });
+      }
     }
   };
 
   const handleDeleteClick = async () => {
     if (window.confirm('정말 삭제하시겠어요?')) {
       const res = await deletePost(postId);
-      if (res.statusText === 'OK') {
+      if (res.data) {
         navigate('/');
       }
     }
