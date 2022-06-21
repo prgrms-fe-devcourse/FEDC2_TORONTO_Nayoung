@@ -70,13 +70,16 @@ const Controversy = () => {
       {data && !isLoading && (
         <Wrapper>
           <HeaderWrapper>
-            <Header>{data.postTitle}</Header>
+            <Header strong>{data.postTitle}</Header>
           </HeaderWrapper>
           <TextWrapper>
             <Text
+              size={40}
               style={{
                 whiteSpace: 'pre-line',
+                wordBreak: 'keep-all',
                 fontFamily: 'S-CoreDream-Regular',
+                fontSize: '16px',
               }}
             >
               {data.postContent}
@@ -97,16 +100,17 @@ export default Controversy;
 
 const Wrapper = styled.div`
   display: flex;
-  width: 100%;
+  width: 1000px;
   height: 100%;
   flex-direction: column;
   justify-content: center;
+  padding: 2rem;
 `;
 
 const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   font-family: 'S-CoreDream-Regular';
 `;
 
@@ -114,6 +118,5 @@ const TextWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  margin-bottom: 1rem;
   font-family: 'S-CoreDream-Regular';
 `;
