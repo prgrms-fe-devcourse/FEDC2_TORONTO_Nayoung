@@ -22,7 +22,7 @@ const CardForm = styled.form`
 const LoginForm = () => {
   const state = useUsersState();
   const dispatch = useUsersDispatch();
-  const { data: user, loading, error } = state.user;
+  const { data: user, loading } = state.user;
   const navigate = useNavigate();
 
   const { errors, isLoading, handleChange, handleSubmit } = useForm({
@@ -37,7 +37,7 @@ const LoginForm = () => {
       if (res) {
         navigate('/');
       } else {
-        navigate('/login');
+        alert('아이디 또는 비밀번호가 맞지 않습니다.');
       }
     },
     validate: ({ email, password }) => {
@@ -51,7 +51,6 @@ const LoginForm = () => {
   });
 
   if (loading) return <Loader type='spinner' />;
-  if (error) return <div>에러가 발생했습니다</div>;
   if (!user) {
     return (
       <CardForm onSubmit={handleSubmit}>

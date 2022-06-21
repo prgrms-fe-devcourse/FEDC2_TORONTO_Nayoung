@@ -22,7 +22,7 @@ const CardForm = styled.form`
 const SignUpForm = () => {
   const state = useUsersState();
   const dispatch = useUsersDispatch();
-  const { data: user, loading, error } = state.user;
+  const { data: user, loading } = state.user;
   const navigate = useNavigate();
 
   const { errors, isLoading, handleChange, handleSubmit } = useForm({
@@ -63,7 +63,6 @@ const SignUpForm = () => {
     },
   });
   if (loading) return <Loader type='spinner' />;
-  if (error) return <div>에러가 발생했습니다</div>;
   if (!user) {
     return (
       <CardForm onSubmit={handleSubmit}>
