@@ -23,9 +23,18 @@ const CommentList = ({ name, width, comments, limit, onDelete }) => {
   }, [comments, limit]);
 
   return (
-    <Card padding={10} style={{ width: width }}>
+    <Card padding={0} style={{ width: width }} shadow={false}>
       <div>
-        <Header level={3}>{name}</Header>
+        <Header
+          level={3}
+          style={{
+            fontFamily: 'S-CoreDream-Regular',
+            borderBottom: '1px solid black',
+            paddingBottom: 10,
+          }}
+        >
+          {name}
+        </Header>
         {commentList?.map((item) => (
           <CommentItem
             key={item._id}

@@ -191,7 +191,7 @@ const ResultPage = () => {
             alignItems: 'center',
           }}
         >
-          <Header style={{ fontFamily: 'S-CoreDram-Medium' }}>
+          <Header style={{ fontFamily: 'S-CoreDream-Medium' }}>
             {data?.post?.title}
           </Header>
           <div style={{ display: isAuthor ? 'block' : 'none' }}>
