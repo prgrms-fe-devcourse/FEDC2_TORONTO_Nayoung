@@ -282,6 +282,6 @@ export const serverless = async (options) => {
     });
     return await res.json();
   } catch (e) {
-    console.log('serverless에서 request로 넘어갈 때 오류남 ' + e);
+    throw new Error(e);
   }
 };
