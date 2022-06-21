@@ -42,7 +42,7 @@ const Post = () => {
 
     setLoading(true);
     const res = await postPost(formData);
-    if (res.statusText === 'OK') {
+    if (res.data) {
       navigate(`/controversy/${res.data._id}`);
     }
     setLoading(false);

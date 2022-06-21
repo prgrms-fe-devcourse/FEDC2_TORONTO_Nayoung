@@ -25,6 +25,7 @@ const InputBar = ({
   onSubmit,
   buttonWidth = 80,
   totalWidth = 300,
+  loading,
 }) => {
   const [text, setText] = useState('');
 
@@ -54,12 +55,13 @@ const InputBar = ({
           },
         }}
         value={text}
-        onChange={(e) => setText(e.target.value)}
+        onChange={(e) => !loading && setText(e.target.value)}
         onDrop={(e) => e.preventDefault()}
         style={{ height: 40, flex: 1 }}
       />
       {buttonType === 'outside' ? (
         <Button
+          disabled={loading}
           style={{ width: buttonWidth, height: 40, boxSizing: 'border-box' }}
         >
           {buttonText}

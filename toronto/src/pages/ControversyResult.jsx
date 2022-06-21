@@ -1,7 +1,7 @@
 import { useCallback, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { Header, DoughnutChart, Icon } from '@/components/atoms';
+import { Header, DoughnutChart, Icon, Loader } from '@/components/atoms';
 import { Vote, InputBar, Tooltip } from '@/components/molecules';
 import { CommentList } from '@/components/organisms';
 import { getToken } from '@/lib/Login';
@@ -28,6 +28,11 @@ const ResultPage = () => {
   });
   const [opinion, setOpinion] = useState('');
   const [likeData, setLikeData] = useState({});
+  const [loading, setLoading] = useState({
+    like: false,
+    comment: false,
+    deletePost: false,
+  });
   const { postId } = useParams();
   const token = getToken();
   const userData = useUsersState();
@@ -131,12 +136,20 @@ const ResultPage = () => {
       return;
     }
     if (postId && text.trim().length > 2) {
+      setLoading({
+        ...loading,
+        comment: true,
+      });
       const res = await postCommentApi({
         comment: JSON.stringify({
           type: opinion,
           content: text,
         }),
         postId: postId,
+      });
+      setLoading({
+        ...loading,
+        comment: false,
       });
       if (res.data) {
         getPostData();
@@ -148,13 +161,37 @@ const ResultPage = () => {
     if (likeData.isLiked) {
       if (!likeData.likeId) return;
       // 좋아요 삭제
+      setLoading({
+        ...loading,
+        like: true,
+      });
       const res = await deleteLikeApi(likeData.likeId);
+      setLikeData({
+        ...likeData,
+        isLiked: false,
+      });
+      setLoading({
+        ...loading,
+        like: false,
+      });
       if (res.data) {
         getPostData();
       }
     } else {
       // 좋아요 추가
+      setLoading({
+        ...loading,
+        like: true,
+      });
       const res = await postLikeApi(postId);
+      setLikeData({
+        ...likeData,
+        isLiked: true,
+      });
+      setLoading({
+        ...loading,
+        like: false,
+      });
       if (res.data) {
         getPostData();
       }
@@ -163,7 +200,15 @@ const ResultPage = () => {
 
   const handleDeleteClick = async () => {
     if (window.confirm('정말 삭제하시겠어요?')) {
+      setLoading({
+        ...loading,
+        deletePost: true,
+      });
       const res = await deletePost(postId);
+      setLoading({
+        ...loading,
+        deletePost: false,
+      });
       if (res.data) {
         navigate('/');
       }
@@ -186,13 +231,17 @@ const ResultPage = () => {
             {data?.post?.title}
           </Header>
           <div style={{ display: isAuthor ? 'block' : 'none' }}>
-            <Tooltip text='글 삭제하기'>
-              <Icon
-                onClick={handleDeleteClick}
-                iconName='trash-2'
-                style={{ cursor: 'pointer' }}
-              />
-            </Tooltip>
+            {loading.deletePost ? (
+              <Loader type='spinner' size={24} />
+            ) : (
+              <Tooltip text='글 삭제하기'>
+                <Icon
+                  onClick={handleDeleteClick}
+                  iconName='trash-2'
+                  style={{ cursor: 'pointer' }}
+                />
+              </Tooltip>
+            )}
           </div>
         </div>
         <div
@@ -252,14 +301,16 @@ const ResultPage = () => {
                 alignItems: 'center',
               }}
             >
-              <div
-                onClick={handleLikeClick}
-                style={{ cursor: 'pointer', padding: 10 }}
-              >
-                <Icon
-                  fill={isLiked ? '#4582EE' : undefined}
-                  iconName='thumbs-up'
-                />
+              <div style={{ cursor: 'pointer', padding: 10 }}>
+                {loading.like ? (
+                  <Loader type='spinner' size={24} />
+                ) : (
+                  <Icon
+                    onClick={handleLikeClick}
+                    fill={isLiked ? '#4582EE' : undefined}
+                    iconName='thumbs-up'
+                  />
+                )}
               </div>
             </div>
             <div
@@ -275,6 +326,7 @@ const ResultPage = () => {
                   placeholder='찬성/반대 의견을 선택하고 댓글을 작성해주세요.'
                   buttonText='댓글 작성'
                   onSubmit={handleSubmit}
+                  loading={loading.comment}
                 />
               </div>
             </div>
