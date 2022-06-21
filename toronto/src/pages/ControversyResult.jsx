@@ -1,7 +1,7 @@
 import { useCallback, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Header, DoughnutChart, Icon, Text } from '@/components/atoms';
+import { Header, DoughnutChart, Icon } from '@/components/atoms';
 import { Vote, InputBar, Tooltip } from '@/components/molecules';
 import { CommentList } from '@/components/organisms';
 import { getToken } from '@/lib/Login';
@@ -261,21 +261,12 @@ const ResultPage = () => {
                 alignItems: 'center',
               }}
             >
-              <Text
-                style={{
-                  fontFamily: 'S-CoreDream-Regular',
-                  color: '#4582EE',
-                  fontSize: 20,
-                }}
-              >
-                좋아요!
-              </Text>
               <div
                 onClick={handleLikeClick}
                 style={{ cursor: 'pointer', padding: 10 }}
               >
                 <Icon
-                  fill={isLiked ? '#2366F6' : undefined}
+                  fill={isLiked ? '#4582EE' : undefined}
                   iconName='thumbs-up'
                 />
               </div>
