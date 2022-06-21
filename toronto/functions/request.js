@@ -2,6 +2,7 @@ const axios = require('axios');
 
 exports.handler = async function (event) {
   const { url, method, body, headers } = JSON.parse(event.body);
+
   try {
     const res = await axios({
       url: `${process.env.REACT_APP_END_POINT}${encodeURI(url)}`,
@@ -13,7 +14,6 @@ exports.handler = async function (event) {
       statusCode: 200,
       body: JSON.stringify({
         data: res.data,
-        test: 'king',
       }),
     };
   } catch (e) {
