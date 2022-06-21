@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import InputBar from '@/components/molecules/InputBar';
 import axios from 'axios';
 import Skeleton from '@/components/atoms/Skeleton';
+import { getUsersApi } from '../api/Api';
 
 const renderSkeleton = () => {
   const skeletons = [];
@@ -22,9 +23,7 @@ const UserListPage = () => {
   const initialUsers = useCallback(async () => {
     setIsLoading(true);
 
-    const res = await axios.get(
-      `${process.env.REACT_APP_END_POINT}/users/get-users`,
-    );
+    const res = await getUsersApi();
 
     setUsers([...res.data]);
     setIsLoading(false);

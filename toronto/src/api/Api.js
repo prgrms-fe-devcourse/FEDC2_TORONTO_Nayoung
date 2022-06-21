@@ -71,10 +71,10 @@ export const getPostApi = async (postId) => {
   return res;
 };
 
-export const getUsersApi = async ({ offset, limit }) => {
+export const getUsersApi = async () => {
   const res = await serverless({
     method: 'GET',
-    url: `/users/get-users?offset=${offset}&limit=${limit}`,
+    url: `/users/get-users`,
   });
   return res;
 };
