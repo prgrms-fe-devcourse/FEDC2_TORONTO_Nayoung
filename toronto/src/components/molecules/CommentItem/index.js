@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Card, Icon, Header, Text } from '@/components/atoms';
+import { Card, Icon, Header, Text, Loader } from '@/components/atoms';
 import { useUsersState } from '@/contexts/UserContext';
 
 const Wrapper = styled.div`
@@ -30,6 +30,7 @@ const CommentItem = ({
   ...props
 }) => {
   const [mouseOver, setMouseOver] = useState(false);
+  const [deleteClicked, setDeleteClicked] = useState(false);
   const user = useUsersState();
   const isAuthor = authorId === user.user.data?._id;
 
@@ -41,8 +42,9 @@ const CommentItem = ({
     setMouseOver(false);
   };
 
-  const handleClick = () => {
-    onDelete && onDelete(id);
+  const handleClick = async () => {
+    setDeleteClicked(true);
+    onDelete && (await onDelete(id));
   };
 
   return (
@@ -62,12 +64,13 @@ const CommentItem = ({
         <Text style={{ fontFamily: 'S-CoreDream-Regular', paddingTop: 10 }}>
           <div>{content}</div>
         </Text>
-        <IconWrapper
-          onClick={handleClick}
-          mouseOver={mouseOver}
-          isAuthor={isAuthor}
-        >
-          <Icon iconName='x-circle' />
+
+        <IconWrapper mouseOver={mouseOver} isAuthor={isAuthor}>
+          {deleteClicked ? (
+            <Loader type='spinner' size={24} />
+          ) : (
+            <Icon iconName='x-circle' onClick={handleClick} />
+          )}
         </IconWrapper>
       </Wrapper>
     </Card>

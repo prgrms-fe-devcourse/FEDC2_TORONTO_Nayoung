@@ -3,19 +3,27 @@ import Send from '.';
 import { getToken, onSaveToken } from '@/lib/Login.js';
 
 export const postLoginApi = async (email, password) => {
-  const res = await Send.post('/login', {
-    email,
-    password,
+  const res = await serverless({
+    method: 'POST',
+    url: '/login',
+    body: {
+      email,
+      password,
+    },
   });
   onSaveToken(res.data.token);
   return res.data.user;
 };
 
 export const postSignUpApi = async (email, fullName, password) => {
-  const res = await Send.post('/signup', {
-    email,
-    fullName,
-    password,
+  const res = await serverless({
+    method: 'POST',
+    url: '/signup',
+    body: {
+      email,
+      fullName,
+      password,
+    },
   });
   onSaveToken(res.data.token);
   return res.data.user;
@@ -23,51 +31,75 @@ export const postSignUpApi = async (email, fullName, password) => {
 
 export const postCommentApi = async (commentBody) => {
   const token = getToken();
-  await axios({
+  const res = serverless({
     method: 'POST',
-    url: `${process.env.REACT_APP_END_POINT}/comments/create`,
-    data: commentBody,
+    url: `/comments/create`,
+    body: commentBody,
     headers: {
       Authorization: `bearer ${token}`,
     },
   });
+  return res;
 };
 
 export const getAuthUser = async () => {
-  const res = await Send.get('/auth-user');
+  const token = getToken();
+  const res = await serverless({
+    method: 'GET',
+    url: '/auth-user',
+    headers: {
+      Authorization: `bearer ${token}`,
+    },
+  });
   return res.data;
 };
 
 export const postLogoutApi = async () => {
-  const res = await Send.post('/logout');
+  const res = await serverless({
+    method: 'POST',
+    url: '/logout',
+  });
   return res;
 };
 
 export const getPostApi = async (postId) => {
   if (!postId) return;
-  const res = await Send.get(`/posts/${postId}`);
+  const res = await serverless({
+    method: 'GET',
+    url: `/posts/${postId}`,
+  });
   return res;
 };
 
 export const getUsersApi = async ({ offset, limit }) => {
-  const res = await Send.get('/users/get-users', { offset, limit });
+  const res = await serverless({
+    method: 'GET',
+    url: `/users/get-users?offset=${offset}&limit=${limit}`,
+  });
   return res;
 };
 
 export const getOnlineUsers = async () => {
-  const res = await Send.get('/online-users');
+  const res = await serverless({
+    method: 'GET',
+    url: '/online-users',
+  });
   return res;
 };
 
 // 사용자 정보
 export const getUserApi = async (userId) => {
-  const res = await Send.get(`/users/${userId}`);
+  const res = await serverless({
+    method: 'GET',
+    url: `/users/${userId}`,
+  });
   return res;
 };
 
 // 프로필 이미지 변경 및 커버 이미지 변경
 export const postUploadPhotoApi = async (bodyFormData) => {
   const token = getToken();
+  // 원래 코드
   const res = await axios({
     method: 'post',
     url: `${process.env.REACT_APP_END_POINT}/users/upload-photo`,
@@ -82,80 +114,101 @@ export const postUploadPhotoApi = async (bodyFormData) => {
 
 // 내 정보 변경
 export const putUpdateUserApi = async (fullName, username) => {
-  const res = await Send.put('/settings/update-user', {
-    fullName,
-    username,
+  // 요청은 잘 되고 프론트 url 변경해야 할 듯?
+  const token = getToken();
+  const res = await serverless({
+    method: 'PUT',
+    url: '/settings/update-user',
+    body: {
+      fullName,
+      username,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
   return res.data;
 };
 
 // 비밀번호 변경
 export const putUpdatePasswordApi = async (password) => {
-  const res = await Send.put('/settings/update-password', {
-    password,
-  });
-  return res;
-};
-
-// EditProfile 내 게시물 임시 더미데이터 API
-export const getUserPostApi = async () => {
-  const res = await axios.get('/data/postDummy.json');
-  return res;
-};
-
-// EditProfile 좋아요 게시물 임시 더미데이터 API
-export const getUserDummyApi = async () => {
-  const res = await axios.get('/data/userDummy.json');
-  return res;
-};
-
-// 전체 posts 목록 불러오기
-export const getPostsApi = async () => {
-  const res = await Send.get('/posts');
-  return res;
-};
-
-// 채널 목록 불러오기
-export const getChannels = async () => {
-  const res = await Send.get('/channels');
-  return res;
-};
-
-// 특정 채널 목록 불러오기
-export const getChannelsName = async (channelName) => {
-  const res = await Send.get(`/channels/${channelName}`);
-  return res;
-};
-
-// 특정 채널의 포스트 목록
-export const getPostsChannel = async (channelId) => {
-  const res = await Send.get(`posts/channel/${channelId}`);
-  return res;
-};
-
-// 특정 채널의 포스트 목록 offset, limit으로 불러오기
-export const getPostsSlice = async (channelId, offset, limit) => {
-  const res = await Send.get(`posts/channel/${channelId}`, {
-    params: {
-      offset,
-      limit,
+  // 요청은 잘 오고, 프론트 url 처리 필요
+  const token = getToken();
+  const res = await serverless({
+    method: 'PUT',
+    url: '/settings/update-password',
+    body: {
+      password,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
   });
   return res;
 };
 
-// 글 쓰기
+// 전체 posts 목록 불러오기
+export const getPostsApi = async () => {
+  const res = await serverless({
+    method: 'GET',
+    url: '/posts',
+  });
+  return res;
+};
+
+// 채널 목록 불러오기
+export const getChannels = async () => {
+  const res = await serverless({
+    method: 'GET',
+    url: '/channels',
+  });
+  return res;
+};
+
+// 특정 채널 목록 불러오기
+export const getChannelsName = async (channelName) => {
+  const res = await serverless({
+    method: 'GET',
+    url: `/channels/${channelName}`,
+  });
+  return res;
+};
+
+// 특정 채널의 포스트 목록
+export const getPostsChannel = async (channelId) => {
+  const res = await serverless({
+    method: 'GET',
+    url: `posts/channel/${channelId}`,
+  });
+  return res;
+};
+
+// 특정 채널의 포스트 목록 offset, limit으로 불러오기
+export const getPostsSlice = async (channelId, offset, limit) => {
+  const res = await serverless({
+    method: 'GET',
+    url: `/posts/channel/${channelId}?offset=${offset}&limit=${limit}`,
+  });
+  return res;
+};
+
+// 글 쓰기 폼데이터 나중에
 export const postPost = async (formData) => {
   const res = await Send.post(`posts/create`, formData);
   return res;
 };
 
-// 포스트 삭제
 export const deletePost = async (postId) => {
+  const token = getToken();
   if (!postId) return;
-  const res = await Send.delete(`posts/delete`, {
-    data: {
+  const res = await serverless({
+    method: 'DELETE',
+    url: `/posts/delete`,
+    body: {
       id: postId,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
   });
   return res;
@@ -163,17 +216,72 @@ export const deletePost = async (postId) => {
 
 // 모든 검색 결과 불러오기
 export const getSearchAll = async (value) => {
-  const res = await Send.get(`/search/all/${value}`);
-  return res;
-};
-
-// 댓글 삭제
-export const deleteCommentApi = async (commentId) => {
-  if (!commentId) return;
-  const res = await Send.delete(`comments/delete`, {
-    data: {
-      id: commentId,
+  const res = await serverless({
+    method: 'GET',
+    url: `/search/all/${value}`,
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
     },
   });
   return res;
+};
+
+export const deleteCommentApi = async (commentId) => {
+  if (!commentId) return;
+  const token = getToken();
+  const res = await serverless({
+    method: 'DELETE',
+    url: '/comments/delete',
+    body: {
+      id: commentId,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res;
+};
+
+export const deleteLikeApi = async (likeId) => {
+  if (!likeId) return;
+  const token = getToken();
+  const res = await serverless({
+    method: 'DELETE',
+    url: '/likes/delete',
+    body: {
+      id: likeId,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res;
+};
+
+export const postLikeApi = async (postId) => {
+  if (!postId) return;
+  const token = getToken();
+  const res = await serverless({
+    method: 'POST',
+    url: '/likes/create',
+    body: {
+      postId,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res;
+};
+
+export const serverless = async (options) => {
+  try {
+    const res = await fetch(`/.netlify/functions/request`, {
+      method: 'POST',
+      body: JSON.stringify(options),
+    });
+    return await res.json();
+  } catch (e) {
+    throw new Error(e);
+  }
 };

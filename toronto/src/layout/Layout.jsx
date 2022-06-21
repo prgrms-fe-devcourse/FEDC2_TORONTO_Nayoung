@@ -15,7 +15,7 @@ const Layout = () => {
   const state = useUsersState();
   const dispatch = useUsersDispatch();
   const navigate = useNavigate();
-  const { data: user, error } = state.user;
+  const { data: user } = state.user;
   const token = getToken();
   useEffect(() => {
     const fetchData = async () => {
@@ -36,7 +36,6 @@ const Layout = () => {
       navigate('/login');
     }
   };
-  if (error) return <div>에러가 발생했습니다</div>;
   if (!user) {
     return (
       <div>
@@ -66,4 +65,4 @@ export default Layout;
 
 const OutletWrapper = styled.div`
   padding: 0rem 15rem 0 15rem;
-`
+`;

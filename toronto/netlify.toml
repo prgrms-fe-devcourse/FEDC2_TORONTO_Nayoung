@@ -1,0 +1,11 @@
+[build]
+    command = "yarn build"
+    functions = "functions"
+    publish = "build"
+[dev]
+    framework = "#custom"
+    command = "yarn start"
+    targetPort = 3000
+    port = 3001
+    publish = "build"
+    autoLaunch = false

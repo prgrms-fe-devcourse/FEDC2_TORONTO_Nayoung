@@ -25,6 +25,7 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
+    "dev": "netlify dev",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
@@ -69,6 +70,7 @@
     "@storybook/testing-library": "^0.0.11",
     "babel-plugin-named-exports-order": "^0.0.2",
     "eslint-config-prettier": "^8.5.0",
+    "netlify-cli": "^10.5.1",
     "prop-types": "^15.8.1",
     "webpack": "^5.73.0"
   }

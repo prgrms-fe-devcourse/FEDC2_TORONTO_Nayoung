@@ -81,7 +81,7 @@ const Home = () => {
       const res = await getSearchAll(value);
       const filterPosts = res.data.filter((data) => !data.role);
 
-      setPosts([...filterPosts]);
+      setPosts([...filterPosts].reverse());
       setIsLoading(false);
     },
     [initialPosts],

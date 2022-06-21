@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button, Card, Input } from '@/components/atoms';
 import { Upload, DraggableArea } from '@/components/molecules';
-import { useUsersState } from '@/contexts/UserContext';
 import { postPost } from '@/api/Api';
+import { getToken } from '../lib/Login';
 
 const Post = () => {
   const [postData, setPostData] = useState({
@@ -16,17 +16,17 @@ const Post = () => {
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { data: user } = useUsersState().user;
+  const token = getToken();
 
   const { postTitle, postContent, agreeContent, disagreeContent, image } =
     postData;
 
   useEffect(() => {
-    if (!user) {
+    if (!token) {
       alert('로그인 된 사용자만 접근할 수 있습니다.');
       navigate('/');
     }
-  }, [user, navigate]);
+  }, [token, navigate]);
 
   const handleClick = async (e) => {
     const formData = new FormData();
@@ -42,7 +42,7 @@ const Post = () => {
 
     setLoading(true);
     const res = await postPost(formData);
-    if (res.statusText === 'OK') {
+    if (res.data) {
       navigate(`/controversy/${res.data._id}`);
     }
     setLoading(false);
