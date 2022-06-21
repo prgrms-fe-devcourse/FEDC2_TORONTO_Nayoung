@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Header, Button, Loader } from '@/components/atoms/';
+import { Header, Button, Loader, Image } from '@/components/atoms/';
 import FormField from '@/components/molecules/FormField';
 import useForm from '@/hooks/useForm';
 import {
@@ -8,16 +8,7 @@ import {
   postSignUp,
 } from '@/contexts/UserContext.js';
 import { useNavigate } from 'react-router-dom';
-
-const CardForm = styled.form`
-  padding: 7% 14%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
-  background-color: white;
-  position: absolute;
-`;
+import logoImg from '@/assets/images/toronto.png';
 
 const SignUpForm = () => {
   const state = useUsersState();
@@ -66,8 +57,9 @@ const SignUpForm = () => {
   if (!user) {
     return (
       <CardForm onSubmit={handleSubmit}>
+        <Image src={logoImg} width={300} height={300} />
         <HeaderWrapper>
-          <Header>회원가입</Header>
+          <Header strong>회원가입</Header>
         </HeaderWrapper>
         <FormField
           textTitle='성명'
@@ -112,5 +104,15 @@ const SignUpForm = () => {
 export default SignUpForm;
 
 const HeaderWrapper = styled.div`
-  margin-bottom: 32px;
+  margin: 32px 0 32px 0;
+`;
+
+const CardForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: white;
+  position: absolute;
+  padding: 2rem;
 `;

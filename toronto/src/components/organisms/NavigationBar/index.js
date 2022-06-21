@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { Icon, Divider, StyledLink } from '@/components/atoms';
+import { Icon, Divider, StyledLink, Image } from '@/components/atoms';
 import { Tooltip } from '@/components/molecules';
-
+import logoImg from '@/assets/images/toronto.png';
 const NavigationBar = ({ user, handleLogout }) => {
   const navigate = useNavigate();
   const handleLogoClick = () => {
@@ -12,9 +13,8 @@ const NavigationBar = ({ user, handleLogout }) => {
   return (
     <Wrapper>
       <LogoWrapper onClick={handleLogoClick}>
+        <Image src={logoImg} width={50} height={50} />
         토론토
-        <Divider type='vertical' style={{ height: 25 }} />
-        TORONTO
       </LogoWrapper>
       <NavigationWrapper>
         {user ? (
@@ -79,7 +79,8 @@ const LogoWrapper = styled.div`
   display: flex;
   cursor: pointer;
   font-size: 24px;
-  color: #2366f6;
+  color: #000;
+  align-items: center;
 `;
 
 const NavigationWrapper = styled.div`

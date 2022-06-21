@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Text, Button, Loader, Header } from '@/components/atoms/';
+import { Text, Button, Loader, Header, Image } from '@/components/atoms/';
 import FormField from '@/components/molecules/FormField';
 import useForm from '@/hooks/useForm';
 import {
@@ -8,16 +8,7 @@ import {
   useUsersState,
 } from '@/contexts/UserContext.js';
 import { useNavigate } from 'react-router-dom';
-
-const CardForm = styled.form`
-  padding: 7% 10%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
-  background-color: white;
-  position: absolute;
-`;
+import logoImg from '@/assets/images/toronto.png';
 
 const LoginForm = () => {
   const state = useUsersState();
@@ -54,8 +45,9 @@ const LoginForm = () => {
   if (!user) {
     return (
       <CardForm onSubmit={handleSubmit}>
+        <Image src={logoImg} width={300} height={300} />
         <HeaderWrapper>
-          <Header>로그인</Header>
+          <Header strong>로그인</Header>
         </HeaderWrapper>
         <FormField
           textTitle='이메일'
@@ -87,5 +79,14 @@ const LoginForm = () => {
 export default LoginForm;
 
 const HeaderWrapper = styled.div`
-  margin-bottom: 32px;
+  margin: 32px 0 32px 0;
+`;
+
+const CardForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: white;
+  position: absolute;
 `;
