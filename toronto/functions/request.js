@@ -20,10 +20,7 @@ exports.handler = async function (event) {
     return {
       statusCode: 404,
       body: JSON.stringify({
-        body,
-        url,
-        method,
-        headers,
+        e,
       }),
     };
   }
