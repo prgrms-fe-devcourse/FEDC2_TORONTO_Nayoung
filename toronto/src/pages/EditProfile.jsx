@@ -94,7 +94,9 @@ const EditProfile = () => {
     return (
       <ContentWrapper>
         <Wrapper>
-          <Header>프로필 편집</Header>
+          <Section>
+            <Header>프로필 편집</Header>
+          </Section>
           <Section>
             <Text strong>프로필 사진</Text>
             <Upload clickArea={true} onChange={handleChangeProfile}>
@@ -159,24 +161,23 @@ export default EditProfile;
 
 const ContentWrapper = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 80vh;
-  background-color: #f9fafb;
+  width: 100%;
+  min-height: 1000px;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
   background-color: #fff;
-  width: 700px;
-  height: 700px;
+  padding: 2rem 10rem 0 10rem;
 `;
 
 const Section = styled.section`
   display: flex;
-  width: 90%;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1rem;

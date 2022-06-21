@@ -95,7 +95,9 @@ const Home = () => {
           buttonType={'inside'}
           onSubmit={(value) => handleSubmit(value)}
         />
-        <Button onClick={handleNavigate}>논쟁 올리기</Button>
+        <Button onClick={handleNavigate} style={{ height: '100%' }}>
+          논쟁 올리기
+        </Button>
       </Wrapper>
       <GridContainer>
         <PostList posts={posts} />
@@ -122,7 +124,7 @@ export default Home;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 100%;
   height: 100%;
   margin: 0 auto;
   padding-top: 3rem;
@@ -136,6 +138,7 @@ const Wrapper = styled.div`
 const GridContainer = styled.ul`
   display: grid;
   padding: 0;
+  padding-top: 0.5rem;
   grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   grid-template-rows: repeat(auto-fit, minmax(360px, 1fr));
   grid-auto-rows: minmax(360px, 1fr);

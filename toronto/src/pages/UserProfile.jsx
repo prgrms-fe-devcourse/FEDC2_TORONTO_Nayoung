@@ -67,31 +67,44 @@ const UserProfile = () => {
       <ContentWrapper>
         <Wrapper>
           <ProfileSection>
-            <div>
+            <AvatarWrapper>
               <Avatar src={user.image} size={100} shape={'circle'} />
-            </div>
+            </AvatarWrapper>
             <ProfileWrapper>
-              <Text size={18}>{user.email}</Text>
-              <Text size={18}>{user.username}</Text>
-              {loginUser ? (
-                userId === loginUser._id ? (
-                  <StyledLink to={'edit'}>
-                    <Button>프로필 편집</Button>
-                  </StyledLink>
+              <ColWrapper>
+                <TextWrapper>
+                  <Text size={20}>{user.email}</Text>
+                </TextWrapper>
+                <TextWrapper>
+                  <Text size={16}>{user.username}</Text>
+                </TextWrapper>
+              </ColWrapper>
+              <ButtonWrapper>
+                {loginUser ? (
+                  userId === loginUser._id ? (
+                    <StyledLink to={'edit'}>
+                      <Button>프로필 편집</Button>
+                    </StyledLink>
+                  ) : (
+                    <div></div>
+                  )
                 ) : (
                   <div></div>
-                )
-              ) : (
-                <div></div>
-              )}
+                )}
+              </ButtonWrapper>
             </ProfileWrapper>
           </ProfileSection>
+
           <Tab>
             <Tab.Item title='내 게시물' index='item1'>
-              {user.posts ? <PostList posts={myPosts} /> : []}
+              <GridContainer>
+                {user.posts ? <PostList posts={myPosts} /> : []}
+              </GridContainer>
             </Tab.Item>
             <Tab.Item title='좋아요 게시물' index='item2'>
-              {user.likes ? <PostList posts={likesPosts} /> : []}
+              <GridContainer>
+                {user.likes ? <PostList posts={likesPosts} /> : []}
+              </GridContainer>
             </Tab.Item>
           </Tab>
         </Wrapper>
@@ -104,19 +117,17 @@ export default UserProfile;
 
 const ContentWrapper = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
-  height: 80vh;
-  background-color: #f9fafb;
+  height: 100%;
+  min-height: 1000px;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
   background-color: #fff;
-  width: 700px;
-  height: 600px;
 `;
 
 const ProfileSection = styled.section`
@@ -133,5 +144,37 @@ const ProfileWrapper = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 100%;
+  height: 100%;
+  min-height: 100px;
+`;
+
+const ColWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: space-around;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+`;
+
+const AvatarWrapper = styled.div`
+  display: flex;
   padding: 2rem;
+`;
+
+const GridContainer = styled.ul`
+  display: grid;
+  padding: 0;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(360px, 1fr));
+  grid-auto-rows: minmax(360px, 1fr);
+  grid-auto-columns: minmax(360px, 1fr);
+  grid-gap: 30px;
+  min-height: 500px;
+`;
+
+const TextWrapper = styled.div`
+  display: flex;
+  margin-bottom: 1rem;
 `;

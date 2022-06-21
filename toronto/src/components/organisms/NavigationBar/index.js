@@ -1,92 +1,100 @@
+import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { Icon, Divider, StyledLink } from '@/components/atoms';
 import { Tooltip } from '@/components/molecules';
 
 const NavigationBar = ({ user, handleLogout }) => {
   const navigate = useNavigate();
-
   const handleLogoClick = () => {
     navigate('/');
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        padding: '1rem',
-      }}
-    >
-      <div
-        onClick={handleLogoClick}
-        style={{ fontSize: 24, color: '#2366F6', cursor: 'pointer' }}
-      >
+    <Wrapper>
+      <LogoWrapper onClick={handleLogoClick}>
         토론토
         <Divider type='vertical' />
         TORONTO
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+      </LogoWrapper>
+      <NavigationWrapper>
         {user ? (
-          <>
+          <TooltipWrapper>
             <Tooltip text='사용자 목록 보기'>
-              <StyledLink to='/user/list'>
-                <Icon
-                  size={20}
-                  iconName='users'
-                  style={{ verticalAlign: 'bottom' }}
-                />
-              </StyledLink>
+              <NavigateLink to='/user/list'>
+                <Icon size={20} iconName='users' />
+              </NavigateLink>
             </Tooltip>
             <Tooltip text='로그아웃'>
-              <StyledLink
-                to='/'
-                style={{
-                  color: 'inherit',
-                }}
-                onClick={handleLogout}
-              >
+              <NavigateLink to='/' onClick={handleLogout}>
                 로그아웃
-              </StyledLink>
+              </NavigateLink>
             </Tooltip>
             <Tooltip text='내 정보 보기'>
-              <StyledLink
-                to={`/users/${user._id}`}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  color: 'inherit',
-                  gap: '5px',
-                }}
-              >
-                <Icon size={20} iconName='user' />
+              <NavigateLink to={`/users/${user._id}`}>
+                <Icon
+                  size={20}
+                  iconName='user'
+                  style={{ marginRight: '5px' }}
+                />
                 {user.fullName}
-              </StyledLink>
+              </NavigateLink>
             </Tooltip>
-          </>
+          </TooltipWrapper>
         ) : (
-          <>
+          <TooltipWrapper>
             <Tooltip text='사용자 목록 보기'>
-              <StyledLink to='/user/list'>
+              <NavigateLink to='/user/list'>
                 <Icon
                   size={20}
                   iconName='users'
                   style={{ verticalAlign: 'bottom' }}
                 />
-              </StyledLink>
+              </NavigateLink>
             </Tooltip>
-            <StyledLink to='/login' style={{ color: 'inherit' }}>
-              로그인
-            </StyledLink>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <StyledLink to='/sign-up' style={{ color: 'inherit' }}>
-                회원가입
-              </StyledLink>
-            </div>
-          </>
+            <NavigateLink to='/login'>로그인</NavigateLink>
+            <NavigationWrapper>
+              <NavigateLink to='/sign-up'>회원가입</NavigateLink>
+            </NavigationWrapper>
+          </TooltipWrapper>
         )}
-      </div>
-    </div>
+      </NavigationWrapper>
+    </Wrapper>
   );
 };
 
 export default NavigationBar;
+
+const Wrapper = styled.div`
+  display: flex;
+  height: 60px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgb(219, 219, 219);
+  padding: 0 30px 0 30px;
+`;
+
+const LogoWrapper = styled.div`
+  display: flex;
+  cursor: pointer;
+  font-size: 24px;
+  color: #2366f6;
+`;
+
+const NavigationWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
+`;
+
+const TooltipWrapper = styled.div`
+  display: flex;
+  gap: 15px;
+  align-items: flex-end;
+`;
+
+const NavigateLink = styled(StyledLink)`
+  display: flex;
+  color: inherit;
+  align-items: flex-end;
+`;

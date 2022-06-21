@@ -102,8 +102,9 @@ const Wrapper = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
+  background-color: #fff;
+  min-height: 600px;
   flex-direction: column;
-  justify-content: center;
   padding: 2rem;
 `;
 
@@ -112,6 +113,7 @@ const HeaderWrapper = styled.div`
   align-items: center;
   justify-content: flex-start;
   font-family: 'S-CoreDream-Regular';
+  margin-bottom: 2rem;
 `;
 
 const TextWrapper = styled.div`
