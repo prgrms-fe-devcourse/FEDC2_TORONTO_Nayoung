@@ -1,37 +1,7 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Text, Image } from '@components/atoms';
-
-const ControversyVoteWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 80px 0;
-`;
-
-const ControversyButton = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-  padding: 16px;
-  height: 500px;
-  width: 350px;
-
-  &:hover {
-    background-color: ${(hoverBackgroundColor) => hoverBackgroundColor};
-  }
-  &:active {
-    background-color: ${(activeBackgroundColor) => activeBackgroundColor};
-  }
-  &:focus {
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
-  }
-`;
+import { Text } from '@components/atoms';
+import { Button } from 'react-neon-ui';
 
 const ControversyVote = ({
   agreeTitle,
@@ -42,47 +12,33 @@ const ControversyVote = ({
 }) => {
   return (
     <ControversyVoteWrapper {...props}>
-      <ControversyButton
+      <Button
         onClick={(e) => {
           onChange('agree');
         }}
-        backgroundColor='#649dd6'
-        hoverBackgroundColor='#5488ce'
-        activeBackgroundColor='#2f66d2'
+        variant='secondary'
+        style={{ width: '400px', height: '400px' }}
       >
-        <Text block strong size={16}>
+        <Text block strong size={56}>
           {agreeTitle}
         </Text>
-        <Image
-          src={imgSrc}
-          width={'100%'}
-          height={'95%'}
-          mode={'fill'}
-          style={{ borderRadius: '4px' }}
-        />
-      </ControversyButton>
-      <Text strong size={48}>
-        VS
-      </Text>
-      <ControversyButton
+      </Button>
+
+      <TextWrapper>
+        <Text strong size={48}>
+          VS
+        </Text>
+      </TextWrapper>
+      <Button
         onClick={(e) => {
           onChange('disagree');
         }}
-        backgroundColor='#ef5941'
-        hoverBackgroundColor='#ef3322'
-        activeBackgroundColor='de3322'
+        style={{ width: '400px', height: '400px' }}
       >
-        <Text block strong size={16}>
+        <Text block strong size={56}>
           {disagreeTitle}
         </Text>
-        <Image
-          src={imgSrc}
-          width={'100%'}
-          height={'95%'}
-          mode={'fill'}
-          style={{ borderRadius: '4px' }}
-        />
-      </ControversyButton>
+      </Button>
     </ControversyVoteWrapper>
   );
 };
@@ -94,3 +50,18 @@ ControversyVote.propTypes = {
 };
 
 export default ControversyVote;
+
+const ControversyVoteWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem 0;
+`;
+
+const TextWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  font-family: 'S-CoreDream-Regular';
+`;
