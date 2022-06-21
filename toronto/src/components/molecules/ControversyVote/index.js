@@ -3,13 +3,6 @@ import PropTypes from 'prop-types';
 import { Text } from '@components/atoms';
 import { Button } from 'react-neon-ui';
 
-const ControversyVoteWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 80px 0;
-`;
-
 const ControversyVote = ({
   agreeTitle,
   disagreeTitle,
@@ -19,19 +12,18 @@ const ControversyVote = ({
 }) => {
   return (
     <ControversyVoteWrapper {...props}>
-      <div>
-        <Button
-          onClick={(e) => {
-            onChange('agree');
-          }}
-          variant='secondary'
-          style={{ width: '400px', height: '400px' }}
-        >
-          <Text block strong size={80}>
-            {agreeTitle}
-          </Text>
-        </Button>
-      </div>
+      <Button
+        onClick={(e) => {
+          onChange('agree');
+        }}
+        variant='secondary'
+        style={{ width: '400px', height: '400px' }}
+      >
+        <Text block strong size={56}>
+          {agreeTitle}
+        </Text>
+      </Button>
+
       <TextWrapper>
         <Text strong size={48}>
           VS
@@ -43,7 +35,7 @@ const ControversyVote = ({
         }}
         style={{ width: '400px', height: '400px' }}
       >
-        <Text block strong size={80}>
+        <Text block strong size={56}>
           {disagreeTitle}
         </Text>
       </Button>
@@ -58,6 +50,13 @@ ControversyVote.propTypes = {
 };
 
 export default ControversyVote;
+
+const ControversyVoteWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem 0;
+`;
 
 const TextWrapper = styled.div`
   display: flex;
