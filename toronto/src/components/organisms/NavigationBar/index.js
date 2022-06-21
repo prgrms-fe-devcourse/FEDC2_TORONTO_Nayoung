@@ -13,7 +13,7 @@ const NavigationBar = ({ user, handleLogout }) => {
     <Wrapper>
       <LogoWrapper onClick={handleLogoClick}>
         토론토
-        <Divider type='vertical' />
+        <Divider type='vertical' style={{ height: 25 }} />
         TORONTO
       </LogoWrapper>
       <NavigationWrapper>

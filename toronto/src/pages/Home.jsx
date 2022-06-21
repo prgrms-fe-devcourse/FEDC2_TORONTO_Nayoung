@@ -138,7 +138,7 @@ const Wrapper = styled.div`
 const GridContainer = styled.ul`
   display: grid;
   padding: 0;
-  padding-top: 0.5rem;
+  padding-top: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   grid-template-rows: repeat(auto-fit, minmax(360px, 1fr));
   grid-auto-rows: minmax(360px, 1fr);

@@ -62,7 +62,7 @@ const CommentItem = ({
           {author}
         </Header>
         <Text style={{ fontFamily: 'S-CoreDream-Regular', paddingTop: 10 }}>
-          <div>{content}</div>
+          <div style={{ wordBreak: 'break-all' }}>{content}</div>
         </Text>
 
         <IconWrapper mouseOver={mouseOver} isAuthor={isAuthor}>
