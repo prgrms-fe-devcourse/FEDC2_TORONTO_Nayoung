@@ -33,7 +33,7 @@ const Controversy = () => {
         (comment) => comment.author?._id === userId,
       );
       if (userId && isVoted) {
-        navigate(`/controversy/result/${postId}`);
+        navigate(`/controversy/result/${postId}`, { replace: true });
         return;
       }
       const { postTitle, postContent, agreeContent, disagreeContent } =
