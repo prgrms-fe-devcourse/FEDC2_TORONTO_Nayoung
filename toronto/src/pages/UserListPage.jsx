@@ -75,7 +75,7 @@ export default UserListPage;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 100%;
   height: 100%;
   margin: 0 auto;
   padding-top: 3rem;

@@ -67,29 +67,34 @@ const UserProfile = () => {
       <ContentWrapper>
         <Wrapper>
           <ProfileSection>
-            <ColWrapper>
+            <AvatarWrapper>
               <Avatar src={user.image} size={100} shape={'circle'} />
-            </ColWrapper>
+            </AvatarWrapper>
             <ProfileWrapper>
               <ColWrapper>
                 <TextWrapper>
                   <Text size={20}>{user.email}</Text>
                 </TextWrapper>
-                <Text size={16}>{user.username}</Text>
+                <TextWrapper>
+                  <Text size={16}>{user.username}</Text>
+                </TextWrapper>
               </ColWrapper>
-              {loginUser ? (
-                userId === loginUser._id ? (
-                  <StyledLink to={'edit'}>
-                    <Button>프로필 편집</Button>
-                  </StyledLink>
+              <ButtonWrapper>
+                {loginUser ? (
+                  userId === loginUser._id ? (
+                    <StyledLink to={'edit'}>
+                      <Button>프로필 편집</Button>
+                    </StyledLink>
+                  ) : (
+                    <div></div>
+                  )
                 ) : (
                   <div></div>
-                )
-              ) : (
-                <div></div>
-              )}
+                )}
+              </ButtonWrapper>
             </ProfileWrapper>
           </ProfileSection>
+
           <Tab>
             <Tab.Item title='내 게시물' index='item1'>
               <GridContainer>
@@ -140,13 +145,22 @@ const ProfileWrapper = styled.div`
   justify-content: space-around;
   width: 100%;
   height: 100%;
-  padding: 2rem;
   min-height: 100px;
 `;
 
 const ColWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: space-around;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+`;
+
+const AvatarWrapper = styled.div`
+  display: flex;
+  padding: 2rem;
 `;
 
 const GridContainer = styled.ul`
@@ -159,7 +173,8 @@ const GridContainer = styled.ul`
   grid-gap: 30px;
   min-height: 500px;
 `;
+
 const TextWrapper = styled.div`
   display: flex;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 `;
