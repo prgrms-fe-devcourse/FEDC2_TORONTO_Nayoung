@@ -66,5 +66,4 @@ export default Layout;
 
 const OutletWrapper = styled.div`
   padding: 0rem 15rem 0 15rem;
-  background-color: #f9fafb;
 `;

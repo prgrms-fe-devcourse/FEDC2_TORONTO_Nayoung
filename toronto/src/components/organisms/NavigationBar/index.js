@@ -9,16 +9,6 @@ const NavigationBar = ({ user, handleLogout }) => {
     navigate('/');
   };
 
-  if (!user)
-    return (
-      <Wrapper>
-        <LogoWrapper onClick={handleLogoClick}>
-          토론토
-          <Divider type='vertical' />
-          TORONTO
-        </LogoWrapper>
-      </Wrapper>
-    );
   return (
     <Wrapper>
       <LogoWrapper onClick={handleLogoClick}>
@@ -53,18 +43,18 @@ const NavigationBar = ({ user, handleLogout }) => {
         ) : (
           <TooltipWrapper>
             <Tooltip text='사용자 목록 보기'>
-              <StyledLink to='/user/list'>
+              <NavigateLink to='/user/list'>
                 <Icon
                   size={20}
                   iconName='users'
                   style={{ verticalAlign: 'bottom' }}
                 />
-              </StyledLink>
+              </NavigateLink>
             </Tooltip>
-            <StyledLink to='/login'>로그인</StyledLink>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <StyledLink to='/sign-up'>회원가입</StyledLink>
-            </div>
+            <NavigateLink to='/login'>로그인</NavigateLink>
+            <NavigationWrapper>
+              <NavigateLink to='/sign-up'>회원가입</NavigateLink>
+            </NavigationWrapper>
           </TooltipWrapper>
         )}
       </NavigationWrapper>
