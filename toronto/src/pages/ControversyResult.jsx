@@ -275,7 +275,7 @@ const ResultPage = () => {
                 style={{ cursor: 'pointer', padding: 10 }}
               >
                 <Icon
-                  fill={isLiked ? 'blue' : undefined}
+                  fill={isLiked ? '#2366F6' : undefined}
                   iconName='thumbs-up'
                 />
               </div>
