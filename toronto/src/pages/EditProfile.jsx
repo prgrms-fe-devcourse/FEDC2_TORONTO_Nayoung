@@ -162,7 +162,6 @@ export default EditProfile;
 const ContentWrapper = styled.div`
   display: flex;
   width: 100%;
-  min-height: 1000px;
 `;
 
 const Wrapper = styled.div`

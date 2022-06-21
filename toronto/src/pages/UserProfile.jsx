@@ -6,6 +6,7 @@ import {
   Avatar,
   StyledLink,
   Loader,
+  Divider,
 } from '@/components/atoms';
 import Tab from '@/components/molecules/Tab';
 import PostList from '@/components/organisms/PostList';
@@ -94,7 +95,7 @@ const UserProfile = () => {
               </ButtonWrapper>
             </ProfileWrapper>
           </ProfileSection>
-
+          <Divider />
           <Tab>
             <Tab.Item title='내 게시물' index='item1'>
               <GridContainer>
@@ -119,7 +120,6 @@ const ContentWrapper = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
-  min-height: 1000px;
 `;
 
 const Wrapper = styled.div`
