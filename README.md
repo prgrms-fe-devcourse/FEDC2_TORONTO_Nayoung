@@ -16,6 +16,11 @@
 홍정기: 프론트엔드 개발
 팽건우: 프론트엔드 개발
 
+
+| [<img src="https://user-images.githubusercontent.com/53526987/174883627-898e84a7-32c1-4f57-b888-dc2c625dd121.png" width="100">](https://github.com/jaeung-E) | [<img src="https://user-images.githubusercontent.com/53526987/174883646-271721df-ef12-4420-adad-074aa9a01293.jpeg" width="100">](https://github.com/KyubumJang) | -[<img src="https://user-images.githubusercontent.com/53526987/174883656-6dba80b7-f7a4-472d-b66f-61439da636ae.JPG" width="100">](https://github.com/qq8721443) | [<img src="https://user-images.githubusercontent.com/53526987/174883851-98e588f0-8f00-461d-8ef7-4cdc805eca35.jpeg" width="100">](https://github.com/GeonWooPaeng) |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                                            이재웅                                                                            |                                                                             장규범                                                                              |                                                                             홍정기                                                                             |                                                                              팽건우                                                                               |
+
 ## 개발 일정
 
 [Period](https://prgrms.notion.site/020074cef4c84f4c85b0421892e5bd5a?v=e978958f6aec4917989610e59a754475&p=9293791abbb54ac6ae7ca9a262aefd1b)
@@ -29,6 +34,31 @@
     - 프로젝트 최종 발표
 
 ## Tech Stack
+
+### 💪 언어 & 라이브러리
+
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![React](https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+![Context API](https://img.shields.io/badge/ContextAPI-4dd0e1.svg?&style=for-the-badge&logo=React&logoColor=white)
+![Storybook](https://img.shields.io/badge/Storybook-FF4785.svg?&style=for-the-badge&logo=Storybook&logoColor=white)
+![ESLint](https://img.shields.io/badge/ESLint-4B32C3.svg?&style=for-the-badge&logo=ESLint&logoColor=white)
+![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7)
+![Chart.js](https://img.shields.io/badge/chart.js-F5788D.svg?style=for-the-badge&logo=chart.js&logoColor=white)
+
+### 🔧 도구
+
+![Git](https://img.shields.io/badge/Git-F05032.svg?&style=for-the-badge&logo=Git&logoColor=white)
+![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-007ACC.svg?&style=for-the-badge&logo=Visual%20Studio%20Code&logoColor=white)
+![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white)
+![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)
+![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white)
+
 
 - Language: HTML/CSS/JavaScrip
 - IDE: VSCode
