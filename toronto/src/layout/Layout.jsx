@@ -65,6 +65,6 @@ const Layout = () => {
 export default Layout;
 
 const OutletWrapper = styled.div`
-  display: flex;
-  padding: 0 15rem 0 15rem;
+  padding: 0rem 15rem 0 15rem;
+  background-color: #f9fafb;
 `;

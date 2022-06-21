@@ -84,6 +84,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1rem;
 `;
 
 const GridContainer = styled.ul`
