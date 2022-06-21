@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Card, Icon, Divider } from '@/components/atoms';
+import { Card, Icon, Header, Text } from '@/components/atoms';
 import { useUsersState } from '@/contexts/UserContext';
 
 const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   position: relative;
   display: flex;
   width: ${({ width }) => width || '300px'};
@@ -51,11 +53,15 @@ const CommentItem = ({
       style={{ display: 'block', ...props.style }}
     >
       <Wrapper width={width}>
-        <div style={{ flexShrink: 0 }}>{author}</div>
-        <div>
-          <Divider type='vertical' />
-        </div>
-        <div>{content}</div>
+        <Header
+          level={3}
+          style={{ fontFamily: 'S-CoreDream-Regular', margin: 0 }}
+        >
+          {author}
+        </Header>
+        <Text style={{ fontFamily: 'S-CoreDream-Regular', paddingTop: 10 }}>
+          <div>{content}</div>
+        </Text>
         <IconWrapper
           onClick={handleClick}
           mouseOver={mouseOver}

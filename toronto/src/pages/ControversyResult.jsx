@@ -7,6 +7,7 @@ import { CommentList } from '@/components/organisms';
 import { getToken } from '@/lib/Login';
 import { useUsersState } from '@/contexts/UserContext';
 import { deletePost, getPostApi, deleteCommentApi } from '@/api/Api';
+import styled from 'styled-components';
 
 const ResultPage = () => {
   const [data, setData] = useState({
@@ -181,116 +182,149 @@ const ResultPage = () => {
   };
 
   return (
-    <div style={{ backgroundColor: '#efefef' }}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <Header>{data?.post?.title}</Header>
-        <div style={{ display: isAuthor ? 'block' : 'none' }}>
-          <Tooltip text='글 삭제하기'>
-            <Icon
-              onClick={handleDeleteClick}
-              iconName='trash-2'
-              style={{ cursor: 'pointer' }}
-            />
-          </Tooltip>
-        </div>
-      </div>
-      <div
-        style={{
-          position: 'relative',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          gap: '20px',
-        }}
-      >
-        <DoughnutChart
-          data={[agreeVotes?.length, disagreeVotes?.length]}
-          labels={['찬성', '반대']}
-          backgroundColor={[
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-          ]}
-          borderColor={['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)']}
-          chartSize={500}
-        />
-        <Vote
-          onChange={handleChange}
-          agreeText={`찬성 (${
-            votes.length && Math.floor((agreeVotes.length / votes.length) * 100)
-          }%)`}
-          disagreeText={`반대 (${
-            votes.length &&
-            Math.floor((disagreeVotes.length / votes.length) * 100)
-          }%)`}
-        />
+    <div style={{ width: '80%', margin: '0 auto' }}>
+      <ResultContainer>
         <div
           style={{
-            width: '100%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Header style={{ fontFamily: 'S-CoreDream-Medium' }}>
+            {data?.post?.title}
+          </Header>
+          <div style={{ display: isAuthor ? 'block' : 'none' }}>
+            <Tooltip text='글 삭제하기'>
+              <Icon
+                onClick={handleDeleteClick}
+                iconName='trash-2'
+                style={{ cursor: 'pointer' }}
+              />
+            </Tooltip>
+          </div>
+        </div>
+        <div
+          style={{
             position: 'relative',
             display: 'flex',
             justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column',
+            gap: '20px',
           }}
         >
-          <InputBar
-            totalWidth={500}
-            placeholder='찬성/반대 의견을 선택하고 댓글을 작성해주세요.'
-            buttonText='댓글 작성'
-            onSubmit={handleSubmit}
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              maxWidth: 500,
+              maxHeight: 500,
+            }}
+          >
+            <DoughnutChart
+              data={[agreeVotes?.length, disagreeVotes?.length]}
+              labels={['찬성', '반대']}
+              backgroundColor={[
+                'rgba(61, 67, 180, 0.2)',
+                'rgba(255, 18, 79, 0.2)',
+              ]}
+              borderColor={[
+                'rgba(131, 134, 245, 0.8)',
+                'rgba(255, 114, 202, 0.8)',
+              ]}
+              chartSize={'100%'}
+            />
+          </div>
+          <Vote
+            onChange={handleChange}
+            agreeText={`찬성 (${
+              votes.length &&
+              Math.floor((agreeVotes.length / votes.length) * 100)
+            }%)`}
+            disagreeText={`반대 (${
+              votes.length &&
+              Math.floor((disagreeVotes.length / votes.length) * 100)
+            }%)`}
           />
           <div
             style={{
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              width: '100px',
-              height: '100%',
+              width: '100%',
               display: 'flex',
-              justifyContent: 'center',
               alignItems: 'center',
             }}
           >
-            <div onClick={handleLikeClick} style={{ cursor: 'pointer' }}>
-              <Icon fill={isLiked ? 'blue' : undefined} iconName='thumbs-up' />
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <div
+                onClick={handleLikeClick}
+                style={{ cursor: 'pointer', padding: 10 }}
+              >
+                <Icon
+                  fill={isLiked ? '#4582EE' : undefined}
+                  iconName='thumbs-up'
+                />
+              </div>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                flexGrow: 1,
+              }}
+            >
+              <div style={{ width: '100%', maxWidth: 500 }}>
+                <InputBar
+                  totalWidth={'100%'}
+                  placeholder='찬성/반대 의견을 선택하고 댓글을 작성해주세요.'
+                  buttonText='댓글 작성'
+                  onSubmit={handleSubmit}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div
-        style={{
-          position: 'relative',
-          display: 'flex',
-          gap: '20px',
-          marginTop: '20px',
-        }}
-      >
-        <div style={{ flex: 1 }}>
-          <CommentList
-            name='찬성 댓글'
-            width={'calc(100% - 20px)'}
-            limit={5}
-            comments={agreeComments}
-            onDelete={deleteComment}
-          />
+        <div
+          style={{
+            position: 'relative',
+            display: 'flex',
+            gap: '20px',
+            marginTop: '20px',
+          }}
+        >
+          <div style={{ flex: 1 }}>
+            <CommentList
+              name='찬성 댓글'
+              width={'calc(100% - 20px)'}
+              limit={5}
+              comments={agreeComments}
+              onDelete={deleteComment}
+            />
+          </div>
+          <div style={{ flex: 1 }}>
+            <CommentList
+              name='반대 댓글'
+              width='calc(100% - 20px)'
+              limit={5}
+              comments={disagreeComments}
+              onDelete={deleteComment}
+            />
+          </div>
         </div>
-        <div style={{ flex: 1 }}>
-          <CommentList
-            name='반대 댓글'
-            width='calc(100% - 20px)'
-            limit={5}
-            comments={disagreeComments}
-            onDelete={deleteComment}
-          />
-        </div>
-      </div>
+      </ResultContainer>
     </div>
   );
 };
+
+const ResultContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
 
 export default ResultPage;
