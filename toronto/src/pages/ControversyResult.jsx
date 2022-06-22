@@ -32,6 +32,7 @@ const ResultPage = () => {
     like: false,
     comment: false,
     deletePost: false,
+    first: true,
   });
   const { postId } = useParams();
   const token = getToken();
@@ -64,6 +65,11 @@ const ResultPage = () => {
         ({ user }) => user === userData.user.data?._id,
       )[0]?._id,
     });
+    setLoading({
+      ...loading,
+      first: false,
+    });
+    //eslint-disable-next-line
   }, [postId, userData]);
 
   const checkValidPost = useCallback(async () => {
@@ -219,149 +225,165 @@ const ResultPage = () => {
 
   return (
     <div style={{ width: '80%', margin: '0 auto' }}>
-      <ResultContainer>
+      {loading.first ? (
         <div
           style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <Header
-            style={{ fontFamily: 'S-CoreDream-Medium', paddingTop: '2rem' }}
-          >
-            {data?.post?.title}
-          </Header>
-          <div style={{ display: isAuthor ? 'block' : 'none' }}>
-            {loading.deletePost ? (
-              <Loader type='spinner' size={24} />
-            ) : (
-              <Tooltip text='글 삭제하기'>
-                <Icon
-                  onClick={handleDeleteClick}
-                  iconName='trash-2'
-                  style={{ cursor: 'pointer' }}
-                />
-              </Tooltip>
-            )}
-          </div>
-        </div>
-        <div
-          style={{
-            position: 'relative',
+            width: '100%',
+            height: 'calc(100vh - 60px)',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            flexDirection: 'column',
-            gap: '20px',
           }}
         >
+          <Loader type='spinner' size={64} />
+        </div>
+      ) : (
+        <ResultContainer>
           <div
             style={{
-              width: '100%',
-              height: '100%',
-              maxWidth: 500,
-              maxHeight: 500,
-            }}
-          >
-            <DoughnutChart
-              data={[agreeVotes?.length, disagreeVotes?.length]}
-              labels={[data.post.agreeContent, data.post.disagreeContent]}
-              backgroundColor={[
-                'rgba(61, 67, 180, 0.2)',
-                'rgba(255, 18, 79, 0.2)',
-              ]}
-              borderColor={[
-                'rgba(131, 134, 245, 0.8)',
-                'rgba(255, 114, 202, 0.8)',
-              ]}
-              chartSize={'100%'}
-            />
-          </div>
-          <Vote
-            onChange={handleChange}
-            agreeText={`찬성 (${
-              votes.length &&
-              Math.floor((agreeVotes.length / votes.length) * 100)
-            }%)`}
-            disagreeText={`반대 (${
-              votes.length &&
-              Math.floor((disagreeVotes.length / votes.length) * 100)
-            }%)`}
-          />
-          <div
-            style={{
-              width: '100%',
               display: 'flex',
+              justifyContent: 'space-between',
               alignItems: 'center',
             }}
           >
+            <Header
+              style={{ fontFamily: 'S-CoreDream-Medium', paddingTop: '2rem' }}
+            >
+              {data?.post?.title}
+            </Header>
+            <div style={{ display: isAuthor ? 'block' : 'none' }}>
+              {loading.deletePost ? (
+                <Loader type='spinner' size={24} />
+              ) : (
+                <Tooltip text='글 삭제하기'>
+                  <Icon
+                    onClick={handleDeleteClick}
+                    iconName='trash-2'
+                    style={{ cursor: 'pointer' }}
+                  />
+                </Tooltip>
+              )}
+            </div>
+          </div>
+          <div
+            style={{
+              position: 'relative',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+              gap: '20px',
+            }}
+          >
             <div
               style={{
+                width: '100%',
+                height: '100%',
+                maxWidth: 500,
+                maxHeight: 500,
+              }}
+            >
+              <DoughnutChart
+                data={[agreeVotes?.length, disagreeVotes?.length]}
+                labels={[data.post.agreeContent, data.post.disagreeContent]}
+                backgroundColor={[
+                  'rgba(61, 67, 180, 0.2)',
+                  'rgba(255, 18, 79, 0.2)',
+                ]}
+                borderColor={[
+                  'rgba(131, 134, 245, 0.8)',
+                  'rgba(255, 114, 202, 0.8)',
+                ]}
+                chartSize={'100%'}
+              />
+            </div>
+            <Vote
+              onChange={handleChange}
+              agreeText={`찬성 (${
+                votes.length &&
+                Math.floor((agreeVotes.length / votes.length) * 100)
+              }%)`}
+              disagreeText={`반대 (${
+                votes.length &&
+                Math.floor((disagreeVotes.length / votes.length) * 100)
+              }%)`}
+            />
+            <div
+              style={{
+                width: '100%',
                 display: 'flex',
-                justifyContent: 'center',
                 alignItems: 'center',
               }}
             >
-              <div style={{ cursor: 'pointer', padding: 10 }}>
-                {loading.like ? (
-                  <Loader type='spinner' size={24} />
-                ) : (
-                  <Icon
-                    onClick={handleLikeClick}
-                    fill={isLiked ? '#4582EE' : undefined}
-                    iconName='thumbs-up'
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <div style={{ cursor: 'pointer', padding: 10 }}>
+                  {loading.like ? (
+                    <Loader type='spinner' size={24} />
+                  ) : (
+                    <Icon
+                      onClick={handleLikeClick}
+                      fill={isLiked ? '#4582EE' : undefined}
+                      iconName='thumbs-up'
+                    />
+                  )}
+                </div>
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  flexGrow: 1,
+                }}
+              >
+                <div style={{ width: '100%', maxWidth: 500 }}>
+                  <InputBar
+                    totalWidth={'100%'}
+                    placeholder='찬성/반대 의견을 선택하고 댓글을 작성해주세요.'
+                    buttonText='댓글 작성'
+                    onSubmit={handleSubmit}
+                    loading={loading.comment}
                   />
-                )}
-              </div>
-            </div>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                flexGrow: 1,
-              }}
-            >
-              <div style={{ width: '100%', maxWidth: 500 }}>
-                <InputBar
-                  totalWidth={'100%'}
-                  placeholder='찬성/반대 의견을 선택하고 댓글을 작성해주세요.'
-                  buttonText='댓글 작성'
-                  onSubmit={handleSubmit}
-                  loading={loading.comment}
-                />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          style={{
-            position: 'relative',
-            display: 'flex',
-            gap: '20px',
-            marginTop: '20px',
-          }}
-        >
-          <div style={{ flex: 1 }}>
-            <CommentList
-              name='찬성 댓글'
-              width={'calc(100% - 20px)'}
-              limit={5}
-              comments={agreeComments}
-              onDelete={deleteComment}
-            />
+          <div
+            style={{
+              position: 'relative',
+              display: 'flex',
+              gap: '20px',
+              marginTop: '20px',
+            }}
+          >
+            <div style={{ flex: 1 }}>
+              <CommentList
+                name='찬성 댓글'
+                width={'calc(100% - 20px)'}
+                limit={5}
+                comments={agreeComments}
+                onDelete={deleteComment}
+                loading={loading.comment}
+              />
+            </div>
+            <div style={{ flex: 1 }}>
+              <CommentList
+                name='반대 댓글'
+                width='calc(100% - 20px)'
+                limit={5}
+                comments={disagreeComments}
+                onDelete={deleteComment}
+                loading={loading.comment}
+              />
+            </div>
           </div>
-          <div style={{ flex: 1 }}>
-            <CommentList
-              name='반대 댓글'
-              width='calc(100% - 20px)'
-              limit={5}
-              comments={disagreeComments}
-              onDelete={deleteComment}
-            />
-          </div>
-        </div>
-      </ResultContainer>
+        </ResultContainer>
+      )}
     </div>
   );
 };
