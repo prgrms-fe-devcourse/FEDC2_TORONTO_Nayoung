@@ -31,7 +31,7 @@ const SignUpForm = () => {
         values.password,
       );
       if (res) {
-        alert('회원가입이 성공적으로 이뤄졌습니다!');
+        alert('회원가입이 성공적으로 처리되었습니다!');
         navigate('/');
       } else {
         navigate('/sign-up');
@@ -57,7 +57,7 @@ const SignUpForm = () => {
   if (!user) {
     return (
       <CardForm onSubmit={handleSubmit}>
-        <Image src={logoImg} width={300} height={300} />
+        <Image src={logoImg} width={200} height={200} />
         <HeaderWrapper>
           <Header strong>회원가입</Header>
         </HeaderWrapper>

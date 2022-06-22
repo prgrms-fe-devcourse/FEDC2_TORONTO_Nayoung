@@ -28,7 +28,7 @@ const LoginForm = () => {
       if (res) {
         navigate('/');
       } else {
-        alert('아이디 또는 비밀번호가 맞지 않습니다.');
+        alert('아이디 또는 비밀번호가 일치하지 않습니다!');
       }
     },
     validate: ({ email, password }) => {
@@ -45,7 +45,7 @@ const LoginForm = () => {
   if (!user) {
     return (
       <CardForm onSubmit={handleSubmit}>
-        <Image src={logoImg} width={300} height={300} />
+        <Image src={logoImg} width={200} height={200} />
         <HeaderWrapper>
           <Header strong>로그인</Header>
         </HeaderWrapper>
@@ -89,4 +89,5 @@ const CardForm = styled.form`
   box-sizing: border-box;
   background-color: white;
   position: absolute;
+  padding-top: 2rem;
 `;

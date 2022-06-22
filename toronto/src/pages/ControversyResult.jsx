@@ -246,11 +246,7 @@ const ResultPage = () => {
               alignItems: 'center',
             }}
           >
-            <Header
-              style={{ fontFamily: 'S-CoreDream-Medium', paddingTop: '2rem' }}
-            >
-              {data?.post?.title}
-            </Header>
+            <Header style={{ paddingTop: '2rem' }}>{data?.post?.title}</Header>
             <div style={{ display: isAuthor ? 'block' : 'none' }}>
               {loading.deletePost ? (
                 <Loader type='spinner' size={24} />

@@ -55,7 +55,6 @@ const PostItem = ({ post }) => {
                   overflow: 'hidden',
                   whiteSpace: 'nowrap',
                   flexShrink: 0,
-                  fontFamily: 'S-CoreDream-Medium',
                 }}
               >
                 {postTitle}
@@ -67,7 +66,6 @@ const PostItem = ({ post }) => {
                   textOverflow: 'ellipsis',
                   overflow: 'hidden',
                   whiteSpace: 'nowrap',
-                  fontFamily: 'S-CoreDream-Regular',
                 }}
               >
                 {postContent}
