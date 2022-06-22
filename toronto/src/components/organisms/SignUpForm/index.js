@@ -57,7 +57,7 @@ const SignUpForm = () => {
   if (!user) {
     return (
       <CardForm onSubmit={handleSubmit}>
-        <Image src={logoImg} width={300} height={300} />
+        <Image src={logoImg} width={200} height={200} />
         <HeaderWrapper>
           <Header strong>회원가입</Header>
         </HeaderWrapper>

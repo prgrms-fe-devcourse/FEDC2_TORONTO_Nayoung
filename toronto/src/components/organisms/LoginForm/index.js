@@ -45,7 +45,7 @@ const LoginForm = () => {
   if (!user) {
     return (
       <CardForm onSubmit={handleSubmit}>
-        <Image src={logoImg} width={300} height={300} />
+        <Image src={logoImg} width={200} height={200} />
         <HeaderWrapper>
           <Header strong>로그인</Header>
         </HeaderWrapper>
