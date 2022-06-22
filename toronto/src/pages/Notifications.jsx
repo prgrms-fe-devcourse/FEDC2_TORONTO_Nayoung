@@ -1,7 +1,19 @@
 import styled from 'styled-components';
 import { Header, Icon } from '@/components/atoms';
 import Notification from '@/components/molecules/Notification';
+import { useEffect, useState } from 'react';
+import { getNotifications } from '@/api/Api';
 const Notifications = () => {
+  // API 연동
+  const [notifications, setNotifications] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getNotifications();
+      setNotifications(response.data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <ContentWrapper>
       <Wrapper>
@@ -19,10 +31,16 @@ const Notifications = () => {
           <ColWrapper>
             <Header level={4}>새로운 알림</Header>
             <ColWrapper>
-              <Notification />
-              <Notification />
-              <Notification />
-              <Notification />
+              {notifications ? (
+                notifications.map((data) => (
+                  <Notification
+                    key={data._id}
+                    notification={data}
+                  ></Notification>
+                ))
+              ) : (
+                <div></div>
+              )}
             </ColWrapper>
           </ColWrapper>
         </Section>

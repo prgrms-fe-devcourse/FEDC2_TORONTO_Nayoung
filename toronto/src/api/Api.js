@@ -273,6 +273,10 @@ export const postLikeApi = async (postId) => {
   });
   return res;
 };
+export const getNotifications = async () => {
+  const res = await Send.get('notifications');
+  return res;
+};
 
 export const serverless = async (options) => {
   try {
