@@ -28,7 +28,6 @@ const CommentList = ({ name, width, comments, limit, onDelete }) => {
         <Header
           level={3}
           style={{
-            fontFamily: 'S-CoreDream-Regular',
             borderBottom: '1px solid black',
             paddingBottom: 10,
           }}

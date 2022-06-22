@@ -70,7 +70,6 @@ const Post = () => {
           <Header
             level={1}
             style={{
-              fontFamily: 'S-CoreDream-Medium',
               paddingBottom: 10,
             }}
           >
