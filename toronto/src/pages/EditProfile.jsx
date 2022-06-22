@@ -67,8 +67,8 @@ const EditProfile = () => {
         passwordConfirmError: '비밀번호가 일치하지 않습니다',
       });
     } else {
-      const response = await putUpdatePasswordApi(inputs.password);
-      alert(response.data);
+      await putUpdatePasswordApi(inputs.password);
+      alert('비밀번호가 성공적으로 변경되었습니다!');
       setErrors({ ...errors, passwordError: '', passwordConfirmError: '' });
       navigate(`/users/${user._id}`);
     }
@@ -82,6 +82,7 @@ const EditProfile = () => {
       formData.append('isCover', false);
       formData.append('image', file);
       postProfileImage(dispatch, formData);
+      alert('이미지가 성공적으로 변경되었습니다!');
       navigate(`/users/${user._id}`);
     }
   };

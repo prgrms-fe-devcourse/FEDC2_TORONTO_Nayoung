@@ -7,6 +7,7 @@ import {
   StyledLink,
   Loader,
   Divider,
+  Skeleton,
 } from '@/components/atoms';
 import Tab from '@/components/molecules/Tab';
 import PostList from '@/components/organisms/PostList';
@@ -14,6 +15,16 @@ import { useUsersState } from '@/contexts/UserContext.js';
 import { getUserApi, getPostsApi } from '@/api/Api';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
+
+const renderSkeleton = () => {
+  const skeletons = [];
+
+  for (let i = 0; i < 3; i++) {
+    skeletons.push(<Skeleton.Box key={i} width={'100%'} height={'100%'} />);
+  }
+
+  return skeletons;
+};
 
 const UserProfile = () => {
   const state = useUsersState();
@@ -29,6 +40,8 @@ const UserProfile = () => {
   });
   const [myPosts, setMyPosts] = useState([]);
   const [likesPosts, setLikesPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       const userRes = await getUserApi(userId);
@@ -36,10 +49,11 @@ const UserProfile = () => {
       const userLikesPostsIdArray = userRes.data.likes.map((like) => like.post);
 
       if (userPostsIdArray.length >= 1 || userLikesPostsIdArray.length >= 1) {
+        setIsLoading(true);
         const posts = await getPostsApi();
-        const myPosts = posts.data.filter((post) => {
-          return userPostsIdArray.includes(post._id);
-        });
+        const myPosts = posts.data.filter((post) =>
+          userPostsIdArray.includes(post._id),
+        );
         const likesPosts = posts.data.filter((post) =>
           userLikesPostsIdArray.includes(post._id),
         );
@@ -49,8 +63,10 @@ const UserProfile = () => {
         setMyPosts([]);
         setLikesPosts([]);
       }
+      setIsLoading(false);
       setUser(userRes.data);
     };
+
     fetchData();
   }, [userId]);
 
@@ -99,11 +115,13 @@ const UserProfile = () => {
           <Tab>
             <Tab.Item title='내 게시물' index='item1'>
               <GridContainer>
+                {isLoading && renderSkeleton()}
                 {user.posts ? <PostList posts={myPosts} /> : []}
               </GridContainer>
             </Tab.Item>
             <Tab.Item title='좋아요 게시물' index='item2'>
               <GridContainer>
+                {isLoading && renderSkeleton()}
                 {user.likes ? <PostList posts={likesPosts} /> : []}
               </GridContainer>
             </Tab.Item>

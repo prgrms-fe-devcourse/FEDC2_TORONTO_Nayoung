@@ -50,7 +50,7 @@ const Controversy = () => {
 
   const handleChange = async (opinionState) => {
     if (!user) {
-      alert('로그인 하셔야 합니다.!');
+      alert('로그인이 필요한 페이지 입니다.');
       navigate('/');
       return;
     }
@@ -78,7 +78,6 @@ const Controversy = () => {
               style={{
                 whiteSpace: 'pre-line',
                 wordBreak: 'keep-all',
-                fontFamily: 'S-CoreDream-Regular',
                 fontSize: '16px',
               }}
             >
@@ -112,7 +111,6 @@ const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  font-family: 'S-CoreDream-Regular';
   margin-bottom: 2rem;
 `;
 
@@ -120,5 +118,4 @@ const TextWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  font-family: 'S-CoreDream-Regular';
 `;

@@ -44,7 +44,6 @@ const UserItem = ({ user }) => {
                 textOverflow: 'ellipsis',
                 overflow: 'hidden',
                 whiteSpace: 'nowrap',
-                fontFamily: 'S-CoreDream-Medium',
               }}
             >
               {user.fullName}

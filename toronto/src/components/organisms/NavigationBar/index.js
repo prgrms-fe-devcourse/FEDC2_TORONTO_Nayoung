@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { Icon, Divider, StyledLink, Image } from '@/components/atoms';
+import { Icon, StyledLink, Image, Header, Text } from '@/components/atoms';
 import { Tooltip } from '@/components/molecules';
 import logoImg from '@/assets/images/toronto.png';
 const NavigationBar = ({ user, handleLogout }) => {
@@ -14,7 +14,7 @@ const NavigationBar = ({ user, handleLogout }) => {
     <Wrapper>
       <LogoWrapper onClick={handleLogoClick}>
         <Image src={logoImg} width={50} height={50} />
-        토론토
+        <Header level={4}>토론토</Header>
       </LogoWrapper>
       <NavigationWrapper>
         {user ? (
@@ -26,7 +26,7 @@ const NavigationBar = ({ user, handleLogout }) => {
             </Tooltip>
             <Tooltip text='로그아웃'>
               <NavigateLink to='/' onClick={handleLogout}>
-                로그아웃
+                <Text>로그아웃</Text>
               </NavigateLink>
             </Tooltip>
             <Tooltip text='내 정보 보기'>
@@ -36,7 +36,7 @@ const NavigationBar = ({ user, handleLogout }) => {
                   iconName='user'
                   style={{ marginRight: '5px' }}
                 />
-                {user.fullName}
+                <Text>{user.fullName}</Text>
               </NavigateLink>
             </Tooltip>
           </TooltipWrapper>
@@ -51,9 +51,13 @@ const NavigationBar = ({ user, handleLogout }) => {
                 />
               </NavigateLink>
             </Tooltip>
-            <NavigateLink to='/login'>로그인</NavigateLink>
+            <NavigateLink to='/login'>
+              <Text>로그인</Text>
+            </NavigateLink>
             <NavigationWrapper>
-              <NavigateLink to='/sign-up'>회원가입</NavigateLink>
+              <NavigateLink to='/sign-up'>
+                <Text>회원가입</Text>
+              </NavigateLink>
             </NavigationWrapper>
           </TooltipWrapper>
         )}
@@ -91,11 +95,11 @@ const NavigationWrapper = styled.div`
 const TooltipWrapper = styled.div`
   display: flex;
   gap: 15px;
-  align-items: flex-end;
+  align-items: center;
 `;
 
 const NavigateLink = styled(StyledLink)`
   display: flex;
   color: inherit;
-  align-items: flex-end;
+  align-items: center;
 `;

@@ -55,13 +55,10 @@ const CommentItem = ({
       style={{ display: 'block', ...props.style }}
     >
       <Wrapper width={width}>
-        <Header
-          level={3}
-          style={{ fontFamily: 'S-CoreDream-Regular', margin: 0 }}
-        >
+        <Header level={3} style={{ margin: 0 }}>
           {author}
         </Header>
-        <Text style={{ fontFamily: 'S-CoreDream-Regular', paddingTop: 10 }}>
+        <Text style={{ paddingTop: 10 }}>
           <div style={{ wordBreak: 'break-all' }}>{content}</div>
         </Text>
 
