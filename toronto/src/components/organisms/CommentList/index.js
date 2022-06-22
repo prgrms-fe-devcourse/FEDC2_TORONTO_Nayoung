@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { Card, Header, Button } from '@/components/atoms';
+import { Card, Header, Button, Loader } from '@/components/atoms';
 import { CommentItem } from '@/components/molecules';
 
-const CommentList = ({ name, width, comments, limit, onDelete }) => {
+const CommentList = ({ name, width, comments, limit, onDelete, loading }) => {
   const [commentList, setCommentList] = useState([]);
   const indexRef = useRef(limit);
 
@@ -34,18 +34,26 @@ const CommentList = ({ name, width, comments, limit, onDelete }) => {
         >
           {name}
         </Header>
-        {commentList?.map((item) => (
-          <CommentItem
-            key={item._id}
-            id={item._id}
-            width='100%'
-            author={item.author.fullName}
-            authorId={item.author._id}
-            content={JSON.parse(item.comment).content}
-            onDelete={handleDelete}
-            style={{ marginTop: '10px' }}
-          />
-        ))}
+        {loading ? (
+          <div
+            style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
+          >
+            <Loader type='spinner' size={24} />
+          </div>
+        ) : (
+          commentList?.map((item) => (
+            <CommentItem
+              key={item._id}
+              id={item._id}
+              width='100%'
+              author={item.author.fullName}
+              authorId={item.author._id}
+              content={JSON.parse(item.comment).content}
+              onDelete={handleDelete}
+              style={{ marginTop: '10px' }}
+            />
+          ))
+        )}
         <div
           style={{
             display: 'flex',

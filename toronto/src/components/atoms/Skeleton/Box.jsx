@@ -1,5 +1,7 @@
 import Base from './Base';
 
-const Box = ({ width, height }) => <Base style={{ width, height }} />;
+const Box = ({ width, height, ...props }) => (
+  <Base style={{ width, height, ...props.style }} />
+);
 
 export default Box;
