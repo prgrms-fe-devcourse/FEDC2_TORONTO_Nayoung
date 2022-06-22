@@ -193,10 +193,8 @@ h6 {
   font-family: 'S-CoreDream-Medium';
 }
 
-span {
-  font-family: 'S-CoreDream-Regular';
-}
-
-button {
+span,
+button,
+input::placeholder {
   font-family: 'S-CoreDream-Regular';
 }
