@@ -43,6 +43,7 @@ const Post = () => {
     setLoading(true);
     const res = await postPost(formData);
     if (res.data) {
+      alert('게시물이 성공적으로 업로드 되었습니다.');
       navigate(`/controversy/${res.data._id}`);
     }
     setLoading(false);
