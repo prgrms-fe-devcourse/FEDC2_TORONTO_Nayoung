@@ -50,7 +50,7 @@ const Controversy = () => {
 
   const handleChange = async (opinionState) => {
     if (!user) {
-      alert('로그인 하셔야 합니다.!');
+      alert('로그인이 필요한 페이지 입니다.');
       navigate('/');
       return;
     }

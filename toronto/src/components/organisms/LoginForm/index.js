@@ -28,7 +28,7 @@ const LoginForm = () => {
       if (res) {
         navigate('/');
       } else {
-        alert('아이디 또는 비밀번호가 맞지 않습니다.');
+        alert('아이디 또는 비밀번호가 일치하지 않습니다!');
       }
     },
     validate: ({ email, password }) => {
