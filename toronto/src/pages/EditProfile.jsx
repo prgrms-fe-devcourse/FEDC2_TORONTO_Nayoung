@@ -74,20 +74,32 @@ const EditProfile = () => {
     }
   };
 
-  const handleChangeProfile = (file) => {
+  const handleChangeProfile = async (file) => {
     if (!file) {
       alert('파일이 존재하지 않습니다!');
     } else {
       const formData = new FormData();
       formData.append('isCover', false);
       formData.append('image', file);
-      postProfileImage(dispatch, formData);
+      await postProfileImage(dispatch, formData);
       alert('이미지가 성공적으로 변경되었습니다!');
       navigate(`/users/${user._id}`);
     }
   };
 
-  if (loading) return <Loader type='spinner' />;
+  if (loading)
+    return (
+      <div
+        style={{
+          height: 'calc(100vh - 60px)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Loader type='spinner' />
+      </div>
+    );
   if (error) return <Header>에러가 발생했습니다</Header>;
   if (!user) {
     return <Header>유저 객체가 없습니다.</Header>;
