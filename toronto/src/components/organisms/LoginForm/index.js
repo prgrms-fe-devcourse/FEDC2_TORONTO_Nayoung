@@ -89,4 +89,5 @@ const CardForm = styled.form`
   box-sizing: border-box;
   background-color: white;
   position: absolute;
+  padding-top: 2rem;
 `;
