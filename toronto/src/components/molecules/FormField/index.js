@@ -25,7 +25,12 @@ const FormField = ({
   };
   return (
     <Wrapper {...props}>
-      <Text block strong className='textTitle'>
+      <Text
+        block
+        strong
+        className='textTitle'
+        style={{ fontFamily: 'S-CoreDream-Regular' }}
+      >
         {textTitle}
       </Text>
       <Input

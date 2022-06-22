@@ -66,7 +66,6 @@ const TextWrapper = styled.div`
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  font-family: 'S-CoreDream-Regular';
 `;
 
 const BtnTextWrapper = styled.div`
