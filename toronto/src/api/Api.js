@@ -54,14 +54,6 @@ export const getAuthUser = async () => {
   return res.data;
 };
 
-export const postLogoutApi = async () => {
-  const res = await serverless({
-    method: 'POST',
-    url: '/logout',
-  });
-  return res;
-};
-
 export const getPostApi = async (postId) => {
   if (!postId) return;
   const res = await serverless({

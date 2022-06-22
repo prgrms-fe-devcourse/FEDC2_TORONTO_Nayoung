@@ -7,7 +7,6 @@ import {
   postUploadPhotoApi,
   getAuthUser,
   putUpdateUserApi,
-  postLogoutApi,
 } from '@/api/Api';
 import {
   createAsyncHandler,
@@ -115,9 +114,6 @@ export const getUser = createAsyncDispatcher('GET_USER', getUserApi);
 
 // postLoginAPI 연동
 export const postLogin = createAsyncDispatcher('POST_LOGIN', postLoginApi);
-
-//postLogoutAPI 연동
-export const postLogout = createAsyncDispatcher('POST_LOGOUT', postLogoutApi);
 
 // getAuthUserAPI 연동
 export const getAuth = createAsyncDispatcher('GET_AUTH_USER', getAuthUser);
