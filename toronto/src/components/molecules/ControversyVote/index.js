@@ -19,11 +19,12 @@ const ControversyVote = ({
         variant='secondary'
         style={{ width: '400px', height: '400px' }}
       >
-        <Text block strong size={56}>
-          {agreeTitle}
-        </Text>
+        <BtnTextWrapper>
+          <Text block strong size={56}>
+            {agreeTitle}
+          </Text>
+        </BtnTextWrapper>
       </Button>
-
       <TextWrapper>
         <Text strong size={48}>
           VS
@@ -35,9 +36,11 @@ const ControversyVote = ({
         }}
         style={{ width: '400px', height: '400px' }}
       >
-        <Text block strong size={56}>
-          {disagreeTitle}
-        </Text>
+        <BtnTextWrapper>
+          <Text block strong size={56}>
+            {disagreeTitle}
+          </Text>
+        </BtnTextWrapper>
       </Button>
     </ControversyVoteWrapper>
   );
@@ -64,4 +67,8 @@ const TextWrapper = styled.div`
   justify-content: center;
   padding: 1rem;
   font-family: 'S-CoreDream-Regular';
+`;
+
+const BtnTextWrapper = styled.div`
+  word-break: keep-all;
 `;
