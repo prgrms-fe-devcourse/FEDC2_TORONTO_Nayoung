@@ -8,6 +8,7 @@ import {
   Text,
   Badge,
 } from '@/components/atoms';
+
 import { Tooltip } from '@/components/molecules';
 import logoImg from '@/assets/images/toronto.png';
 const NavigationBar = ({ user, handleLogout }) => {
