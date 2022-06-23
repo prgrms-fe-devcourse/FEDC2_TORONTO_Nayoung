@@ -6,6 +6,7 @@ import {
   NotFoundPage,
   Login,
   SignUp,
+  NotificationsPage,
   PostPage,
   UserProfilePage,
   EditProfilePage,
@@ -29,6 +30,7 @@ function App() {
             <Route path='/create-post' element={<PostPage />} />
             <Route path='/users/:userId' element={<UserProfilePage />} />
             <Route path='/users/:userId/edit' element={<EditProfilePage />} />
+            <Route path='/notifications' element={<NotificationsPage />} />
             <Route path='/login' element={<Login />} />
             <Route path='/sign-up' element={<SignUp />} />
             <Route

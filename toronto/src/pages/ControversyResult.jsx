@@ -13,6 +13,7 @@ import {
   deleteLikeApi,
   postCommentApi,
   postLikeApi,
+  postNotificationsCreate,
 } from '@/api/Api';
 
 const ResultPage = () => {
@@ -155,6 +156,16 @@ const ResultPage = () => {
         }),
         postId: postId,
       });
+
+      const commentId = res.data._id;
+      const commentUserId = data.author._id;
+      const commentPostId = res.data.post;
+      await postNotificationsCreate(
+        'COMMENT',
+        commentId,
+        commentUserId,
+        commentPostId,
+      );
       setLoading({
         ...loading,
         comment: false,
@@ -196,6 +207,13 @@ const ResultPage = () => {
         ...likeData,
         isLiked: true,
       });
+
+      const likeId = res.data._id;
+      const likePostId = res.data.post;
+      const likeUserId = data.author._id;
+
+      await postNotificationsCreate('LIKE', likeId, likeUserId, likePostId);
+
       setLoading({
         ...loading,
         like: false,

@@ -265,6 +265,53 @@ export const postLikeApi = async (postId) => {
   });
   return res;
 };
+export const getNotifications = async () => {
+  const token = getToken();
+  const res = await serverless({
+    method: 'GET',
+    url: '/notifications',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res;
+};
+
+export const putNotificationsSeen = async () => {
+  const token = getToken();
+  const res = await serverless({
+    method: 'PUT',
+    url: '/notifications/seen',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res;
+};
+
+export const postNotificationsCreate = async (
+  notificationType,
+  notificationTypeId,
+  userId,
+  postId,
+) => {
+  if (!notificationType || !notificationTypeId || !userId || !postId) return;
+  const token = getToken();
+  const res = await serverless({
+    method: 'POST',
+    url: '/notifications/create',
+    body: {
+      notificationType,
+      notificationTypeId,
+      userId,
+      postId,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res;
+};
 
 export const serverless = async (options) => {
   try {

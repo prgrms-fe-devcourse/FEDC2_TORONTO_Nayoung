@@ -12,3 +12,4 @@ export { default as Skeleton } from './Skeleton';
 export { default as Spacer } from './Spacer';
 export { default as StyledLink } from './StyledLink';
 export { default as Text } from './Text';
+export { default as Badge } from './Badge';

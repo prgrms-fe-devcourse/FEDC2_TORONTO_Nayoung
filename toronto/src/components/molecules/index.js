@@ -10,3 +10,4 @@ export { default as Upload } from './Upload';
 export { default as DraggableArea } from './Upload/UploadArea';
 export { default as UserItem } from './UserItem';
 export { default as Vote } from './Vote';
+export { default as Notification } from './Notification';

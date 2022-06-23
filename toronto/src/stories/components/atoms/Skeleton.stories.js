@@ -21,3 +21,7 @@ export const Paragraph = () => {
     ></Skeleton.Paragraph>
   );
 };
+
+export const Notification = () => {
+  return <Skeleton.Notification></Skeleton.Notification>;
+};
