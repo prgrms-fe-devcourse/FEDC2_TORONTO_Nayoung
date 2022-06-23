@@ -62,7 +62,7 @@ const Controversy = () => {
       }),
       postId: postId,
     });
-    navigate(`/controversy/result/${postId}`);
+    navigate(`/controversy/result/${postId}`, { replace: true });
   };
 
   return (

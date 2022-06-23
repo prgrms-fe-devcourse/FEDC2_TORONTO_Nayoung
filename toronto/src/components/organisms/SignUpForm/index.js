@@ -53,7 +53,19 @@ const SignUpForm = () => {
       return newErrors;
     },
   });
-  if (loading) return <Loader type='spinner' />;
+  if (loading)
+    return (
+      <div
+        style={{
+          height: 'calc(100vh - 60px)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Loader type='spinner' />
+      </div>
+    );
   if (!user) {
     return (
       <CardForm onSubmit={handleSubmit}>

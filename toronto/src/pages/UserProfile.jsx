@@ -71,7 +71,19 @@ const UserProfile = () => {
   }, [userId]);
 
   //전체 posts 중에서 id값이 userLikesPostsId인 값이 속하는지 판단해서 return post
-  if (loading) return <Loader type='spinner' />;
+  if (loading)
+    return (
+      <div
+        style={{
+          height: 'calc(100vh - 60px)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Loader type='spinner' />
+      </div>
+    );
   if (error) return <div>{error}</div>;
   if (!user) {
     return (
