@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import styled from 'styled-components';
-import { Header, Skeleton } from '@/components/atoms';
+import { Header, Skeleton, Text } from '@/components/atoms';
 import Notification from '@/components/molecules/Notification';
 import { useEffect, useState } from 'react';
 import { getNotifications, getPostsApi } from '@/api/Api';
@@ -42,7 +41,7 @@ const Notifications = () => {
               .length >= 1 ? (
               <Header level={4}>새로운 알림</Header>
             ) : (
-              ''
+              <Text>{isLoading ? '' : '새로운 알림이 없습니다.'}</Text>
             )}
             <NotificationWrapper>
               {isLoading && renderSkeleton()}

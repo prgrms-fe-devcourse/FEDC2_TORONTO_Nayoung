@@ -1,43 +1,65 @@
 import styled from 'styled-components';
-// import { useEffect, useState } from 'react';
 import { StyledLink, Avatar, Text } from '@/components/atoms';
-const Notification = (data) => {
-  //TODO: seen key가 false일때
-  // const [seen, setSeen] = useState()
-  // useEffect(() => {
+import { putNotificationsSeen } from '@/api/Api.js';
 
-  //   return () => {
+const Notification = ({ notification, posts }) => {
+  const notificationPost = posts.filter(
+    (post) => post._id === notification.post,
+  )[0];
+  const title = JSON.parse(notificationPost.title).postTitle;
+  const handleClick = async () => {
+    await putNotificationsSeen();
+  };
 
-  //   }
-  // }, [third])
-  const notification = data.notification;
-
-  return (
-    <Wrapper>
-      {/* TODO: 해당 댓글이나 좋아요의 포스트Id의 게시물로 이동 */}
-      <StyledLink to='/'>
-        <NotificationWrapper>
-          <AvatarWrapper>
-            <Avatar src={notification.user.image} size={50} />
-          </AvatarWrapper>
-          <TextWrapper>
-            <div>
-              <Text>
-                {/*  TODO: '알림 타입(댓글, 좋아요에 대한 처리)' '객체' 게시물에 '댓글 | '좋아요'이/가 달렸습니다| 눌렀습니다. */}
-                {notification.user.username}님이 댓글을 남겼습니다. :
-                {notification.comment.comment}
-              </Text>
-            </div>
-            <div>
-              <Text color='#2f66d2'>
-                {notification.comment.updatedAt}에 업데이트 되었습니다.
-              </Text>
-            </div>
-          </TextWrapper>
-        </NotificationWrapper>
-      </StyledLink>
-    </Wrapper>
-  );
+  if (notification.seen === false) {
+    return (
+      <Wrapper onClick={handleClick}>
+        <StyledLink to={`/controversy/result/${notification.post}`}>
+          <NotificationWrapper>
+            <AvatarWrapper>
+              <Avatar src={notification.author.image} size={60} />
+            </AvatarWrapper>
+            <ColWrapper>
+              <TextWrapper>
+                <Text color='#000'>
+                  {notification.comment
+                    ? notification.author.username +
+                      ' 님이 ' +
+                      title +
+                      '에 댓글을 남겼습니다!'
+                    : ''}
+                  {notification.like
+                    ? notification.author.username +
+                      ' 님이 ' +
+                      title +
+                      '에 좋아요를 눌렀습니다!'
+                    : ''}
+                </Text>
+              </TextWrapper>
+              <TextWrapper>
+                <Text color='#000' strong>
+                  {notification.comment
+                    ? JSON.parse(notification.comment.comment).content
+                    : ''}
+                </Text>
+              </TextWrapper>
+              <TextWrapper>
+                <Text color='#2f66d2'>
+                  {notification.updatedAt.split('T')[0]}일
+                  {' ' +
+                    new Date(Date.parse(notification.updatedAt) + 3240 * 10000)
+                      .toISOString()
+                      .split('T')[1]
+                      .slice(0, 5)}
+                  분에 업데이트 되었습니다.
+                </Text>
+              </TextWrapper>
+            </ColWrapper>
+          </NotificationWrapper>
+        </StyledLink>
+      </Wrapper>
+    );
+  }
 };
 
 export default Notification;
@@ -45,7 +67,12 @@ export default Notification;
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 0.5rem;
+  padding: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  border-radius: 4px;
+  &:hover {
+    background-color: #eee;
+  }
 `;
 
 const NotificationWrapper = styled.div`
@@ -58,8 +85,17 @@ const AvatarWrapper = styled.div`
   display: flex;
 `;
 
+const ColWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-left: 1rem;
+`;
+
 const TextWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  margin-left: 0.5rem;
+  align-items: center;
+
+  word-break: keep-all;
+  line-height: 1.5em;
 `;

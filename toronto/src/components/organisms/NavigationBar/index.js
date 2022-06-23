@@ -1,7 +1,13 @@
-/* eslint-disable no-unused-vars */
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { Icon, StyledLink, Image, Header, Text } from '@/components/atoms';
+import {
+  Icon,
+  StyledLink,
+  Image,
+  Header,
+  Text,
+  Badge,
+} from '@/components/atoms';
 import { Tooltip } from '@/components/molecules';
 import logoImg from '@/assets/images/toronto.png';
 const NavigationBar = ({ user, handleLogout }) => {
@@ -36,11 +42,21 @@ const NavigationBar = ({ user, handleLogout }) => {
                   color: 'inherit',
                 }}
               >
-                <Icon
-                  size={20}
-                  iconName='bell'
-                  style={{ verticalAlign: 'bottom' }}
-                />
+                {user.notifications.length === 0 ? (
+                  <Icon
+                    size={20}
+                    iconName='bell'
+                    style={{ verticalAlign: 'bottom' }}
+                  />
+                ) : (
+                  <Badge dot>
+                    <Icon
+                      size={20}
+                      iconName='bell'
+                      style={{ verticalAlign: 'bottom' }}
+                    />
+                  </Badge>
+                )}
               </StyledLink>
             </Tooltip>
             <Tooltip text='내 정보 보기'>
